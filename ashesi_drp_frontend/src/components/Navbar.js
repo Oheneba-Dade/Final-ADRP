@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SearchBar from "./SearchBar";
+import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
 	const pathname = usePathname();

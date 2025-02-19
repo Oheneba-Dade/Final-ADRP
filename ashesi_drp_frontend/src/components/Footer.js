@@ -1,0 +1,73 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import {
+	SiFacebook,
+	SiX,
+	SiInstagram,
+	SiLinkedin,
+	SiYoutube,
+} from "react-icons/si";
+import SocialIcon from "@/components/SocialIcon";
+
+export default function Footer() {
+	const icons = [
+		{ component: SiFacebook, link: "https://facebook.com" },
+		{ component: SiInstagram, link: "https://instagram.com" },
+		{ component: SiLinkedin, link: "https://linkedin.com" },
+		{ component: SiX, link: "https://twitter.com" },
+		{ component: SiYoutube, link: "https://youtube.com" },
+	];
+
+	return (
+		<>
+			<div className="bg-ashesi-red flex justify-center items-center gap-4 py-6">
+				<p className="text-white font-semibold">
+					Venture into a wide spectrum of datasets submitted by the
+					Ashesi Community
+				</p>
+				{/* tentative, will be replaced by the button component */}
+				<Link href="/">
+					<p className="bg-white text-ashesi-red p-2">Login Now!</p>
+				</Link>
+			</div>
+			<div className="flex justify-center py-10">
+				<Image
+					src="/images/logo.webp"
+					alt="Ashesi Logo"
+					width={200}
+					height={200}
+					className="object-contain"
+				/>
+			</div>
+			<div className="grid grid-cols-3 gap-4 mb-20">
+				<div className="flex gap-5 justify-center">
+					{icons.map(({ component, link }, index) => (
+						<SocialIcon key={link} icon={component} link={link} />
+					))}
+				</div>
+				<div className>
+					<p className="text-center">
+						1 University Avenue,
+						<br /> Berekuso, Ghana
+					</p>
+					<br />
+					<p className="text-center">
+						<strong>Phone:</strong>&nbsp;&nbsp;+233 302 610 330
+					</p>
+					<p className="text-center">
+						<strong>Email:</strong>&nbsp;&nbsp;info@ashesi.edu.gh
+					</p>
+				</div>
+				<p>1</p>
+			</div>
+			<div className="bg-ashesi-gray flex justify-center items-center py-6">
+				<p className="text-white text-sm">
+					Copyright {new Date().getFullYear()}
+					&nbsp;&nbsp;|&nbsp;&nbsp;Ashesi University
+				</p>
+			</div>
+		</>
+	);
+}

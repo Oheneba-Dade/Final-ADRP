@@ -1,6 +1,7 @@
 "use client";
 
-import { X, Search } from "lucide-react";
+import { LuX, LuSearch } from "react-icons/lu";
+
 import { useState } from "react";
 
 export default function SearchBar() {
@@ -21,7 +22,7 @@ export default function SearchBar() {
 
 			{/* Magnifying Glass (Hidden when there's text) */}
 			{!searchText && (
-				<Search
+				<LuSearch
 					className="absolute left-3 top-1/2 transform -translate-y-1/2 text-ashesi-red"
 					size={20}
 				/>
@@ -33,7 +34,7 @@ export default function SearchBar() {
 					className="absolute right-3 top-1/2 transform -translate-y-1/2 text-ashesi-red hover:cursor-pointer"
 					onClick={() => setSearchText("")}
 				>
-					<X size={20} />
+					<LuX size={20} />
 				</button>
 			)}
 		</div>

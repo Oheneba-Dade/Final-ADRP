@@ -12,6 +12,7 @@ const config = {
 			},
 			colors: {
 				"ashesi-red": "#AA3C3F",
+				"ashesi-gray": "#404041",
 			},
 		},
 	},
