@@ -16,7 +16,7 @@ const images = [
 
 export default function Slideshow() {
   return (
-    <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[70vh]">
+    <div className="relative w-full h-[60vh] md:h-[60vh] lg:h-[70vh]">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         slidesPerView={1}

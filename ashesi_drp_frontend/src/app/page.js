@@ -3,42 +3,29 @@ import "./globals.css";
 import CustomButton from "@/components/CustomButton";
 import Image from "next/image"  
 import Link from 'next/link';
+import HeroBlock from "@/components/HeroBlock";
 
 export default function Homme() {
 	return (
 		<div class="relative w-full">
 			<Slideshow/>
-			<div className="absolute top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-1/2 md:translate-y-1/4 bg-white shadow-lg rounded-lg p-6 w-2/4 text-center z-10">
-                <h1 className="text-2xl font-bold text-ashesi-red">Welcome to Ashesi Data Repository</h1>
-                <p className="text-ashesi-red mb-5">Welcome to the heart of Ashesi’s research excellence</p>
-                <p className=""> At Ashesi University, we are committed to fostering a culture of academic 
+			<HeroBlock
+				header="Welcome to Ashesi Data Repository"
+				subheader="Welcome to the heart of Ashesi’s research excellence"
+				text="At Ashesi University, we are committed to fostering a culture of academic 
 					excellence, collaboration, and ethical research. The Ashesi Research Data 
 					Repository (ARDR) is designed to empower our researchers, faculty, and students 
-					by offering a secure and dynamic platform for managing, archiving, and sharing 
+					by offering a secure and dynamic platform for managing, archiving, and sharing  
 					research data across all disciplines.
 					 The ARDR is currently home to [X] active researchers, hosting [Y] research 
 					datasets, including publicly accessible collections that promote interdisciplinary 
 					knowledge sharing. By providing a seamless interface for research data 
 					management, Ashesi University aims to support the growing movement towards 
-					Open Science and FAIR data practices.
-				</p>
-				
-			    <div class="mt-10 flex justify-center gap-4">
-					<CustomButton 
-				        text="ALL COLLECTIONS" 
-				        bgColor="bg-ashesi-gray" 
-				        width="w-48" 
-				        href="/"
-			        />
-					<CustomButton 
-						text="CONTRIBUTE" 
-						href="/" 	
-					/>
-			    </div>
-			</div>
+					Open Science and FAIR data practices."
+			/>
 			
 			{/* some collections */}
-			<div className="mb-14 sm:mt-96 md:mt-96 lg:mt-41 max-h-[800px] overflow-y-auto">
+			<div className="mb-14 overflow-y-auto">
 				{/* first */}
 				<div class="max-w-4xl mx-auto p-6 border-b ">
 				  <h2 class="italic text-lg font-semibold text-ashesi-red">

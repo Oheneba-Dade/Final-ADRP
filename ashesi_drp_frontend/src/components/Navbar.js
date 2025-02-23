@@ -14,6 +14,7 @@ export default function Navbar() {
 			? "font-normal border-b-2 border-ashesi-red pr-2"
 			: "font-light hover:font-normal pr-2" ;
 
+
 	return (
 		<>
 			{/* Navbar */}
