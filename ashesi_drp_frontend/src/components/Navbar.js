@@ -11,7 +11,7 @@ export default function Navbar() {
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
-			? "font-normal border-b-2 border-ashesi-red pb-1"
+			? "font-normal border-b-2 border-ashesi-red"
 			: "font-light";
 
 	return (
