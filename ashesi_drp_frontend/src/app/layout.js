@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<body className={`${montserrat.className} flex flex-col `}>
 				<Navbar />
-				<main className="flex-1">{children}</main>
+				<main >{children}</main>
 				<Footer />	
 			</body>
 		</html>
