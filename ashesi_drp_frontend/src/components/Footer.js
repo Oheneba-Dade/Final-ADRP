@@ -29,7 +29,7 @@ export default function Footer() {
 					Ashesi Community
 				</p>
 				{/* tentative, will be replaced by the button component */}
-				<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login" href="/" />
+				<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login Now!" href="/" />
 			</div>
 			<div className="flex justify-center py-10">
 				<Image
