@@ -10,6 +10,7 @@ import {
 	SiYoutube,
 } from "react-icons/si";
 import SocialIcon from "@/components/SocialIcon";
+import CustomButton from "@/components/CustomButton";
 
 export default function Footer() {
 	const icons = [
@@ -28,9 +29,7 @@ export default function Footer() {
 					Ashesi Community
 				</p>
 				{/* tentative, will be replaced by the button component */}
-				<Link href="/">
-					<p className="bg-white text-ashesi-red p-2">Login Now!</p>
-				</Link>
+				<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login" href="/" />
 			</div>
 			<div className="flex justify-center py-10">
 				<Image

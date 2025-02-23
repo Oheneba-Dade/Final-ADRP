@@ -10,9 +10,9 @@ export default function Home() {
       <h2 className="text-2xl font-bold">Custom Button Component</h2>
       
       
-      <CustomButton 
-        onClick={() => alert("Success button clicked!")}
-      />
+      <CustomButton text="Go Home" href="/" />
+      
+      <CustomButton text="Click Me" onClick={() => alert("Button Clicked!")} />
       
       {/* Using diffent parameters */}
       <CustomButton 
@@ -34,7 +34,6 @@ export default function Home() {
         width="w-40" 
         height="h-12" 
         borderRadius="rounded-full"
-        onClick={() => alert("Success button clicked!")}
       />
       
     </div>
