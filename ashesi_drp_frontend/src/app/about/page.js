@@ -1,6 +1,6 @@
 "use client";
 import "../globals.css";
-import Slideshow from "@/components/slideshow";
+import Slideshow from "@/components/Slideshow";
 import Image from "next/image";
 import StatBlock from "@/components/StatBlock";
 import HeroBlock from "@/components/HeroBlock";
@@ -17,6 +17,7 @@ export default function About() {
 						subheader="Welcome to the heart of Ashesi’s research excellence"
 						text="At Ashesi University, we are committed to fostering a culture of academic excellence, collaboration, and ethical research. The Ashesi Research Data Repository (ARDR) is designed to empower our researchers, faculty, and students by offering a secure and dynamic platform for managing, archiving, and sharing research data across all disciplines. 
                         The ARDR is currently home to [X] active researchers, hosting [Y] research datasets, including publicly accessible collections that promote interdisciplinary knowledge sharing. By providing a seamless interface for research data management, Ashesi University aims to support the growing movement towards Open Science and FAIR data practices."
+						// visibleButton={true}
 					/>
 				</div>
 				
