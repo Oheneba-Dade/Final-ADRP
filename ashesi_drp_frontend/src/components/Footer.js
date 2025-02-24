@@ -28,12 +28,7 @@ export default function Footer() {
 					Venture into a wide spectrum of datasets submitted by the
 					Ashesi Community
 				</p>
-				<CustomButton
-					bgColor="bg-white"
-					textColor="text-ashesi-red"
-					text="Login"
-					href="/"
-				/>
+				<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login Now!" href="/" />
 			</div>
 			<div className="flex justify-center py-10">
 				<Image
@@ -44,7 +39,7 @@ export default function Footer() {
 					className="object-contain"
 				/>
 			</div>
-			<div className="grid grid-cols-3 gap-4 mb-20">
+			<div className="grid grid-cols-3 gap-4 mb-20 place-items-center">
 				<div className="flex gap-5 justify-center">
 					{icons.map(({ component, link }, index) => (
 						<SocialIcon key={link} icon={component} link={link} />
