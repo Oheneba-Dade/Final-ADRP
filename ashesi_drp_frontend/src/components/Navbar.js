@@ -11,8 +11,9 @@ export default function Navbar() {
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
-			? "font-normal border-b-2 border-ashesi-red"
-			: "font-light";
+			? "font-normal border-b-2 border-ashesi-red pr-2"
+			: "font-light hover:font-normal pr-2" ;
+
 
 	return (
 		<>
@@ -30,7 +31,7 @@ export default function Navbar() {
 						height={45}
 						className="object-contain"
 					/>
-					<div className="font-montserrat text-2xl text-black">
+					<div className="font-montserrat text-xl text-black">
 						Data Repository
 					</div>
 				</Link>
@@ -42,7 +43,7 @@ export default function Navbar() {
 
 				{/* Right Section */}
 				<div className="hidden md:flex w-1/4 gap-4 items-center justify-end">
-					<Link href="/" className={getLinkClass("/")}>
+					<Link href="/" className={getLinkClass("/")} >
 						Home
 					</Link>
 					<Link href="/about" className={getLinkClass("/about")}>
