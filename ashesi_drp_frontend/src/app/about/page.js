@@ -8,8 +8,8 @@ import CustomButton from "@/components/CustomButton";
 
 export default function About() {
 	return (
-		<div className="container mx-auto">
-			<div className>
+		<div>
+			<div>
 				<div>
 					<Image
 						src="/images/about-page-hero.webp"
