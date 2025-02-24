@@ -33,19 +33,19 @@ export default function AddDataset() {
 						fields={[
 							{
 								type: "text",
-								placeholder: "First Name *",
+								placeholder: "First Name",
 								name: "firstName",
 								required: true,
 							},
 							{
 								type: "text",
-								placeholder: "Last Name *",
+								placeholder: "Last Name",
 								name: "lastName",
 								required: true,
 							},
 							{
 								type: "email",
-								placeholder: "Email *",
+								placeholder: "Email",
 								name: "email",
 								required: true,
 							},
@@ -131,13 +131,13 @@ export default function AddDataset() {
 					fields={[
 						{
 							type: "text",
-							placeholder: "File Name *",
+							placeholder: "File Name",
 							name: "fileName",
 							required: true,
 						},
 						{
 							type: "file",
-							placeholder: "Upload *",
+							placeholder: "Upload",
 							name: "file",
 							required: true,
 						},
