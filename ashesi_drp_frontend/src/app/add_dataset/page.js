@@ -82,7 +82,7 @@ export default function AddDataset() {
 					<textarea
 						id="abstract"
 						name="abstract"
-						className="p-2 border border-ashesi-red rounded-md w-96 h-40 focus:outline-ashesi-red"
+						className="p-2 border border-ashesi-red rounded-md w-5/6 h-40 focus:outline-ashesi-red"
 						rows="5"
 						required
 					></textarea>
@@ -98,7 +98,7 @@ export default function AddDataset() {
 					<textarea
 						id="dataset-represent"
 						name="dataset-represent"
-						className="p-2 w-96 h-40 border border-ashesi-red rounded-md focus:outline-ashesi-red"
+						className="p-2 h-40 border border-ashesi-red rounded-md focus:outline-ashesi-red w-5/6"
 						rows="5"
 						required
 					></textarea>
@@ -114,7 +114,7 @@ export default function AddDataset() {
 						className="p-2 border border-ashesi-red rounded-md w-24 focus:outline-ashesi-red"
 						required
 					>
-						<option value="">Select</option>
+						<option value="no">Select</option>
 						<option value="yes">Yes</option>
 						<option value="no">No</option>
 					</select>
@@ -150,7 +150,7 @@ export default function AddDataset() {
 					<textarea
 						id="comments"
 						name="comments"
-						className="p-2 w-96 h-20 border border-ashesi-red rounded-md focus:outline-ashesi-red"
+						className="p-2 w-5/6 h-20 border border-ashesi-red rounded-md focus:outline-ashesi-red"
 						rows="3"
 						required
 					></textarea>
