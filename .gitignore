@@ -173,3 +173,4 @@ cython_debug/
 # IDE configs
 .idea
 .vscode.env
+.vscode

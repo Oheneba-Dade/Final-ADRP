@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import *
+from ADRP.models import *
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
