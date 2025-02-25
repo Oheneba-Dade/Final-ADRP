@@ -18,11 +18,8 @@ export default function KeywordInput() {
 	};
 
 	return (
-		<div className="flex items-center gap-4 mb-8">
-			<label htmlFor="keywords" className="w-40 text-left">
-				Keywords
-			</label>
-			<div className="flex flex-wrap gap-2 p-2 border border-ashesi-red rounded-md w-96 min-h-[42px]">
+		<div className="flex items-center gap-4">
+			<div className="flex flex-wrap items-center gap-2 p-2 border border-ashesi-red rounded-md w-96 min-h-[42px]">
 				{/* Render Keywords */}
 				{keywords.map((keyword, index) => (
 					<span
@@ -38,7 +35,6 @@ export default function KeywordInput() {
 						</button>
 					</span>
 				))}
-
 				<input
 					type="text"
 					id="keywords"
@@ -46,10 +42,9 @@ export default function KeywordInput() {
 					onChange={(e) => setInputValue(e.target.value)}
 					onKeyDown={handleKeyDown}
 					placeholder="Type and press Enter..."
-					className="flex-1 p-1 outline-none w-full min-w-[100px]"
+					className="p-1 outline-none w-full"
 				/>
 			</div>
-            
 		</div>
 	);
 }

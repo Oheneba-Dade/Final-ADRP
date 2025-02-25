@@ -66,8 +66,12 @@ export default function AddDataset() {
 						required
 					/>
 				</div>
-
-				<KeywordInput />
+				<div className="flex items-center justify-left gap-4 mb-8">
+					<label htmlFor="keywords" className="w-40 text-left">
+						Keywords
+					</label>
+					<KeywordInput />
+				</div>
 			</section>
 
 			<section className="my-16">

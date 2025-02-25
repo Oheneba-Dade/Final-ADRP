@@ -4,7 +4,6 @@ import Slideshow from "@/components/Slideshow";
 import Image from "next/image";
 import StatBlock from "@/components/StatBlock";
 import HeroBlock from "@/components/HeroBlock";
-import CustomButton from "@/components/CustomButton";
 
 export default function About() {
 	return (
