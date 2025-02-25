@@ -143,6 +143,6 @@ class AccessRequest(models.Model):
     justification = models.TextField()
     status = models.CharField(max_length=20, choices= STATUS_CHOICES, default='pending')
     requested_at = models.DateTimeField(auto_now_add=True)
-
+    requested_by = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return f"Access request for {self.dataset.title} by {self.user.username}"
