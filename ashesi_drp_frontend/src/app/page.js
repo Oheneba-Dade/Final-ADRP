@@ -40,9 +40,9 @@ export default function Home() {
 			/>
 			
 			{/* some collections */}
-			<div className="mb-14 overflow-y-auto">
+			<div className="mb-14 mx-auto w-full h-[600px] max-w-4xl overflow-y-auto pr-10 custom-scrollbar">
 				{/* first */}
-				<div className="max-w-4xl mx-auto p-6 border-b ">
+				<div className="py-10 px-4 border-b ">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
@@ -76,7 +76,7 @@ export default function Home() {
 				</div>
 				
 				{/* Second */}
-				<div className="max-w-4xl mx-auto p-6 border-b">
+				<div className="py-10 px-4 border-b">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
@@ -110,7 +110,7 @@ export default function Home() {
 				</div>
 				
 				{/* third */}
-				<div className="max-w-4xl mx-auto p-6 border-b">
+				<div className="py-10 px-4 border-b">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
@@ -144,7 +144,7 @@ export default function Home() {
 				</div>
 				
 				{/* fourth */}
-				<div className="max-w-4xl mx-auto p-6 border-b">
+				<div className="py-10 px-4 border-b">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
@@ -178,7 +178,7 @@ export default function Home() {
 				</div>
 				
 				{/* fifth */}
-				<div className="max-w-4xl mx-auto p-6 border-b">
+				<div className="py-10 px-4 border-b">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
@@ -212,7 +212,7 @@ export default function Home() {
 				</div>
 				
 				{/* sixth */}
-				<div className="max-w-4xl mx-auto p-6 border-b">
+				<div className="py-10 px-4 border-b">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>

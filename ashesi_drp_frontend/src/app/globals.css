@@ -21,3 +21,25 @@ body {
 .swiper-button-prev:hover, .swiper-button-next:hover {
 	color: #AA3C3F !important; 
   }
+  
+/* for scrollbar */
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+	width: 12px; /* Adjust scrollbar width */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+	background: #f1f1f1; /* Light gray track */
+	border-radius: 10px; /* Rounded track */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #404041; /* Ashesi red */
+	border-radius: 10px;
+	border: 3px solid #f1f1f1; /* Adds spacing to push right */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #AA3C3F; /* Darker red on hover */
+  }
+  
