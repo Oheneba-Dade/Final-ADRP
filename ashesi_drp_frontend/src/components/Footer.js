@@ -62,7 +62,7 @@ export default function Footer() {
 					<FooterLink title="Home" link="/" />
 					<FooterLink title="About The Project" link="/about" />
 					<FooterLink title="View Dataset" link="/" />
-					<FooterLink title="Contact" link="/" />
+					<FooterLink title="Data Policy" link="/data_policy" />
 				</div>
 			</div>
 			<div className="bg-ashesi-gray flex justify-center items-center py-6">
