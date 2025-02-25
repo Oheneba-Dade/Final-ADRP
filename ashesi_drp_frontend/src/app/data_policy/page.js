@@ -1,7 +1,6 @@
 "use client";
 import CustomButton from "@/components/CustomButton";
 import "../globals.css";
-import "@/components/CustomButton";
 
 export default function DataPolicy() {
 	return (
