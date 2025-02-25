@@ -1,2 +1,4 @@
 Django==5.1.6
 djangorestframework==3.15.2
+environ
+pyscopg2-binary
