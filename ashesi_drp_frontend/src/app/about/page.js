@@ -8,20 +8,22 @@ import CustomButton from "@/components/CustomButton";
 
 export default function About() {
 	return (
-		<div className="container mx-auto">
-			<div >
-				<div className="relative w-full"> 
-					<Slideshow/>
+		<div className="mx-auto">
+			<div>
+				<div className="relative w-full">
+					<Slideshow />
 
 					<HeroBlock
-						header="Welcome to Ashesi Data Repository"
+						header="Welcome to ARDR"
 						subheader="Welcome to the heart of Ashesi’s research excellence"
-						text="At Ashesi University, we are committed to fostering a culture of academic excellence, collaboration, and ethical research. The Ashesi Research Data Repository (ARDR) is designed to empower our researchers, faculty, and students by offering a secure and dynamic platform for managing, archiving, and sharing research data across all disciplines. 
-                        The ARDR is currently home to [X] active researchers, hosting [Y] research datasets, including publicly accessible collections that promote interdisciplinary knowledge sharing. By providing a seamless interface for research data management, Ashesi University aims to support the growing movement towards Open Science and FAIR data practices."
-						// visibleButton={true}
+						text={`At Ashesi University, we are committed to fostering a culture of academic excellence, collaboration, and ethical research. 
+The Ashesi Research Data Repository (ARDR) is designed to empower our researchers, faculty, and students by offering a secure and dynamic platform for managing, archiving, and sharing research data across all disciplines. 
+
+The ARDR is currently home to [X] active researchers, hosting [Y] research datasets, including publicly accessible collections that promote interdisciplinary knowledge sharing. 
+By providing a seamless interface for research data management, Ashesi University aims to support the growing movement towards Open Science and FAIR data practices.`}
 					/>
 				</div>
-				
+
 				<hr className="mb-10" />
 				<div className="grid grid-cols-2 gap-32 max-w-5xl mx-auto p-6">
 					{/* First Column */}
@@ -57,11 +59,11 @@ export default function About() {
 
 					<div className="grid grid-rows-2">
 						<Image
-						  src="/images/welcome/library.webp"
-						  alt="Ashesi Logo"
-						  width={4000}
-						  height={4000}
-						  className="w-auto h-auto rounded-lg"
+							src="/images/welcome/library.webp"
+							alt="Ashesi Logo"
+							width={4000}
+							height={4000}
+							className="w-auto h-auto rounded-lg mb-4 border-4 border-ashesi-red"
 						/>
 
 						<div className="grid grid-cols-2 gap-2 mb-8">
@@ -83,43 +85,49 @@ export default function About() {
 							<span className="font-semibold">
 								Publish Research Data:
 							</span>{" "}
-							Share your findings with the global academic community,
-							ensuring your work reaches beyond borders.
+							Share your findings with the global academic
+							community, ensuring your work reaches beyond
+							borders.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
 								Publish Research Data:
 							</span>{" "}
-							Share your findings with the global academic community,
-							ensuring your work reaches beyond borders.
+							Share your findings with the global academic
+							community, ensuring your work reaches beyond
+							borders.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
 								Publish Research Data:
 							</span>{" "}
-							Share your findings with the global academic community,
-							ensuring your work reaches beyond borders.
+							Share your findings with the global academic
+							community, ensuring your work reaches beyond
+							borders.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
 								Publish Research Data:
 							</span>{" "}
-							Share your findings with the global academic community,
-							ensuring your work reaches beyond borders.
+							Share your findings with the global academic
+							community, ensuring your work reaches beyond
+							borders.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
 								Publish Research Data:
 							</span>{" "}
-							Share your findings with the global academic community,
-							ensuring your work reaches beyond borders.
+							Share your findings with the global academic
+							community, ensuring your work reaches beyond
+							borders.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
 								Publish Research Data:
 							</span>{" "}
-							Share your findings with the global academic community,
-							ensuring your work reaches beyond borders.
+							Share your findings with the global academic
+							community, ensuring your work reaches beyond
+							borders.
 						</li>
 					</ul>
 					<hr className="mb-10" />
