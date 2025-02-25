@@ -59,7 +59,7 @@ export default function Navbar() {
 					<Link href="/" className="hover:font-normal">
 						Collections
 					</Link>
-					<Link href="/" className="hover:font-normal">
+					<Link href="/add_dataset" className="hover:font-normal">
 						Contribute Dataset
 					</Link>
 					<Link href="/" className="hover:font-normal">
