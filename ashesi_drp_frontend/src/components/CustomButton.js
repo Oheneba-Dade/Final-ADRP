@@ -11,9 +11,10 @@ const CustomButton = ({
 	height = "h-12",
 	borderRadius = "rounded-md",
 	onClick,
+	border = "",
 	href,
 }) => {
-	const buttonClass = `${bgColor} ${textColor} ${width} ${height} ${borderRadius} flex justify-center items-center px-4 py-2 font-semibold transition duration-300 ease-in-out 
+	const buttonClass = `${bgColor} ${textColor} ${width} ${height} ${borderRadius} ${border} flex justify-center items-center px-4 py-2 font-semibold transition duration-300 ease-in-out 
                   hover:opacity-80 active:scale-95`;
 
 	// If href is provided, render as a Link
