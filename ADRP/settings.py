@@ -104,8 +104,8 @@ DATABASES = {
 # AWS bucket creditionals
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = "adrp_datasets"  
-AWS_S3_REGION_NAME = "region from blankson"  
+AWS_STORAGE_BUCKET_NAME = "adrptestbucket"  
+AWS_S3_REGION_NAME = "eu-north-1"  
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
 

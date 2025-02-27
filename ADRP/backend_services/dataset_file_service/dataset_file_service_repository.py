@@ -3,8 +3,8 @@ import boto3
 from django.conf import settings
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
 from helper import extract_filename
-
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -110,4 +110,4 @@ def update_dateset_file(dataset, file_url, file_type): #dataset, file_url, file_
     )
 
 def delete_dataset_file(dataset, filename):
-    return DatasetFile.objects.filter(dataset=dataset, file_url__endswith=filename).delete()
+    return DatasetFile.objects.filter(dataset=dataset, file_url__endswith=filename).delete()[0]

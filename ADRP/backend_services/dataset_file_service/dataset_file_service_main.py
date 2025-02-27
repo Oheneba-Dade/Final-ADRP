@@ -5,6 +5,10 @@ from collections_service.collections_service_repository import get_dataset
 from ADRP.models import DatasetFile
 from django.conf import settings
 import boto3
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 MAX_FILE_SIZE_MB = 500  
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024  
@@ -43,10 +47,17 @@ class dataset_file_services:
             return {"error": "Dataset not found.", "status": 404}
         
         
-        delete_file_from_bucket(filename)
-        delete_dataset_file(dataset, filename)
-        
-        return {"message": "File deleted successfully", "status": 201}
+        try:
+            delete_file_from_bucket(filename)
+            deleted_count = delete_dataset_file(dataset, filename)
+
+            if deleted_count == 0:
+                return {"error": "File not found in database.", "status": 404}
+
+            return {"message": "File deleted successfully.", "status": 200}
+        except Exception as e:
+            logger.error(f"Error deleting file {filename}: {str(e)}")
+            return {"error": "An error occurred while deleting the file.", "status": 500}
 
     def handle_file_update(dataset_id, file_obj):
         """ takes files uploaded and updates the dataset file object"""
