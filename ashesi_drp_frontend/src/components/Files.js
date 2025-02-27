@@ -4,7 +4,7 @@ import CustomButton from "@/components/CustomButton";
 
 const files = [
   { name: "ABOUT.txt", date: "September 25, 2024", size: "3.58 KB" },
-  { name: "MANIFEST.txt", date: "September 25, 2024", size: "3.58 KB" },
+  { name: "METADATA.txt", date: "September 25, 2024", size: "3.58 KB" },
   { name: "LICENSE.txt", date: "September 25, 2024", size: "3.58 KB" },
   { name: "Readme.txt", date: "September 25, 2024", size: "3.58 KB" },
   { name: "Checklist.docx", date: "September 25, 2024", size: "3.58 KB" },
@@ -25,6 +25,9 @@ const FileTable = () => {
             onClick={() => alert("Downloading!")}
             width = "w-auto"
             height = "h-10"
+            icon={MdOutlineFileDownload}
+            iconPosition="right"
+            iconClassName="text-xl cursor-pointer"
             className="text-sm !font-medium border border-ashesi-red px-4 py-2 px-4 hover:bg-ashesi-red hover:text-white"        
         />
       </div>
@@ -35,7 +38,6 @@ const FileTable = () => {
           <thead>
             <tr className="border-b">
               <th className="text-left font-semibold py-2">Filename</th>
-              <th className="text-left font-semibold py-2">Download</th>
               <th className="text-left font-semibold py-2">Last Modified</th>
               <th className="text-left font-semibold py-2">Size</th>
             </tr>
@@ -46,10 +48,6 @@ const FileTable = () => {
                 <td className="py-3 flex items-center gap-2">
                   <AiOutlineFile className="text-xl text-gray-500" />
                   {file.name}
-                </td>
-                
-                <td className="">
-                    <MdOutlineFileDownload className="text-ashesi-red cursor-pointer text-xl" />
                 </td>
             
                 <td className="text-gray-600">{file.date}</td>

@@ -40,7 +40,7 @@ export default function Home() {
 			/>
 			
 			{/* some collections */}
-			<div className="mb-14 mx-auto w-full h-[600px] max-w-4xl overflow-y-auto pr-10 custom-scrollbar">
+			<div className="mb-14 mx-auto w-full max-w-4xl pr-10">
 				{/* first */}
 				<div className="py-10 px-4 border-b ">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">

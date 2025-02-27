@@ -207,7 +207,7 @@ export default function CollectionPage() {
       
     
         {/* Right Column*/}
-        <div className="bg-gray-50 p-4 rounded-lg shadow-md">
+        <div className="bg-gray-50 px-4 py-8 rounded-lg shadow-md h-auto self-start">
 	        <CustomButton 
 				text="DOWNLOAD"
 				bgColor = "bg-gray-50"
@@ -274,7 +274,7 @@ export default function CollectionPage() {
 				<Link href="/" className="cursor-pointer underline text-blue-800 hover:text-blue-600"> Creative Commons Attribution 4.0 International (CC BY 4.0) license</Link>
 			</p>
 			
-			<p className="mt-6 text-sm text-gray-600">This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given</p>
+			<p className="mt-6 text-sm text-gray-600 text-justify">This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given</p>
 	    </div>
     
     </div>
