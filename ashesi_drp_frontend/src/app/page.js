@@ -52,7 +52,7 @@ export default function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-					    <Link href="/" className="text-ashesi-red cursor-pointer">see more</Link>
+					    <Link href="/collection" className="text-ashesi-red font-light cursor-pointer hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -86,7 +86,7 @@ export default function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -120,7 +120,7 @@ export default function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">

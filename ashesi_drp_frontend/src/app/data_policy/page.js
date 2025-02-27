@@ -4,7 +4,7 @@ import "../globals.css";
 
 export default function DataPolicy() {
 	return (
-		<div className="container mx-auto mt-32 px-32">
+		<div className="container mx-auto mt-32 px-64">
 			<h1 className="text-ashesi-red font-bold text-4xl mb-8 ">
 				Data Policy
 			</h1>
