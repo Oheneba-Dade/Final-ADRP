@@ -1,83 +1,74 @@
+from django.core.exceptions import ObjectDoesNotExist
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
+from dataset_file_service_repository import upload_file_to_s3, save_dataset_file
+from collections_service.collections_service_repository import get_dataset
 from ADRP.models import DatasetFile
-import boto3
 from django.conf import settings
+import boto3
+import logging
 
 
+logger = logging.getLogger(__name__)
 
-# class Dataset(models.Model):
-
-#     ACCESS_CHOICES = [
-#         ('public', 'Public'),
-#         ('private', 'Private'),
-#         ('restricted', 'Restricted'),
-#         # needed or naa ?
-#     ]
-#     STATUS_CHOICES = [
-#         ('pending', 'Pending'),
-#         ('approved', 'Approved'),
-#         ('rejected', 'Rejected'),
-#     ]
-
-#     title = models.CharField(max_length=255)
-#     authors = models.ManyToManyField(User, related_name="datasets") # should this just be a text field 
-#     abstract = models.TextField()
-#     missing_values = models.BooleanField()
-#     keywords = models.CharField(max_length=255, help_text="Comma-separated keywords for search and filtering.")
-#     data_of_publication = models.DateTimeField()
-#     comment = models.TextField(blank=True, null=True)
-#     doi_link = models.URLField(max_length=500, null=True)
-
-
-#     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
-#     upload_date = models.DateTimeField(auto_now_add=True)
-#     access_level = models.CharField(max_length=20, choices=ACCESS_CHOICES, default='public')
-#     tags = models.ManyToManyField("Tag", blank=True)
-#     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, blank=True)
-    
-    
-#     approval_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-#     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_datasets')
-#     approved_at = models.DateTimeField(null=True, blank=True)
-
-    
-#     def approve(self, admin_user):
-#         self.approval_status = 'approved'
-#         self.approved_by = admin_user
-#         self.approved_at = timezone.now()
-#         self.save()
-
-#     def reject(self):
-#         self.approval_status = 'rejected'
-#         self.save()
-
-#     def is_approved(self):
-#         return self.approval_status == 'approved'
-
-#     def __str__(self):
-#         formatted_date = localtime(self.upload_date).strftime('%Y-%m-%d %H:%M')
-#         return f"{self.title} | Uploaded by: {self.uploaded_by.username} | Date: {formatted_date} | Status: {self.approval_status}"
-
-#     class Meta:
-#         ordering = ["-upload_date"]
-#         verbose_name = "Dataset"
-#         verbose_name_plural = "Datasets"
+MAX_FILE_SIZE_MB = 500  
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024  
 
 
 class dataset_file_services:
-    def upload_to_bucket(file_path, filename):
-        
-        s3_client = boto3.client(
-            "s3",
-            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-        )
 
-        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
-        s3_client.upload_file(file_path, bucket_name, filename, ExtraArgs={"ACL": "public-read"}) # will allow anyone with the link to read the file
-        # ExtraArgs={"ACL": "private"} Only the owner (AWS account that uploaded the file) can access it.
+    def handle_file_upload(dataset_id, file_obj):
+        """ takes files uploaded and creates the dataset file object"""
+
+        if not dataset_id or not file_obj:
+            return {"error": "Dataset ID and file are required.", "status": 400}
+
+        try:
+            dataset = get_dataset(dataset_id) 
+        except ObjectDoesNotExist:
+            return {"error": "Dataset not found.", "status": 404}
+
+        if file_obj.size > MAX_FILE_SIZE_BYTES:
+            return {"error": f"File size exceeds {MAX_FILE_SIZE_MB}MB limit.", "status": 400}
+
+        file_url = upload_file_to_s3(file_obj, file_obj.name)
+        dataset_file = save_dataset_file(dataset, file_url, file_obj.content_type)
+
+        return {"message": "File uploaded successfully", "file_url": file_url, "status": 201}
 
 
-        file_url = f"https://{bucket_name}.s3.amazonaws.com/{filename}"
-        return file_url
+    def upload_to_bucket(file_obj, filename):
+        """ create client connection and uploads files to bucket """
+        try:
+            s3_client = boto3.client(
+                "s3",
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            )
+
+            bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+            s3_client.upload_file_obj(file_obj, bucket_name, filename, ExtraArgs={"ACL": "public-read"}) # will allow anyone with the link to read the file
+            # ExtraArgs={"ACL": "private"} Only the owner (AWS account that uploaded the file) can access it.
+
+            file_url = f"https://{bucket_name}.s3.amazonaws.com/{filename}"
+            return file_url
+
+        except FileNotFoundError:
+            logger.error(f"File not found: {file_obj}")
+        except NoCredentialsError:
+            logger.error("AWS credentials not found or misconfigured.")
+        except PartialCredentialsError:
+            logger.error("Incomplete AWS credentials provided.")
+        except BotoCoreError as e:
+            logger.error(f"An error occurred with Boto3: {e}")
+        except Exception as e:
+            logger.error(f"Unexpected error: {e}")
+
+        return None
+       
+
+    def delete_file():
+        pass
+
+
 
    
