@@ -1,26 +1,29 @@
 "use client";
 import { useState } from "react";
 
-export default function KeywordInput() {
+export default function KeywordInput({ onKeywordsChange }) {
 	const [keywords, setKeywords] = useState([]);
 	const [inputValue, setInputValue] = useState("");
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && inputValue.trim() !== "") {
 			e.preventDefault();
-			setKeywords([...keywords, inputValue.trim()]);
+			const newKeywords = [...keywords, inputValue.trim()];
+			setKeywords(newKeywords);
+			onKeywordsChange(newKeywords); // Notify parent
 			setInputValue("");
 		}
 	};
 
 	const removeKeyword = (index) => {
-		setKeywords(keywords.filter((_, i) => i !== index));
+		const newKeywords = keywords.filter((_, i) => i !== index);
+		setKeywords(newKeywords);
+		onKeywordsChange(newKeywords); // Notify parent
 	};
 
 	return (
 		<div className="flex items-center gap-4">
 			<div className="flex flex-wrap items-center gap-2 p-2 border border-ashesi-red rounded-md w-96 min-h-[42px]">
-				{/* Render Keywords */}
 				{keywords.map((keyword, index) => (
 					<span
 						key={index}
