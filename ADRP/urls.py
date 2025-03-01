@@ -17,7 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from .views.collection_views.collections import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("adrp/get_all_collections/", get_all_collections),
+    path("adrp/get_collection/", get_collection),
+    path("adrp/create_collection", create_collection),
 ]

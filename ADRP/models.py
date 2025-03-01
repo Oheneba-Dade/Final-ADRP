@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.timezone import localtime
-from django.utils.timezone import timezone
+from django.utils import timezone
 
 class UserProfile(models.Model):
     ROLE_CHOICES = [
@@ -26,7 +27,14 @@ class UserProfile(models.Model):
 
 
 
-class Dataset(models.Model):
+class Authors(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.name + self.email
+
+class Collection(models.Model):
 
     ACCESS_CHOICES = [
         ('public', 'Public'),
@@ -41,24 +49,26 @@ class Dataset(models.Model):
     ]
 
     title = models.CharField(max_length=255)
-    authors = models.ManyToManyField(User, related_name="datasets") # should this just be a text field 
+    authors = models.ManyToManyField(Authors)
     abstract = models.TextField()
     missing_values = models.BooleanField()
     keywords = models.CharField(max_length=255, help_text="Comma-separated keywords for search and filtering.")
-    data_of_publication = models.DateTimeField()
+    date_of_publication = models.DateTimeField(default=timezone.now)
     comment = models.TextField(blank=True, null=True)
     doi_link = models.URLField(max_length=500, null=True)
+    instance_representation = models.CharField(max_length=500, blank=True, null=True, help_text="What do the instances "
+                                                                                                "in the dataset represent")
 
 
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    upload_date = models.DateTimeField(auto_now_add=True)
+    upload_date = models.DateTimeField(default=timezone.now)
     access_level = models.CharField(max_length=20, choices=ACCESS_CHOICES, default='public')
     tags = models.ManyToManyField("Tag", blank=True)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, blank=True)
     
     
     approval_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_datasets')
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_collections')
     approved_at = models.DateTimeField(null=True, blank=True)
 
     
@@ -82,19 +92,19 @@ class Dataset(models.Model):
     class Meta:
         ordering = ["-upload_date"]
         verbose_name = "Dataset"
-        verbose_name_plural = "Datasets"
+        verbose_name_plural = "Collections"
 
 
 
 class DatasetFile(models.Model):
-    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, related_name="files")
-    flie_name  = models.CharField(max_length=50)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name="files", null=True,blank=True)
+    file_name  = models.CharField(max_length=50)
     file_url = models.URLField(max_length=500)
     file_type = models.CharField(max_length=50, blank=True, null=True)  # CSV, JSON, Excel, etc.
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.dataset.title} - {self.file.url}"
+        return f"{self.Collection.title} - {self.file.url}"
 
 
 class Tag(models.Model):
@@ -120,14 +130,14 @@ class Category(models.Model):
         return self.name
 
 class Review(models.Model):
-    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, related_name="reviews")
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name="reviews", null=True,blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=5)  # are we using the rating??
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Review by {self.user.username} on {self.dataset.title}"
+        return f"Review by {self.user.username} on {self.collection.title}"
 
 
 class AccessRequest(models.Model):
@@ -138,10 +148,10 @@ class AccessRequest(models.Model):
         ('rejected', 'Rejected'),
     ]
 
-    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, related_name="access_requests")
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name="access_requests", blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     justification = models.TextField()
     status = models.CharField(max_length=20, choices= STATUS_CHOICES, default='pending')
     requested_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"Access request for {self.dataset.title} by {self.user.username}"
+        return f"Access request for {self.collection.title} by {self.user.username}"
