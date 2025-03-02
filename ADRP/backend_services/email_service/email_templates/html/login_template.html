@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADRP Download Dataset</title>
+    <title>ADRP OTP</title>
     <style>
         :root {
             --primary-color: #884243;
@@ -67,17 +67,10 @@
 
 <!-- OTP Content -->
 <div class="content">
-    <h2>Congratulations!</h2>
-    <h3> Your submission to the Ashesi Data Repository has been approved!</h3>
-    <p>Please use the following link to view your submisison</p>
-        <div class="otp" style="letter-spacing: normal; font-size: 16px; word-break: break-all;">
-            <a href="https://hahahahah" style="color: var(--primary-color); text-decoration: underline;">
-                https://hahahahah
-            </a>
-        </div>
-
-
-
+    <h2>Your One-Time Password (OTP)</h2>
+    <p>Please use the following OTP to log in to the Data Repository:</p>
+    <div class="otp">{{ otp }}</div>
+    <p>This OTP is valid for <strong style="color: var(--primary-color); font-weight: bold;">{{ otp_lifetime }} minutes</strong> and should not be shared with anyone.</p>
 
 </div>
 

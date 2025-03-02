@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADRP OTP</title>
+    <title>ADRP Download Dataset</title>
     <style>
         :root {
             --primary-color: #884243;
@@ -67,10 +67,17 @@
 
 <!-- OTP Content -->
 <div class="content">
-    <h2>Your One-Time Password (OTP)</h2>
-    <p>Please use the following OTP to log in to the Data Repository:</p>
-    <div class="otp">ABC123</div>
-    <p>This OTP is valid for <strong style="color: var(--primary-color); font-weight: bold;">5 minutes</strong> and should not be shared with anyone.</p>
+    <h2>Download your Dataset</h2>
+    <p>Please use the following link to download your requested dataset</p>
+        <div class="otp" style="letter-spacing: normal; font-size: 16px; word-break: break-all;">
+            <a href="{{ dataset_link }}" style="color: var(--primary-color); text-decoration: underline;">
+                {{ dataset_link }}
+            </a>
+        </div>
+
+
+    <p>This link is valid for <strong style="color: var(--primary-color); font-weight: bold;">48 Hours</strong> and should not be shared with anyone.</p>
+    <p> Do note that all usages of this link will be associated with your account</p>
 
 </div>
 
