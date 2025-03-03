@@ -1,0 +1,70 @@
+POST http://localhost:8000/adrp/create_collection
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
+
+"ADRP: Research on an Instiutional Repository"
+--WebAppBoundary
+Content-Disposition: form-data; name="authors"
+
+[
+    {"name": "Author One", "email": "author1@example.com"},
+    {"name": "Author Two", "email": "author2@example.com"}
+]
+--WebAppBoundary
+Content-Disposition: form-data; name="doi_link"
+
+https://doi.org/10.1234/fake-doi-56789
+
+--WebAppBoundary
+Content-Disposition: form-data; name="keywords"
+
+["research" , "data", "elements"]
+
+--WebAppBoundary
+Content-Disposition: form-data; name="abstract"
+
+Research focuses on how to build an insititional repo
+
+--WebAppBoundary
+Content-Disposition: form-data; name="instance_representation"
+
+they represent something
+
+--WebAppBoundary
+Content-Disposition: form-data; name="missing_values"
+
+False
+
+--WebAppBoundary
+Content-Disposition: form-data; name="comment"
+
+its a great dataset
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataset_file"; filename="test_dataset.zip"
+Content-Type: application/zip
+
+<..test_dataset.zip
+--WebAppBoundary--
+
+
+### Get all collections
+GET http://localhost:8000/ADRP/get_all_collections?page=1&size=20
+Authorization: Bearer ......
+
+### Get a specific collection
+GET http://localhost:8000/adrp/get_collection?collection_id=1234
+#Authorization: Bearer ......
+
+### Get Query Collections
+GET http://localhost:8000/ADRP/collections?title=test%20collection&keyword=data
+    &subject=AI&task=classification&datatype=ML&published_after=2024-01-01&published_before=2024-12-31
+#Authorization: Bearer ......
+
+
+
+
+
+
