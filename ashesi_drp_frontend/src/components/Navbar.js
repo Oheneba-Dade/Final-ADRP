@@ -61,6 +61,10 @@ export default function Navbar() {
 					<Link href="/add_dataset" className="hover:font-normal">
 						Contribute Dataset
 					</Link>
+
+					<Link href="/data_policy" className="hover:font-normal">
+						Data Policy
+					</Link>
 				</div>
 			</div>
 		</>

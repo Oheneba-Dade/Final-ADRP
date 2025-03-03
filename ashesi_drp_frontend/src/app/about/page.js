@@ -1,11 +1,14 @@
-"use client";
+// "use client";
 import "../globals.css";
 import Slideshow from "@/components/Slideshow";
 import Image from "next/image";
 import StatBlock from "@/components/StatBlock";
 import HeroBlock from "@/components/HeroBlock";
 
-export default function About() {
+export default async function About() {
+
+	await new Promise((resolve) => setTimeout(resolve, 2000));
+	
 	return (
 		<div className="mx-auto">
 			<div>
@@ -21,6 +24,8 @@ The Ashesi Research Data Repository (ARDR) is designed to empower our researcher
 The ARDR is currently home to [X] active researchers, hosting [Y] research datasets, including publicly accessible collections that promote interdisciplinary knowledge sharing. 
 By providing a seamless interface for research data management, Ashesi University aims to support the growing movement towards Open Science and FAIR data practices.`}
 					/>
+					
+					<div className="sm:mt-96 md:mt-96 lg:mt-40 max-h-[800px]"></div>
 				</div>
 
 				<hr className="mb-10" />
@@ -55,7 +60,8 @@ By providing a seamless interface for research data management, Ashesi Universit
 							</p>
 						</div>
 					</div>
-
+						
+					{/* Second column */}
 					<div className="grid grid-rows-2">
 						<Image
 							src="/images/welcome/library.webp"
