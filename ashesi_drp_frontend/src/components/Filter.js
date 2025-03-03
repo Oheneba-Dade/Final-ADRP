@@ -40,7 +40,7 @@ export default function Filter() {
 
 	return (
 		<form
-			className="flex flex-col items-center justify-center mt-24 mb-8 ml-8 w-96 shadow-md"
+			className="flex flex-col items-center justify-center mt-24 mb-8 ml-12 w-96 shadow-md"
 			onSubmit={handleSubmit}
 		>
 			<div className="mb-8">
