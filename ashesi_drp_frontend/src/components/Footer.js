@@ -45,7 +45,7 @@ export default function Footer() {
 						<SocialIcon key={link} icon={component} link={link} />
 					))}
 				</div>
-				<div className>
+				<div>
 					<p className="text-center">
 						1 University Avenue,
 						<br /> Berekuso, Ghana

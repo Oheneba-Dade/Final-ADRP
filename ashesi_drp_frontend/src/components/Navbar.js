@@ -56,14 +56,14 @@ export default function Navbar() {
 
 				{/* Floating Div Below Navbar */}
 				<div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-1/2 bg-white shadow-md p-4 text-center rounded-lg z-10 flex justify-around font-light">
-					<Link href="/" className="hover:font-normal">
+					<Link href="/collection" className="hover:font-normal">
 						Collections
 					</Link>
 					<Link href="/add_dataset" className="hover:font-normal">
 						Contribute Dataset
 					</Link>
-					<Link href="/" className="hover:font-normal">
-						Report
+					<Link href="/data_policy" className="hover:font-normal">
+						Data Policy
 					</Link>
 				</div>
 			</div>

@@ -1,10 +1,13 @@
-"use client";
+// "use client";
 import "../globals.css";
 import KeywordInput from "@/components/KeywordInput";
 import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
 
-export default function AddDataset() {
+export default async function AddDataset() {
+	
+	await new Promise((resolve) => setTimeout(resolve, 2000));
+
 	return (
 		<form className="container mx-auto mt-32 px-48">
 			<section className="my-16">

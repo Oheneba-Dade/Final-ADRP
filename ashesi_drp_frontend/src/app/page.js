@@ -5,7 +5,10 @@ import Image from "next/image"
 import Link from 'next/link';
 import HeroBlock from "@/components/HeroBlock";
 
-export default function Home() {
+export default async function Home() {
+
+	await new Promise((resolve) => setTimeout(resolve, 2000));
+	
 	return (
 		<div className="relative w-full">
 			<Slideshow/>
@@ -29,7 +32,7 @@ export default function Home() {
 							text="ALL COLLECTIONS" 
 							bgColor="bg-ashesi-gray" 
 							width="w-48" 
-							href="/" 
+							href="/collection" 
 						/>,
 						<CustomButton 
 							text="CONTRIBUTE" 
@@ -38,21 +41,22 @@ export default function Home() {
 					]
 				}
 			/>
+			<div className="sm:mt-96 md:mt-96 lg:mt-64 mb-[310px] max-h-[800px]"></div>
 			
 			{/* some collections */}
-			<div className="mb-14 mx-auto w-full max-w-4xl pr-10">
+			<div className="mb-14 mx-auto w-full max-w-4xl">
 				{/* first */}
 				<div className="py-10 px-4 border-b ">
 				  <h2 className="italic text-lg font-semibold text-ashesi-red">
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
 				  
-				  <p className="text-ashesi-gray mt-2">
+				  <p className="text-ashesi-gray mt-2 text-justify">
 					    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-					    <Link href="/collection" className="text-ashesi-red font-light cursor-pointer hover:font-medium">see more</Link>
+					    <Link href="/collection/1" className="text-ashesi-red font-light cursor-pointer hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -81,12 +85,12 @@ export default function Home() {
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
 				  
-				  <p className="text-ashesi-gray mt-2">
+				  <p className="text-ashesi-gray mt-2 text-justify">
 					    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
+						<Link href="/collection/2" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -115,12 +119,12 @@ export default function Home() {
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
 				  
-				  <p className="text-ashesi-gray mt-2">
+				  <p className="text-ashesi-gray mt-2 text-justify">
 					    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
+						<Link href="/colletion/3" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -149,12 +153,12 @@ export default function Home() {
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
 				  
-				  <p className="text-ashesi-gray mt-2">
+				  <p className="text-ashesi-gray mt-2 text-justify">
 					    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/collection/4" className="text-ashesi-red cursor-pointer">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -183,12 +187,12 @@ export default function Home() {
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
 				  
-				  <p className="text-ashesi-gray mt-2">
+				  <p className="text-ashesi-gray mt-2 text-justify">
 					    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/collection/5" className="text-ashesi-red cursor-pointer">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -217,12 +221,12 @@ export default function Home() {
 				        Improving Accessibility Across Multifaceted Web Pages
 				  </h2>
 				  
-				  <p className="text-ashesi-gray mt-2">
+				  <p className="text-ashesi-gray mt-2 text-justify">
 					    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/collection/6" className="text-ashesi-red cursor-pointer">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
