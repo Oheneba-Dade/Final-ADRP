@@ -38,6 +38,7 @@ export default function Filter() {
 		console.log("Keywords:", keywords);
 	};
 
+
 	return ( 
 		<form
 			className="flex flex-col items-center bg-gray-50 py-8 rounded-lg justify-center mt-24 mb-8 ml-12 w-96 shadow-md"

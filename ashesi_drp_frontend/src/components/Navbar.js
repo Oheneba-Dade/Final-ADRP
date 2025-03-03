@@ -55,7 +55,6 @@ export default function Navbar() {
 
 				{/* Floating Div Below Navbar */}
 				<div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-1/2 bg-white shadow-md p-4 text-center rounded-lg z-10 flex justify-around font-light">
-
 					<Link href="/collections" className="hover:font-normal">
 						Collections
 					</Link>
