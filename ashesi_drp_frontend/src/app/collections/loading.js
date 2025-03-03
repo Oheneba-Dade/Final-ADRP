@@ -15,7 +15,7 @@ export default function Card() {
 		        <Skeleton width="100%" height={80} baseColor="#dce3e8" highlightColor="#f0f4f8" className="mt-6"/>
 			
 			  <div className="mt-10 flex justify-center gap-4">
-		          <Skeleton width={150} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8" className=""/>
+		          <Skeleton width={150} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8" />
 			  </div>
 			</div>
 			<div className="sm:mt-24 md:mt-24 lg:mt-64 max-h-[800px]"></div>
