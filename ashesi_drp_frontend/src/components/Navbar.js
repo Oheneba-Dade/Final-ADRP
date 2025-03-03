@@ -12,8 +12,7 @@ export default function Navbar() {
 	const getLinkClass = (href) =>
 		pathname === href
 			? "font-normal border-b-2 border-ashesi-red pr-2"
-			: "font-light hover:font-normal pr-2" ;
-
+			: "font-light hover:font-normal pr-2";
 
 	return (
 		<>
@@ -43,7 +42,7 @@ export default function Navbar() {
 
 				{/* Right Section */}
 				<div className="hidden md:flex w-1/4 gap-4 items-center justify-end">
-					<Link href="/" className={getLinkClass("/")} >
+					<Link href="/" className={getLinkClass("/")}>
 						Home
 					</Link>
 					<Link href="/about" className={getLinkClass("/about")}>
@@ -56,12 +55,14 @@ export default function Navbar() {
 
 				{/* Floating Div Below Navbar */}
 				<div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-1/2 bg-white shadow-md p-4 text-center rounded-lg z-10 flex justify-around font-light">
-					<Link href="/collection" className="hover:font-normal">
+
+					<Link href="/collections" className="hover:font-normal">
 						Collections
 					</Link>
 					<Link href="/add_dataset" className="hover:font-normal">
 						Contribute Dataset
 					</Link>
+
 					<Link href="/data_policy" className="hover:font-normal">
 						Data Policy
 					</Link>

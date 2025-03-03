@@ -56,7 +56,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-					    <Link href="/collection/1" className="text-ashesi-red font-light cursor-pointer hover:font-medium">see more</Link>
+					    <Link href="/collections/1" className="text-ashesi-red font-light cursor-pointer hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -90,7 +90,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/collection/2" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
+						<Link href="/collectiosn/2" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -124,7 +124,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/colletion/3" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
+						<Link href="/colletions/3" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -158,7 +158,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/collection/4" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/collections/4" className="text-ashesi-red cursor-pointer">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -192,7 +192,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/collection/5" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/collections/5" className="text-ashesi-red cursor-pointer">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
@@ -226,7 +226,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/collection/6" className="text-ashesi-red cursor-pointer">see more</Link>
+						<Link href="/collections/6" className="text-ashesi-red cursor-pointer">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">

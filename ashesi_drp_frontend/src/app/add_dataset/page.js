@@ -1,13 +1,17 @@
-// "use client";
+"use client";
 import "../globals.css";
+import { useState } from "react";
 import KeywordInput from "@/components/KeywordInput";
 import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
 
-export default async function AddDataset() {
-	
-	await new Promise((resolve) => setTimeout(resolve, 2000));
 
+
+
+export default  function AddDataset() {
+
+	const [keywords, setKeywords] = useState([]);
+	
 	return (
 		<form className="container mx-auto mt-32 px-48">
 			<section className="my-16">
@@ -69,8 +73,12 @@ export default async function AddDataset() {
 						required
 					/>
 				</div>
-
-				<KeywordInput />
+				<div className="flex items-center justify-left gap-4 mb-8">
+					<label htmlFor="keywords" className="w-40 text-left">
+						Keywords
+					</label>
+					<KeywordInput onKeywordsChange={setKeywords} />
+				</div>
 			</section>
 
 			<section className="my-16">
@@ -128,24 +136,18 @@ export default async function AddDataset() {
 					Data & Files
 				</h2>
 				<hr className="my-4" />
-				<DynamicFieldGroup
-					labelText="Upload File"
-					namePrefix="code"
-					fields={[
-						{
-							type: "text",
-							placeholder: "File Name",
-							name: "fileName",
-							required: true,
-						},
-						{
-							type: "file",
-							placeholder: "Upload",
-							name: "file",
-							required: true,
-						},
-					]}
-				/>
+				<div className="flex items-center justify-left gap-4 mb-8">
+					<label htmlFor="data-file" className="w-40 text-left">
+						Zipped Data File <span className="text-red-500">*</span>
+					</label>
+					<input
+						type="file"
+						id="data-file"
+						name="data-file"
+						className="p-2 border border-ashesi-red rounded-md w-96 focus:outline-ashesi-red"
+						required
+					/>
+				</div>
 				<div className="flex items-center justify-left gap-4 mb-8">
 					<label htmlFor="comments" className="w-40 text-left">
 						Comments <span className="text-red-500">*</span>
