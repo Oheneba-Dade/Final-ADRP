@@ -6,7 +6,7 @@ from helper import extract_filename
 import logging
 
 logger = logging.getLogger(__name__)
-
+LINK_EXPIRY_TIME = 3600 * 48
 
 
 ### s3  interactions
@@ -38,6 +38,31 @@ def upload_file_to_bucket(file_obj, filename, dataset_id):
         logger.error(f"Unexpected error: {e}")
 
     return None
+
+
+def generate_file_url_from_bucket(filename):
+    try:
+        s3_client = boto3.client(
+            "s3",
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        )
+
+        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+
+        file_url = s3_client.generate_presigned_url('get_object', params={
+                    'Bucket':f'{bucket_name}',
+                    'Key':f'{filename}'
+        }, ExpiresIn=LINK_EXPIRY_TIME) 
+        return file_url
+
+    except FileNotFoundError:
+        logger.error(f"File not found: {filename}")
+    except Exception as e:
+        logger.error(f"Unexpected error generated presigned URL: {e}")
+
+    return None
+
 
 def delete_file_from_bucket(filename):
     bucket_name = settings.AWS_STORAGE_BUCKET_NAME

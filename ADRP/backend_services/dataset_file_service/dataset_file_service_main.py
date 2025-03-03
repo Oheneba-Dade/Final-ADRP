@@ -34,7 +34,30 @@ class dataset_file_services:
         dataset_file = save_dataset_file(dataset, file_url, file_obj.content_type)
 
         return {"message": "File uploaded successfully", "file_url": file_url, "status": 201}
-       
+
+    def handle_file_download(dataset_id, filename):
+
+        if not dataset_id or not filename:
+            return {"error": "Dataset ID and file are required.", "status": 400}
+
+        try:
+            dataset = get_dataset(dataset_id)             
+            dataset_file = get_dataset_file(dataset_id) 
+        except ObjectDoesNotExist:
+            return {"error": "Dataset not found.", "status": 404}
+        
+        try:
+            file_url = generate_file_url_from_bucket(filename)
+            return {"message": "File downloaded successfully", "file_url": file_url, "status": 200}
+        
+        except:
+            return {"error": "An error occurred while downloading the file.", "status": 400}
+
+
+
+        
+
+
     def handle_file_delete(dataset_id, filename):
         """ takes the dataset id and file name and deletes them from the bucket and db"""
         
