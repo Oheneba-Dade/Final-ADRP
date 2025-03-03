@@ -38,8 +38,8 @@ class CollectionsService:
         return
 
     @staticmethod
-    def get_collection(request):
-        collection_id = request.get('collection_id')
+    def get_collection(request_obj : Request.query_params):
+        collection_id = request_obj.get('collection_id')
 
         collection_data = get_collection_by_id(collection_id)
 

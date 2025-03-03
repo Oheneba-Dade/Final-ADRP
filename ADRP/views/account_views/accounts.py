@@ -14,7 +14,15 @@ from ..error_handling import handle_exceptions
 
 
 @api_view(['GET'])
-def get_OTP(request: Request) -> HttpResponse:
-    """ Get all collections, paginated view"""
+def get_OTP(request: Request) -> Response:
+    """ Triggers an OTP to be sent to the requester """
+
     return
+
+
+@api_view(['POST'])
+def verify_OTP(request: Request) -> Response:
+    """ Verifies the OTP sent by the requester
+        :returns: JWT token
+    """
 

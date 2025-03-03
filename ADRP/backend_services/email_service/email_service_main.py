@@ -41,7 +41,7 @@ class EmailService:
         :param context: Context data used to render the email body.
         """
 
-        self.recipient = recipients
+        self.recipients = recipients
         self.subject = self.Subject[purpose].value
 
         self.plain_text_body = render_to_string(self.PlainTextBody[purpose].value, context)
@@ -50,15 +50,17 @@ class EmailService:
         self.purpose = purpose
 
     def __str__(self):
-        return (f"Email to: {self.recipient}, \nPurpose: {self.purpose}, \nSubject: {self.subject}, "
-                f"\nContext: {self.plain_text_body}")
+        preview = self.plain_text_body[:50]
+        return (f"Email to: {self.recipients}, \nPurpose: {self.purpose}, \nSubject: {self.subject}, "
+                f"\nContext: {self.plain_text_body} \nContent Preview: {preview}")
 
     def send(self):
+        """ Sends the appropriate email to the provided recipient. This should only be used when there is 1 recipient
+        as it establishes a new SMTP connection every time a new email is sent."""
         msg = EmailMultiAlternatives(
             subject=self.subject,
             body=self.plain_text_body,
-            from_email= "from@example.com",
-            to=self.recipient,
+            to=self.recipients,
         )
         msg.attach_alternative(self.html_body, "text/html")
         msg.send()

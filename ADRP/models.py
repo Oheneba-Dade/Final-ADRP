@@ -126,6 +126,7 @@ class Collection(models.Model):
     doi_link = models.URLField(max_length=500, null=True)
     instance_representation = models.CharField(max_length=500, blank=True, null=True, help_text="What do the instances "
                                                                                                 "in the dataset represent")
+    view_count = models.IntegerField(default=0)
 
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(default=timezone.now)
@@ -167,6 +168,7 @@ class DatasetFile(models.Model):
     file_url = models.URLField(max_length=500)
     file_type = models.CharField(max_length=50, blank=True, null=True)  # CSV, JSON, Excel, etc.
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    download_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.Collection.title} - {self.file.url}"
