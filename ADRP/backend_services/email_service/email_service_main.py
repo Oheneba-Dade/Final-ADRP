@@ -23,21 +23,21 @@ class EmailService:
         NEW_SUBMISSION = "A new Submission has been received"
 
     class PlainTextBody(Enum):
-        LOGIN = "./email_templates/txt/login_template.txt"
-        DOWNLOAD_DATASET = "./email_templates/txt/download_dataset_template.txt"
-        APPROVE_SUBMISSION = "./email_templates/txt/submission_approved_template.txt"
+        LOGIN = "ADRP/email_templates/txt/login_template.txt"
+        DOWNLOAD_DATASET = "ADRP/email_templates/txt/download_dataset_template.txt"
+        APPROVE_SUBMISSION = "ADRP/email_templates/txt/submission_approved_template.txt"
 
     class HtmlBody(Enum):
-        LOGIN = "./email_templates/html/login_template.html"
-        DOWNLOAD_DATASET = "./email_templates/html/download_dataset_template.html"
-        APPROVE_SUBMISSION = "./email_templates/html/submission_approved_template.html"
+        LOGIN = "ADRP/email_templates/html/login_template.html"
+        DOWNLOAD_DATASET = "ADRP/email_templates/html/download_dataset_template.html"
+        APPROVE_SUBMISSION = "ADRP/email_templates/html/submission_approved_template.html"
 
     def __init__(self, recipients: list[str], purpose: str, context: dict):
         """
         Service responsible for sending emails.
 
         :param recipient: Email address of the intended recipient.
-        :param purpose: Purpose of the email, expected to match one of the predefined purposes.
+        :param purpose: Purpose of the email, expected to match one of the predefined purposes in EmailService.Purpose.
         :param context: Context data used to render the email body.
         """
 

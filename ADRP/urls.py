@@ -19,10 +19,17 @@ from django.contrib import admin
 from django.urls import path
 # from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from .views.collection_views.collections import *
+from .views.account_views.accounts import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # Colleciton views
     path("adrp/get_all_collections/", get_all_collections),
     path("adrp/get_collection/", get_collection),
     path("adrp/create_collection", create_collection),
+
+    # Account views
+    path("adrp/get_otp",get_OTP),
+    path("adrp/login",)
 ]

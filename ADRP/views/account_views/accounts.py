@@ -9,15 +9,20 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.request import Request
 from django.db import transaction
-from ...backend_services.collections_service.collections_service_main import CollectionsService
+from ...backend_services.accounts_service.accounts_service_main import AccountsService
+
 from ..error_handling import handle_exceptions
 
 
 @api_view(['GET'])
+
 def get_OTP(request: Request) -> Response:
     """ Triggers an OTP to be sent to the requester """
 
-    return
+    AccountsService.get_otp(request)
+    return Response('OTP Generated', status=status.HTTP_200_OK)
+
+
 
 
 @api_view(['POST'])
@@ -25,4 +30,6 @@ def verify_OTP(request: Request) -> Response:
     """ Verifies the OTP sent by the requester
         :returns: JWT token
     """
+
+
 

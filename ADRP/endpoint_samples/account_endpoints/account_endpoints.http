@@ -1,0 +1,4 @@
+### GET OTP for a user
+GET http://localhost:8000/adrp/get_otp?email="sblank.blankson@gmail.com"
+
+###

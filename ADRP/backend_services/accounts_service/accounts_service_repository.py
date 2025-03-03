@@ -6,6 +6,7 @@ def create_new_otp(user, otp, lifetime) -> OTP:
     now = timezone.now()
 
     new_otp = OTP(user=user,
+                  life_time_mins=lifetime,
                   otp=otp,
                   created_at=now,
                   expiry_date=now + timezone.timedelta(minutes=lifetime))

@@ -13,16 +13,22 @@ class CustomUserManager(BaseUserManager):
     """
 
     def create_user(self, email, password=None, **extra_fields):
-        """ Creates and saves a regular user """
+        """ Creates and saves a user """
 
         if not email:
             raise ValueError('The Email field has not been set')
 
-        # Set account details
+        if check_email_domain(email):
+            extra_fields.setdefault('role', 'internal')
+        else:
+            extra_fields.setdefault('role', 'admin')
+
+        # Set other account details
         email = self.normalize_email(email).lower()
         user = self.model(email=email, **extra_fields)
         user.set_unusable_password()
         extra_fields.setdefault('is_active', True)
+
 
         user.save()
 
@@ -229,6 +235,7 @@ class AccessRequest(models.Model):
 class OTP(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     otp = models.TextField(max_length=6)
+    life_time_mins = models.IntegerField(default=5)
     created_at = models.DateTimeField(default=timezone.now)
     expiry_date = models.DateTimeField()
     attempts = models.IntegerField(default=0)
