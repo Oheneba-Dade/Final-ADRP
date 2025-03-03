@@ -14,7 +14,7 @@ MAX_FILE_SIZE_MB = 500
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024  
 
 
-class dataset_file_services:
+class DatasetFileService:
 
     def handle_file_upload(dataset_id, file_obj):
         """ takes files uploaded and creates the dataset file object"""
