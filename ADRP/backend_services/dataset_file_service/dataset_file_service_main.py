@@ -97,7 +97,7 @@ class DatasetFileService:
             return {"error": f"File size exceeds {MAX_FILE_SIZE_MB}MB limit.", "status": 400}
 
         file_url = update_file_on_bucket(file_obj.name, file_obj)
-        dataset_file = update_dateset_file(dataset, file_url, file_obj.content_type)
+        dataset_file = update_dataset_file(dataset, file_url, file_obj.content_type)
 
         return {"message": "File uploaded successfully", "file_url": file_url, "status": 201}
 

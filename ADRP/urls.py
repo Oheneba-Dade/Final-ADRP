@@ -19,10 +19,16 @@ from django.contrib import admin
 from django.urls import path
 # from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from .views.collection_views.collections import *
-
+from .views.dataset_file_views.dataset_file import * 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("adrp/get_all_collections/", get_all_collections),
     path("adrp/get_collection/", get_collection),
     path("adrp/create_collection", create_collection),
+
+    # dataseet 
+    path("adrp/dataset_file_upload/", upload_dataset_file, name="upload_dataset_file"),
+    path("adrp/dataset_file_download/", download_dataset_file, name="download_dataset_file"),
+    path("adrp/dataset_file_delete/", delete_dataset_file, name="delete_dataset_file"),
+    path("adrp/dataset_file_update/", update_dataset_file, name="update_dataset_file"),
 ]
