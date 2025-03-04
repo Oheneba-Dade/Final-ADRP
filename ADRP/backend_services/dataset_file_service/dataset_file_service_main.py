@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
-from dataset_file_service_repository import *
-from collections_service.collections_service_repository import get_dataset
+from .dataset_file_service_repository import *
+from ..collections_service.collections_service_repository import get_dataset
 from ADRP.models import DatasetFile
 from django.conf import settings
 import boto3
