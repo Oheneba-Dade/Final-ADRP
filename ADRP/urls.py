@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import TokenRefreshView
 from .views.collection_views.collections import *
 from .views.account_views.accounts import *
 
@@ -31,5 +31,7 @@ urlpatterns = [
 
     # Account views
     path("adrp/get_otp",get_OTP),
-    path("adrp/login",)
+    path("adrp/login",login),
+    path("adrp/token/refresh", TokenRefreshView.as_view()),
+    path("adrp/whoami",whoami),
 ]

@@ -1,4 +1,26 @@
 ### GET OTP for a user
-GET http://localhost:8000/adrp/get_otp?email="sblank.blankson@gmail.com"
+GET http://localhost:8000/adrp/get_otp?email=test@example.com
 
-###
+### Login
+POST http://localhost:8000/adrp/login
+Content-Type: application/json
+
+{
+  "email":"test@example.com",
+  "otp":"JMTU64"
+}
+
+### Who is this
+GET http://localhost:8000/adrp/whoami
+Authorization: Bearer
+Content-Type: application/json
+
+
+### Refresh token
+POST http://localhost:8000/adrp/token/refresh
+Authorization: Bearer
+Content-Type: application/json
+
+{
+    "refresh": "put the refreshtoken here"
+}

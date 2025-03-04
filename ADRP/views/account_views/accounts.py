@@ -26,10 +26,21 @@ def get_OTP(request: Request) -> Response:
 
 
 @api_view(['POST'])
-def verify_OTP(request: Request) -> Response:
+def login(request: Request) -> Response:
     """ Verifies the OTP sent by the requester
         :returns: JWT token
     """
+
+    data = AccountsService.login(request)
+
+    return Response(data)
+
+@api_view(['GET'])
+def whoami(request: Request) -> Response:
+    """Returns the email based on the token"""
+
+    data = request.user
+    return Response(data.email, status=status.HTTP_200_OK)
 
 
 

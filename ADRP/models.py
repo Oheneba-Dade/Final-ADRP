@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         if check_email_domain(email):
             extra_fields.setdefault('role', 'internal')
         else:
-            extra_fields.setdefault('role', 'admin')
+            extra_fields.setdefault('role', 'external')
 
         # Set other account details
         email = self.normalize_email(email).lower()
@@ -87,6 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
+    login_attempts = models.IntegerField(default=0)
 
     REQUIRED_FIELDS =  ['role']
     USERNAME_FIELD = 'email'
@@ -236,9 +237,12 @@ class OTP(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     otp = models.TextField(max_length=6)
     life_time_mins = models.IntegerField(default=5)
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now, db_index=True)
     expiry_date = models.DateTimeField()
-    attempts = models.IntegerField(default=0)
+
 
     def __str__(self):
         return f"OTP {self.otp} for {self.user}"
+
+    class Meta:
+        ordering = ['-created_at']
