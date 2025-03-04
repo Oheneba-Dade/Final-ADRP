@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
 from .dataset_file_service_repository import *
-from ..collections_service.collections_service_repository import get_dataset
+from ..collections_service.collections_service_repository import get_collection_by_id
 from ADRP.models import DatasetFile
 from django.conf import settings
 import boto3
@@ -23,7 +23,7 @@ class DatasetFileService:
             return {"error": "Dataset ID and file are required.", "status": 400}
 
         try:
-            dataset = get_dataset(dataset_id) 
+            dataset = get_collection(dataset_id) 
         except ObjectDoesNotExist:
             return {"error": "Dataset not found.", "status": 404}
 
@@ -41,7 +41,7 @@ class DatasetFileService:
             return {"error": "Dataset ID and file are required.", "status": 400}
 
         try:
-            dataset = get_dataset(dataset_id)             
+            dataset = get_collection_by_id(dataset_id)             
             dataset_file = get_dataset_file(dataset_id) 
         except ObjectDoesNotExist:
             return {"error": "Dataset not found.", "status": 404}
@@ -65,7 +65,7 @@ class DatasetFileService:
             return {"error": "Dataset ID and filename are required.", "status": 400}
         
         try:
-            dataset = get_dataset(dataset_id) 
+            dataset = get_collection_by_id(dataset_id) 
         except ObjectDoesNotExist:
             return {"error": "Dataset not found.", "status": 404}
         
@@ -89,7 +89,7 @@ class DatasetFileService:
             return {"error": "Dataset ID and file are required.", "status": 400}
 
         try:
-            dataset = get_dataset(dataset_id) 
+            dataset = get_collection_by_id(dataset_id) 
         except ObjectDoesNotExist:
             return {"error": "Dataset not found.", "status": 404}
 
