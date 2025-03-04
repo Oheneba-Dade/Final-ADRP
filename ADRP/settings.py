@@ -81,13 +81,13 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
-    'REFRESH_TOKEN_LIFETIME': timedelta(hours=2),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=6),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=9),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     # 'ALGORITHM': 'H256',
-    'AUDIENCE': 'GCBREIT',
-    'ISSUER': 'GCBREITWEB',
+    'AUDIENCE': 'ADRPTEST_CLIENT',
+    'ISSUER': 'ADRPTEST_SERVE',
     # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(hours=1),
     # 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=8),
     # 'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
