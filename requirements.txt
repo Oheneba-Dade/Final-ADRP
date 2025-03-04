@@ -7,3 +7,4 @@ django-extensions
 django-cors-headers
 PyJWT
 gunicorn
+drf-spectacular

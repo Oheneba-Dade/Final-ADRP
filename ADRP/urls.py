@@ -20,6 +20,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 from .views.collection_views.collections import *
 from .views.account_views.accounts import *
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -34,4 +35,9 @@ urlpatterns = [
     path("adrp/login",login),
     path("adrp/token/refresh", TokenRefreshView.as_view()),
     path("adrp/whoami",whoami),
+
+    # Docs
+    path('adrp/api_schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('adrp/api_docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+
 ]
