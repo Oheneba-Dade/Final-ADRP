@@ -1,0 +1,37 @@
+from django.http import JsonResponse, HttpRequest, HttpResponse
+from rest_framework.decorators import api_view
+
+# from ...backend_services.orders_service.order_service_main import OrderService
+# from ...models import
+from rest_framework.decorators import api_view
+import traceback
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.request import Request
+from django.db import transaction
+from ...backend_services.collections_service.collections_service_main import CollectionsService
+from ..error_handling import handle_exceptions
+
+
+@api_view(['GET'])
+def get_all_collections(request: Request) -> HttpResponse:
+    """ Get all collections, paginated view"""
+
+    collections = CollectionsService.get_all_collections()
+    return JsonResponse(data=collections, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_collection(request: Request) -> Response:
+    """Get a single collection."""
+
+    collections = CollectionsService.get_collection(request.query_params)
+    return Response(data=collections, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def create_collection(request: Request) -> Response:
+    """Create a single collection."""
+
+    new_collection = CollectionsService.create_collection(request)
+    return Response(data=new_collection, status=status.HTTP_201_CREATED)
