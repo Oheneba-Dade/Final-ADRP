@@ -23,7 +23,7 @@ class DatasetFileService:
             return {"error": "Dataset ID and file are required.", "status": 400}
 
         try:
-            dataset = get_collection(dataset_id) 
+            dataset = get_collection_by_id(dataset_id) 
         except ObjectDoesNotExist:
             return {"error": "Dataset not found.", "status": 404}
 

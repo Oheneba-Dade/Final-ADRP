@@ -2,7 +2,7 @@ from ADRP.models import DatasetFile
 import boto3
 from django.conf import settings
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
-from helper import extract_filename
+from .helper import extract_filename
 import logging
 
 logger = logging.getLogger(__name__)
