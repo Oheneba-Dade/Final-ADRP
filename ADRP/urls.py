@@ -23,7 +23,7 @@ from .views.collection_views.collections import *
 from .views.account_views.accounts import *
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from .views.dataset_file_views.dataset_file import * 
+from .views.dataset_views.dataset_file import * 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -44,9 +44,9 @@ urlpatterns = [
     path('adrp/api_docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
     # dataseet 
-    path("adrp/dataset_file_upload/", upload_dataset_file, name="upload_dataset_file"),
-    path("adrp/dataset_file_download/", download_dataset_file, name="download_dataset_file"),
-    path("adrp/dataset_file_delete/", delete_dataset_file, name="delete_dataset_file"),
-    path("adrp/dataset_file_update/", update_dataset_file, name="update_dataset_file"),
+    path("adrp/dataset_file_upload/", upload_dataset, name="upload_dataset"),
+    path("adrp/dataset_file_download/", download_dataset, name="download_dataset"),
+    path("adrp/dataset_file_delete/", delete_dataset, name="delete_dataset"),
+    path("adrp/dataset_file_update/", update_dataset, name="update_dataset"),
 
 ]
