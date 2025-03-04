@@ -51,7 +51,7 @@ Content-Type: application/zip
 
 
 ### Get all collections
-GET http://localhost:8000/ADRP/get_all_collections?page=1&size=20
+GET http://localhost:8000/adrp/get_all_collections?page=1&size=20
 Authorization: Bearer ......
 
 ### Get a specific collection

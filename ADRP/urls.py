@@ -17,18 +17,36 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import TokenRefreshView
 from .views.collection_views.collections import *
+
+from .views.account_views.accounts import *
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
 from .views.dataset_file_views.dataset_file import * 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # Colleciton views
     path("adrp/get_all_collections/", get_all_collections),
     path("adrp/get_collection/", get_collection),
     path("adrp/create_collection", create_collection),
+
+    # Account views
+    path("adrp/get_otp",get_OTP),
+    path("adrp/login",login),
+    path("adrp/token/refresh", TokenRefreshView.as_view()),
+    path("adrp/whoami",whoami),
+
+    # Docs
+    path('adrp/api_schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('adrp/api_docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
     # dataseet 
     path("adrp/dataset_file_upload/", upload_dataset_file, name="upload_dataset_file"),
     path("adrp/dataset_file_download/", download_dataset_file, name="download_dataset_file"),
     path("adrp/dataset_file_delete/", delete_dataset_file, name="delete_dataset_file"),
     path("adrp/dataset_file_update/", update_dataset_file, name="update_dataset_file"),
+
 ]
