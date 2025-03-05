@@ -48,7 +48,7 @@ export default function Navbar() {
 					<Link href="/about" className={getLinkClass("/about")}>
 						About
 					</Link>
-					<Link href="/login" className={getLinkClass("/login")}>
+					<Link href="/auth" className={getLinkClass("/auth")}>
 						Login
 					</Link>
 				</div>
