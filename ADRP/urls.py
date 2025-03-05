@@ -44,9 +44,9 @@ urlpatterns = [
     path('adrp/api_docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
     # dataseet 
-    path("adrp/dataset_file_upload/", upload_dataset, name="upload_dataset"),
-    path("adrp/dataset_file_download/", download_dataset, name="download_dataset"),
-    path("adrp/dataset_file_delete/", delete_dataset, name="delete_dataset"),
-    path("adrp/dataset_file_update/", update_dataset, name="update_dataset"),
+    path("adrp/dataset_upload/", upload_dataset, name="upload_dataset"),
+    path("adrp/dataset_download/", download_dataset, name="download_dataset"),
+    path("adrp/dataset_delete/", delete_dataset, name="delete_dataset"),
+    path("adrp/dataset_update/", update_dataset, name="update_dataset"),
 
 ]

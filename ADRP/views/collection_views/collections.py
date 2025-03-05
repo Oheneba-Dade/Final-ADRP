@@ -11,6 +11,8 @@ from rest_framework.request import Request
 from django.db import transaction
 from ...backend_services.collections_service.collections_service_main import CollectionsService
 from ..error_handling import handle_exceptions
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 @api_view(['GET'])
@@ -25,8 +27,11 @@ def get_all_collections(request: Request) -> HttpResponse:
 def get_collection(request: Request) -> Response:
     """Get a single collection."""
 
-    collections = CollectionsService.get_collection(request.query_params)
-    return Response(data=collections, status=status.HTTP_200_OK)
+    try:
+        collections = CollectionsService.get_collection(request.query_params)
+        return Response(data=collections, status=status.HTTP_200_OK)
+    except ObjectDoesNotExist:
+        return Response({"message":"collection not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])

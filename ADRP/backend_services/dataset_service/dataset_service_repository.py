@@ -1,6 +1,7 @@
 from ADRP.models import DatasetFile
 import boto3
 from django.conf import settings
+from ADRP.settings import AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
 from .helper import extract_filename
 import logging
@@ -14,10 +15,12 @@ LINK_EXPIRY_TIME = 3600 * 48
 
 
 def s3_client_connection():
+
     return boto3.client(
         "s3",
         aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
         aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        region_name=settings.AWS_S3_REGION_NAME,
     )
 
 
@@ -25,8 +28,8 @@ def upload_dataset_to_bucket(file_obj, filename, collection_id):
     """ Uploads files to bucket and return URL """
     try:
         s3_client = s3_client_connection()
-        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
-        s3_client.upload_file_obj(file_obj, bucket_name, filename, ExtraArgs={"ACL": "public-read"}) # will allow anyone with the link to read the file
+        bucket_name = AWS_STORAGE_BUCKET_NAME
+        s3_client.upload_fileobj(file_obj, bucket_name, filename) # will allow anyone with the link to read the file
         # ExtraArgs={"ACL": "private"} Only the owner (AWS account that uploaded the file) can access it.
 
         return f"https://{bucket_name}.s3.amazonaws.com/{collection_id}-{filename}"
@@ -47,7 +50,7 @@ def generate_dataset_url_from_bucket(filename):
         s3_client = s3_client_connection()
         return s3_client.generate_presigned_url(
             'get_object', 
-            params={'Bucket':settings.AWS_STORAGE_BUCKET_NAME,'Key':filename}, 
+            Params={'Bucket':AWS_STORAGE_BUCKET_NAME,'Key':filename}, 
             ExpiresIn=LINK_EXPIRY_TIME) 
     
     except Exception as e:
@@ -59,7 +62,7 @@ def generate_dataset_url_from_bucket(filename):
 def delete_dataset_from_bucket(filename):
     try:
         s3_client = s3_client_connection()
-        return s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME,Key=filename,)
+        return s3_client.delete_object(Bucket=AWS_STORAGE_BUCKET_NAME,Key=filename,)
     
     except (NoCredentialsError, PartialCredentialsError):
         logger.error("AWS credentials not found or misconfigured")
@@ -72,7 +75,7 @@ def update_dataset_on_bucket(filename, file_obj):
     try:
         s3_client = s3_client_connection()
         return s3_client.put_object(
-            Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+            Bucket=AWS_STORAGE_BUCKET_NAME,
             Body=file_obj,
             Key=filename,
         )
@@ -96,12 +99,15 @@ def get_dataset_file(collection_id, filename):
 
 def save_dataset(collection, file_url, file_type):
     """Saves a dataset file record in the collection"""
-    return DatasetFile.objects.create(
-        collection=collection,
-        filename=extract_filename(file_url),
-        file_url=file_url,
-        file_type=file_type
-    )
+    try:
+            return DatasetFile.objects.create(
+                collection=collection,
+                file_name=extract_filename(file_url),
+                file_url=file_url,
+                file_type=file_type
+            )
+    except Exception as e:
+        raise ValueError(f"Failed to save dataset file: {str(e)}")
 
 
 def update_dataset_file(dataset, file_url, file_type):

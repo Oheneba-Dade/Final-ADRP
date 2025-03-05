@@ -3,9 +3,12 @@ from botocore.exceptions import NoCredentialsError, PartialCredentialsError, Bot
 from .dataset_service_repository import *
 from ..collections_service.collections_service_repository import get_collection_by_id
 from ADRP.models import DatasetFile
-from django.conf import settings
 import boto3
 import logging
+from django.core.exceptions import ObjectDoesNotExist
+import os
+
+
 
 
 logger = logging.getLogger(__name__)
@@ -19,13 +22,14 @@ class DatasetService:
     def handle_dataset_upload(collection_id, file_obj):
         """ takes files uploaded and creates the Collection file object"""
 
+        
         if not collection_id or not file_obj:
             return {"error": "Collection ID and file are required.", "status": 400}
 
         try:
             collection = get_collection_by_id(collection_id) 
         except ObjectDoesNotExist:
-            return {"error": "Dataset not found.", "status": 404}
+            return {"error": "Collection not found.", "status": 404}
 
         if file_obj.size > MAX_FILE_SIZE_BYTES:
             return {"error": f"File size exceeds {MAX_FILE_SIZE_MB}MB limit.", "status": 400}
@@ -34,11 +38,18 @@ class DatasetService:
 
         try:
             file_url = upload_dataset_to_bucket(file_obj, file_obj.name, collection_id)
-            save_dataset(collection, file_url, file_obj.content_type)
         except:
             return {"message":"File upload failed", "status": 400}
+        
+        try:
+            save_dataset(collection, file_url, file_obj.content_type)
+            return {"message": "File uploaded successfully", "file_url": file_url, "status": 201}
 
-        return {"message": "File uploaded successfully", "file_url": file_url, "status": 201}
+        except ValueError as ve:
+            return {"message": str(ve), "status": 400}
+        except Exception as e:
+            return {"message": "An unexpected error occurred", "details": str(e), "status": 500}
+
 
 
     def handle_dataset_download(collection_id, filename):
@@ -64,11 +75,11 @@ class DatasetService:
             return {"error": "collection ID and filename are required.", "status": 400}
         
         try:
-            collection = get_collection_by_id(collection_id) 
+            collection = get_collection_by_id(collection_id)
         except ObjectDoesNotExist:
-            return {"error": "Dataset not found.", "status": 404}
-        
-        
+            return {"error": "Collection not found.", "status": 404}
+
+                
         try:
             dataset_filename = f'{collection_id}-{filename}'
             delete_dataset_from_bucket(dataset_filename)
@@ -92,7 +103,7 @@ class DatasetService:
         try:
             collection = get_collection_by_id(collection_id) 
         except ObjectDoesNotExist:
-            return {"error": "Dataset not found.", "status": 404}
+            return {"error": "Collection not found.", "status": 404}
 
         if file_obj.size > MAX_FILE_SIZE_BYTES:
             return {"error": f"File size exceeds {MAX_FILE_SIZE_MB}MB limit.", "status": 400}
