@@ -161,7 +161,7 @@ class Collection(models.Model):
 
     def __str__(self):
         formatted_date = localtime(self.upload_date).strftime('%Y-%m-%d %H:%M')
-        return f"{self.title} | Uploaded by: {self.uploaded_by.username} | Date: {formatted_date} | Status: {self.approval_status}"
+        return f"{self.title} | Uploaded by: {self.uploaded_by.email} | Date: {formatted_date} | Status: {self.approval_status}"
 
     class Meta:
         ordering = ["-upload_date"]

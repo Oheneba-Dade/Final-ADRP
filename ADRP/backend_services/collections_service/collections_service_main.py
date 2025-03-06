@@ -40,6 +40,7 @@ class CollectionsService:
     @staticmethod
     def get_collection(request_obj : Request.query_params):
         collection_id = request_obj.get('collection_id')
+        print("Query Params:", request_obj)
 
         collection_data = get_collection_by_id(collection_id)
 
