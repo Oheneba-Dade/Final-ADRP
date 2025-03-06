@@ -29,7 +29,8 @@ def upload_dataset_to_bucket(file_obj, filename, collection_id):
     try:
         s3_client = s3_client_connection()
         bucket_name = AWS_STORAGE_BUCKET_NAME
-        s3_client.upload_fileobj(file_obj, bucket_name, filename) # will allow anyone with the link to read the file
+        key = f'{collection_id}-{filename}' # unique id for files in bucket
+        s3_client.upload_fileobj(file_obj, bucket_name, key) # will allow anyone with the link to read the file
         # ExtraArgs={"ACL": "private"} Only the owner (AWS account that uploaded the file) can access it.
 
         return f"https://{bucket_name}.s3.amazonaws.com/{collection_id}-{filename}"
@@ -62,7 +63,7 @@ def generate_dataset_url_from_bucket(filename):
 def delete_dataset_from_bucket(filename):
     try:
         s3_client = s3_client_connection()
-        return s3_client.delete_object(Bucket=AWS_STORAGE_BUCKET_NAME,Key=filename,)
+        return s3_client.delete_object(Bucket=AWS_STORAGE_BUCKET_NAME,Key=filename)
     
     except (NoCredentialsError, PartialCredentialsError):
         logger.error("AWS credentials not found or misconfigured")
@@ -110,14 +111,14 @@ def save_dataset(collection, file_url, file_type):
         raise ValueError(f"Failed to save dataset file: {str(e)}")
 
 
-def update_dataset_file(dataset, file_url, file_type):
+def update_dataset_file(collection, file_url, file_type):
     """Update dataset file in the collection"""
-    return DatasetFile.objects.filter(dataset=dataset).update(
+    return DatasetFile.objects.filter(collection=collection).update(
         file_url=file_url,
         file_type=file_type
     )
 
 
-def delete_dataset_file(dataset, filename):
+def delete_dataset_file(collection, filename):
     """Delete dataset file from the collection"""
-    return DatasetFile.objects.filter(dataset=dataset, file_url__endswith=filename).delete()[0]
+    return DatasetFile.objects.filter(collection=collection, file_url__endswith=filename).delete()[0]
