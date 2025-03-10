@@ -9,12 +9,13 @@ const montserrat = Montserrat({
 });
 
 export default function RootLayout({ children }) {
+	
 	return (
 		<html lang="en">
 			<body className={`${montserrat.className} flex flex-col `}>
 				<Navbar />
-				<Footer />
-				<main className="flex-1">{children}</main>
+				<main >{children}</main>
+				<Footer />	
 			</body>
 		</html>
 	);

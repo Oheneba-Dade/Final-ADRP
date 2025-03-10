@@ -11,8 +11,8 @@ export default function Navbar() {
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
-			? "font-normal border-b-2 border-ashesi-red pb-1"
-			: "font-light";
+			? "font-normal border-b-2 border-ashesi-red pr-2"
+			: "font-light hover:font-normal pr-2";
 
 	return (
 		<>
@@ -30,7 +30,7 @@ export default function Navbar() {
 						height={45}
 						className="object-contain"
 					/>
-					<div className="font-montserrat text-2xl text-black">
+					<div className="font-montserrat text-xl text-black">
 						Data Repository
 					</div>
 				</Link>
@@ -55,14 +55,15 @@ export default function Navbar() {
 
 				{/* Floating Div Below Navbar */}
 				<div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-1/2 bg-white shadow-md p-4 text-center rounded-lg z-10 flex justify-around font-light">
-					<Link href="/" className="hover:font-normal">
+					<Link href="/collections" className="hover:font-normal">
 						Collections
 					</Link>
-					<Link href="/" className="hover:font-normal">
+					<Link href="/add_dataset" className="hover:font-normal">
 						Contribute Dataset
 					</Link>
-					<Link href="/" className="hover:font-normal">
-						Report
+
+					<Link href="/data_policy" className="hover:font-normal">
+						Data Policy
 					</Link>
 				</div>
 			</div>

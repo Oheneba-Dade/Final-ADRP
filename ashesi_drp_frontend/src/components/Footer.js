@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import FooterLink from "./FooterLink";
 import {
 	SiFacebook,
 	SiX,
@@ -10,6 +10,7 @@ import {
 	SiYoutube,
 } from "react-icons/si";
 import SocialIcon from "@/components/SocialIcon";
+import CustomButton from "@/components/CustomButton";
 
 export default function Footer() {
 	const icons = [
@@ -27,10 +28,7 @@ export default function Footer() {
 					Venture into a wide spectrum of datasets submitted by the
 					Ashesi Community
 				</p>
-				{/* tentative, will be replaced by the button component */}
-				<Link href="/">
-					<p className="bg-white text-ashesi-red p-2">Login Now!</p>
-				</Link>
+				<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login Now!" href="/" />
 			</div>
 			<div className="flex justify-center py-10">
 				<Image
@@ -41,13 +39,13 @@ export default function Footer() {
 					className="object-contain"
 				/>
 			</div>
-			<div className="grid grid-cols-3 gap-4 mb-20">
+			<div className="grid grid-cols-3 gap-4 mb-20 place-items-center">
 				<div className="flex gap-5 justify-center">
 					{icons.map(({ component, link }, index) => (
 						<SocialIcon key={link} icon={component} link={link} />
 					))}
 				</div>
-				<div className>
+				<div>
 					<p className="text-center">
 						1 University Avenue,
 						<br /> Berekuso, Ghana
@@ -60,11 +58,16 @@ export default function Footer() {
 						<strong>Email:</strong>&nbsp;&nbsp;info@ashesi.edu.gh
 					</p>
 				</div>
-				<p>1</p>
+				<div>
+					<FooterLink title="Home" link="/" />
+					<FooterLink title="About The Project" link="/about" />
+					<FooterLink title="View Dataset" link="/" />
+					<FooterLink title="Data Policy" link="/data_policy" />
+				</div>
 			</div>
 			<div className="bg-ashesi-gray flex justify-center items-center py-6">
 				<p className="text-white text-sm">
-					Copyright {new Date().getFullYear()}
+					Copyright {new Date().getFullYear()} ©
 					&nbsp;&nbsp;|&nbsp;&nbsp;Ashesi University
 				</p>
 			</div>
