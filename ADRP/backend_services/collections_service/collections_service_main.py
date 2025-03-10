@@ -25,7 +25,6 @@ class CollectionsService:
         raise ValidationError(serializer.errors)
 
 
-
     @staticmethod
     def delete_collection(self):
         return
@@ -52,4 +51,5 @@ class CollectionsService:
             print(serialized_data.data)
             return serialized_data.data
 
+        "print there is no valid"
         return
