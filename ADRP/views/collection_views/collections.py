@@ -40,3 +40,11 @@ def create_collection(request: Request) -> Response:
 
     new_collection = CollectionsService.create_collection(request)
     return Response(data=new_collection.id, status=status.HTTP_201_CREATED)
+
+
+@api_view(['DELETE'])
+def delete_collection(request: Request) -> Response:
+    """ Delete a single collection"""
+
+    CollectionsService.delete_collection(request)
+    return Response(data={}, status=status.HTTP_204_NO_CONTENT)

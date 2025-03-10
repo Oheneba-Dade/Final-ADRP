@@ -1,0 +1,90 @@
+### Entry 1
+POST http://localhost:8000/adrp/create_collection
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjI5MTgyLCJpYXQiOjE3NDE2MDc1ODIsImp0aSI6IjBmNmVlN2NjMDY1OTQ2Y2RhMzBjZDJlYjliNWU5NDc5IiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.C_e-DtjkXoOfG_94TKH95gkGIWRKYmAWqADCmcK6cco
+
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
+
+"ADRP: Research on an Instiutional Repository"
+--WebAppBoundary
+Content-Disposition: form-data; name="authors"
+
+[
+    {"name": "Author One", "email": "author1@example.com"},
+    {"name": "Author Two", "email": "author2@example.com"}
+]
+--WebAppBoundary
+Content-Disposition: form-data; name="doi_link"
+
+https://doi.org/10.1234/fake-doi-56789
+
+--WebAppBoundary
+Content-Disposition: form-data; name="keywords"
+
+["research" , "data", "elements"]
+
+--WebAppBoundary
+Content-Disposition: form-data; name="abstract"
+
+Research focuses on how to build an insititional repo
+
+--WebAppBoundary
+Content-Disposition: form-data; name="instance_representation"
+
+they represent something
+
+--WebAppBoundary
+Content-Disposition: form-data; name="missing_values"
+
+False
+
+--WebAppBoundary
+Content-Disposition: form-data; name="comment"
+
+its a great dataset
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataset_file"; filename="test_dataset.zip"
+Content-Type: application/zip
+
+<..test_dataset.zip
+--WebAppBoundary--
+
+
+### Entry 2
+POST http://localhost:8000/adrp/create_collection
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjI5MTgyLCJpYXQiOjE3NDE2MDc1ODIsImp0aSI6IjBmNmVlN2NjMDY1OTQ2Y2RhMzBjZDJlYjliNWU5NDc5IiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.C_e-DtjkXoOfG_94TKH95gkGIWRKYmAWqADCmcK6cco
+
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
+
+Aerodynamic Efficiency in Formula 1 Car Design
+--WebAppBoundary
+Content-Disposition: form-data; name="doi_link"
+
+https://doi.org/10.1234/f1-aero
+--WebAppBoundary
+Content-Disposition: form-data; name="keywords"
+
+Formula 1, aerodynamics, drag reduction, CFD simulations
+--WebAppBoundary
+Content-Disposition: form-data; name="abstract"
+
+This study explores aerodynamic efficiency improvements in Formula 1 cars using computational fluid dynamics (CFD) simulations. The research analyzes drag reduction techniques and the impact of ground effect aerodynamics.
+--WebAppBoundary
+Content-Disposition: form-data; name="instance_representation"
+
+CFD models, wind tunnel data, and real-world telemetry from F1 teams.
+--WebAppBoundary
+Content-Disposition: form-data; name="missing_values"
+
+False
+--WebAppBoundary
+Content-Disposition: form-data; name="comment"
+
+Potential real-world applications extend to electric vehicle aerodynamics.
+--WebAppBoundary--
+
+

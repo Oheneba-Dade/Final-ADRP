@@ -7,6 +7,7 @@ from .collections_service_repository import get_collection_by_id, create_collect
 from rest_framework.exceptions import NotFound, ValidationError
 from ...serializers import CollectionSerializer
 from rest_framework.request import Request
+from rest_framework.pagination import PageNumberPagination
 
 
 class CollectionsService:
@@ -25,9 +26,8 @@ class CollectionsService:
         raise ValidationError(serializer.errors)
 
 
-
     @staticmethod
-    def delete_collection(self):
+    def delete_collection(request_obj: Request):
         return
 
     @staticmethod
@@ -35,21 +35,15 @@ class CollectionsService:
         return
 
     @staticmethod
-    def get_all_collections(self):
+    def get_all_collections(request_obj: Request):
         return
 
     @staticmethod
-    def get_collection(request_obj : Request):
+    def get_collection(request_obj: Request):
         collection_id = request_obj.query_params.get('collection_id')
 
         collection_data = get_collection_by_id(collection_id)
-        serialized_data = CollectionSerializer(data=collection_data)
+        serialized_data = CollectionSerializer(instance=collection_data)
 
-        if collection_data is None:
-            raise NotFound('Collection not found')
+        return serialized_data.data
 
-        if serialized_data.is_valid():
-            print(serialized_data.data)
-            return serialized_data.data
-
-        return
