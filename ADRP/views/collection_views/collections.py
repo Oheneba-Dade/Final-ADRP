@@ -14,14 +14,12 @@ from ..error_handling import handle_exceptions
 from django.core.exceptions import ObjectDoesNotExist
 
 
-
 @api_view(['GET'])
 def get_all_collections(request: Request) -> HttpResponse:
     """ Get all collections, paginated view"""
 
     collections = CollectionsService.get_all_collections(request)
     return collections
-
 
 
 @api_view(['GET'])
@@ -32,7 +30,7 @@ def get_collection(request: Request) -> Response:
         collections = CollectionsService.get_collection(request)
         return Response(data=collections, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
-        return Response({"message":"collection not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"message": "collection not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
@@ -49,3 +47,12 @@ def delete_collection(request: Request) -> Response:
 
     CollectionsService.delete_collection(request)
     return Response(data={}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['PATCH'])
+def change_collection_status(request: Request) -> Response:
+    """Change the status of a collection"""
+
+    response = CollectionsService.change_collection_status(request)
+
+    return response

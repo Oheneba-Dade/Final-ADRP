@@ -60,13 +60,39 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 GET http://localhost:8000/adrp/get_collection?collection_id=2
 #Authorization: Bearer ......
 
-### Get Query Collections
-GET http://localhost:8000/ADRP/collections?title=test%20collection&keyword=data
+### Query Collections
+GET http://localhost:8000/adrp/collections?title=test%20collection&keyword=data
     &subject=AI&task=classification&datatype=ML&published_after=2024-01-01&published_before=2024-12-31
 #Authorization: Bearer ......
 
+### Approve a Collection
+PATCH http://localhost:8000/adrp/collection_status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjU1MDQwLCJpYXQiOjE3NDE2MzM0NDAsImp0aSI6IjM1MDhkNzBjNmY3MDRlODlhZDZhMjQwOTU4MmMxZGYxIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.vvXregBmtDfjdFzz-Wr-KaW9TgtIShxsyLHtxhs2uJg
+Content-Type: application/json
+
+{
+  "id": 2,
+  "approval_status": "approved"
+}
+
+### Reject a Collection
+PATCH http://localhost:8000/adrp/collection_status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjU1MDQwLCJpYXQiOjE3NDE2MzM0NDAsImp0aSI6IjM1MDhkNzBjNmY3MDRlODlhZDZhMjQwOTU4MmMxZGYxIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.vvXregBmtDfjdFzz-Wr-KaW9TgtIShxsyLHtxhs2uJg
+Content-Type: application/json
+
+{
+  "id": 2,
+  "approval_status": "rejected"
+}
 
 
+### Set a collection status to pending
+PATCH http://localhost:8000/adrp/collection_status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjU1MDQwLCJpYXQiOjE3NDE2MzM0NDAsImp0aSI6IjM1MDhkNzBjNmY3MDRlODlhZDZhMjQwOTU4MmMxZGYxIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.vvXregBmtDfjdFzz-Wr-KaW9TgtIShxsyLHtxhs2uJg
+Content-Type: application/json
 
-
+{
+  "id": 2,
+  "approval_status": "pending"
+}
 

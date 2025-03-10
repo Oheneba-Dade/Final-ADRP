@@ -6,24 +6,38 @@ from ...serializers import CollectionSerializer
 
 def get_collection_by_id(collection_id):
     try:
-        return Collection.objects.get(id=collection_id) 
-    except Collection.DoesNotExist: 
-          raise ObjectDoesNotExist("Collection not found.")
+        return Collection.objects.get(id=collection_id)
+    except Collection.DoesNotExist:
+        raise ObjectDoesNotExist("Collection not found.")
 
 
 def create_collection(user, collection):
-    new_collection = Collection(uploaded_by=user,**collection)
+    new_collection = Collection(uploaded_by=user, **collection)
     new_collection.save()
 
     return new_collection
 
+
 # def create_collection_authors()
 
-def get_all_collections(request, admin = False):
+def get_all_collections(request, status, admin=False):
     """ Returns a paginated list of all collections"""
     paginator = AdminPagination() if admin else BasicPagination()
 
-    lazy_query = Collection.objects.all()
+    lazy_query = Collection.objects.filter(approval_status=status)
     results = paginator.paginate_queryset(lazy_query, request)
     serializer = CollectionSerializer(results, many=True)
+
     return paginator.get_paginated_response(serializer.data)
+
+
+def change_collection_status(collection_id, status):
+    collection = get_collection_by_id(collection_id)
+    collection.status = status
+    collection.save()
+
+
+def increment_collection_views(collection: Collection):
+    collection.view_count += 1
+    collection.save()
+    return collection
