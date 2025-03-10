@@ -19,8 +19,9 @@ from django.core.exceptions import ObjectDoesNotExist
 def get_all_collections(request: Request) -> HttpResponse:
     """ Get all collections, paginated view"""
 
-    collections = CollectionsService.get_all_collections()
-    return JsonResponse(data=collections, status=status.HTTP_200_OK)
+    collections = CollectionsService.get_all_collections(request)
+    return collections
+
 
 
 @api_view(['GET'])

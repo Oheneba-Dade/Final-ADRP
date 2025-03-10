@@ -3,11 +3,12 @@ from urllib import request
 from rest_framework import status
 from rest_framework.response import Response
 
-from .collections_service_repository import get_collection_by_id, create_collection
+from .collections_service_repository import get_collection_by_id, create_collection, get_all_collections
 from rest_framework.exceptions import NotFound, ValidationError
 from ...serializers import CollectionSerializer
 from rest_framework.request import Request
 from rest_framework.pagination import PageNumberPagination
+
 
 
 class CollectionsService:
@@ -21,6 +22,7 @@ class CollectionsService:
 
         if serializer.is_valid():
             new_collection = create_collection(request_obj.user,serializer.validated_data)
+
             return new_collection
 
         raise ValidationError(serializer.errors)
@@ -36,7 +38,11 @@ class CollectionsService:
 
     @staticmethod
     def get_all_collections(request_obj: Request):
-        return
+        """ Gets all collections. Returns a paginated response"""
+
+        results = get_all_collections(request_obj)
+
+        return results
 
     @staticmethod
     def get_collection(request_obj: Request):
