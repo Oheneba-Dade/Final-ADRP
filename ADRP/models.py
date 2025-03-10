@@ -41,15 +41,15 @@ class CustomUserManager(BaseUserManager):
         if password is None:
             raise TypeError('Superusers must have a password.')
 
-        # Check that appropriate permissions are set
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True')
-        if extra_fields.get('is_active') is not True:
-            raise ValueError('Superuser must have is_active=True')
-
         # Set new defaults
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('role', 'admin')
+
+        # # Check that appropriate permissions are set
+        # if extra_fields.get('is_superuser') is not True:
+        #     raise ValueError('Superuser must have is_superuser=True')
+        # Set new defaults
+
 
         # Create the user
         user = self.create_user(email, password, **extra_fields)
@@ -127,7 +127,7 @@ class Collection(models.Model):
     authors = models.ManyToManyField(Authors)
     abstract = models.TextField()
     missing_values = models.BooleanField()
-    keywords = models.CharField(max_length=255, help_text="Comma-separated keywords for search and filtering.")
+    keywords = ArrayField(models.CharField(max_length=50), blank=True, default=list,  help_text="Comma-separated keywords for search and filtering.")
     date_of_publication = models.DateTimeField(default=timezone.now)
     comment = models.TextField(blank=True, null=True)
     doi_link = models.URLField(max_length=500, null=True)
@@ -137,7 +137,7 @@ class Collection(models.Model):
 
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(default=timezone.now)
-    access_level = models.CharField(max_length=20, choices=ACCESS_CHOICES, default='public')
+    access_level = models.CharField(max_length=20, choices=ACCESS_CHOICES, default='restricted')
     tags = models.ManyToManyField("Tag", blank=True)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, blank=True)
 

@@ -32,7 +32,6 @@ def login(request: Request) -> Response:
     """
 
     data = AccountsService.login(request)
-
     return Response(data)
 
 @api_view(['GET'])

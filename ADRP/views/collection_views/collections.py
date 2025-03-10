@@ -28,7 +28,7 @@ def get_collection(request: Request) -> Response:
     """Get a single collection."""
 
     try:
-        collections = CollectionsService.get_collection(request.query_params)
+        collections = CollectionsService.get_collection(request)
         return Response(data=collections, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
         return Response({"message":"collection not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -39,4 +39,4 @@ def create_collection(request: Request) -> Response:
     """Create a single collection."""
 
     new_collection = CollectionsService.create_collection(request)
-    return Response(data=new_collection, status=status.HTTP_201_CREATED)
+    return Response(data=new_collection.id, status=status.HTTP_201_CREATED)
