@@ -80,7 +80,7 @@ class CollectionFileAPITestCase(APITestCase):
 
         delete_response = self.client.post(self.delete_url, data_del, format="json")
         # print("Delete Response:", delete_response)
-        print("Delete Response JSON:", delete_response.json() if delete_response.headers.get("content-type") == "application/json" else response.content.decode())
+        print("Delete Response JSON:", delete_response.json() if delete_response.headers.get("content-type") == "application/json" else delete_response.content.decode())
 
         self.assertEqual(delete_response.status_code, status.HTTP_200_OK)
 
