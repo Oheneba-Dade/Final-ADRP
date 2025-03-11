@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 
 # from ...backend_services.orders_service.order_service_main import OrderService
 # from ...models import
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 import traceback
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,9 +12,10 @@ from django.db import transaction
 from ...backend_services.collections_service.collections_service_main import CollectionsService
 from ..error_handling import handle_exceptions
 from django.core.exceptions import ObjectDoesNotExist
-
+from rest_framework.permissions import AllowAny
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def get_all_collections(request: Request) -> HttpResponse:
     """ Get all collections, paginated view"""
 
