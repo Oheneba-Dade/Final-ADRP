@@ -3,14 +3,33 @@ import "../globals.css";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import CustomButton from "@/components/CustomButton";
+import CountdownTimer from "@/components/Countdown";
 import Image from "next/image";
 // import { FaUser, IoIosHelp  } from "react-icons/fa";
 
 export default function Page() {
     const router = useRouter()
+    const [timerActive, setTimerActive] = useState(true);
+
+    const [email, setEmail] = useState("");
+    const [emailMsg, setEmailMsg] = useState("");
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+    const emailValidation = () => {
+        const regEx = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/g;
+        if(!regEx.test(email) && email !== "email"){
+            setEmailMsg("Invalid Email Address!");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
 
     const [otp, setOtp] = useState(new Array(6).fill(""));
-    const handleOtpChange = (e, index) => {
+    const handleOtpAdd = (e, index) => {
         if(isNaN(e.target.value)) {
             return false;
         }
@@ -20,14 +39,29 @@ export default function Page() {
             e.target.nextSibling.focus()
         }
     }
-    const handleBackspace = (e, index) => {
-        const newOtp = [...otp];
-        newOtp[index] = "";
-        setOtp(newOtp); 
-    }
+
+    const handleOtpBackspace = (e, index) => {
+        if (e.key === "Backspace") {
+            if (otp[index] !== "") {
+                const newOtp = [...otp];
+                newOtp[index] = "";
+                setOtp(newOtp);
+            } else if (index > 0) {
+                document.getElementById(`otp-${index - 1}`).focus();
+            }
+        }
+    };
+
 
     const [step, setStep] = useState(1);
-    const handleNext = () => {
+    const handleNext = () => { 
+        const state = emailValidation();
+        if(state){
+            setStep(2);
+        } 
+    }
+
+    const handleBack = () => {
         // 1 is the username step and 2 is the password step
         if (step === 1){
             setStep(2);
@@ -36,6 +70,10 @@ export default function Page() {
         else if (step === 2){
             setStep(1);
         }
+    }
+
+    const handleLogin = () => {
+        console.log(otp.join())
     }
 
 	return (
@@ -53,10 +91,10 @@ export default function Page() {
                 </div>
             </div>
 
-            <div className="bg-ashesi-red p-10 rounded-md">
+            <div className="bg-ashesi-red p-8 rounded-md">
                 {step === 1 ? (
                     <div>
-                        <div className="flex flex-col p-4">
+                        <div className="flex flex-col p-4 mr-8">
                             <label className="text-white font-bold pb-2">
                                 Username/Email:
                             </label>
@@ -64,13 +102,19 @@ export default function Page() {
                                 type="email"
                                 id="email"
                                 name="email"
+                                placeholder="Email"
+                                value = {email}
+                                onChange = {handleEmailChange}
                                 className="p-2 border border-ashesi-red rounded-md w-96 focus:outline-ashesi-red"
                                 required 
                             />
-                            {/* some informative text at the beginning */}
-                            {/* change to link later */}
-                            <div className="flex flex-row justify-end mr-6 mt-1">
-                                <h5 className="text-white underline">help?</h5>
+                            <div className="flex flex-row mt-2 text-white justify-between">
+                                <div>
+                                    {emailMsg}
+                                </div>
+                                <div>
+                                    <button className="underline rm-1">help?</button>
+                                </div>
                             </div>
                         </div>
 
@@ -100,36 +144,48 @@ export default function Page() {
                     </div>   
                 ) : (
                 <div>
-                    <div className="flex flex-col p-4 items-center">
-                        <label className="text-white font-bold pb-2">
+                    <div className="flex flex-col p-4 items-center h-50">
+                        <label className="text-white font-bold mb-4">
                             Enter OTP
                         </label>
-                        <div className="flex flex-row gap-2 h-full">   
+                        
+                        <div className="flex flex-row gap-2 ">   
                             {
                                 otp.map((data, i)=>{
                                     return <input
                                     type="numper"
                                     value = {data}
-                                    id="otp"
+                                    id={`otp-${i}`}
                                     name="otp"
                                     maxLength={1}
-                                    className="border border-ashesi-red rounded-md w-10 focus:outline-black text-center"
-                                    onChange={(e)=>handleOtpChange(e, i)}
+                                    key = {i}
+                                    className = "w-12 h-16 text-center text-xl font-semibold rounded-md focus:outline-2 caret-transparent"
+                                    onChange={(e)=>handleOtpAdd(e, i)}
                                     onKeyDown={(e) => {
                                         if(e.key === "Backspace"){
-                                            handleBackspace(e, i)
+                                            handleOtpBackspace(e, i)
                                         }
-                                    }}
-                                    // required
+                                        if(e.key === "Enter"){
+                                            console.log(otp.join())
+                                        }
+                                    }}      
                                 />
                                 })
                             }
                         </div>
-                        {/* some informative text at the beginning */}
-                        {/* <div className="flex flex-row justify-end mr-6 mt-1">
-                            <h5 className="text-white underline">help?</h5>
-                        </div> */}
                     </div> 
+                    <div className="flex flex-row mr-10 mt-1 text-white bold-sm ml-14 gap-1">
+                        <button disabled={timerActive} onClick = {(e) => alert("waza")}>Request Code</button>
+                        <div>
+                            {timerActive && (
+                            <div className="flex flex-row text-ashesi-gray gap-1">
+                                <span>in</span>
+                                <CountdownTimer setTimerActive={setTimerActive}/>
+                                <span>seconds</span>
+                            </div>
+                             )}
+                        </div>
+                    </div>
                     <div className="flex flex-row justify-end p-4 mt-2 mr-4">
                         <div className="mr-4">
                             <CustomButton
@@ -138,18 +194,18 @@ export default function Page() {
                                 textColor="text-white"
                                 width="w-50"
                                 height="h-10"
-                                onClick={handleNext}
+                                onClick={handleBack}
                                 // className="font-light"
                             />
                         </div>
                         <div className="">
                             <CustomButton
-                                text="Submit"
+                                text="Login"
                                 bgColor="bg-white"
                                 textColor="text-black"
                                 width="w-50"
                                 height="h-10"
-                                // onClick={handleNext} join array and verify
+                                onClick={handleLogin}
                             />
                         </div>
                     </div> 

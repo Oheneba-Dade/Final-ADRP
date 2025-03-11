@@ -1,3 +1,5 @@
-export default function Page() {
-	return <h1>Hello Next.js!</h1>
-  }
+import "./globals.css";
+
+export default function RootLayout({ children }) {
+	return <main className="">{children}</main>;
+}
