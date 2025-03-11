@@ -127,7 +127,7 @@ class Collection(models.Model):
     authors = models.ManyToManyField(Authors)
     abstract = models.TextField()
     missing_values = models.BooleanField()
-    keywords = ArrayField(models.CharField(max_length=50), blank=True, default=list,  help_text="Comma-separated keywords for search and filtering.")
+    keywords = ArrayField(models.CharField(max_length=300), blank=True, default=list,  help_text="Comma-separated keywords for search and filtering.")
     date_of_publication = models.DateTimeField(default=timezone.now)
     comment = models.TextField(blank=True, null=True)
     doi_link = models.URLField(max_length=500, null=True)
