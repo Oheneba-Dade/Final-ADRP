@@ -1,5 +1,12 @@
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from rest_framework.decorators import api_view
+from django_filters import rest_framework as filters
+from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
+from ADRP.models import Collection
+from ADRP.serializers import CollectionSerializer
+from .filters import CollectionFilter
+from rest_framework.pagination import PageNumberPagination
 
 # from ...backend_services.orders_service.order_service_main import OrderService
 # from ...models import
@@ -48,3 +55,21 @@ def delete_collection(request: Request) -> Response:
 
     CollectionsService.delete_collection(request)
     return Response(data={}, status=status.HTTP_204_NO_CONTENT)
+
+
+# filter stuff
+
+class CollectionPagination(PageNumberPagination):
+    page_size = 10 
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class CollectionListView(generics.ListAPIView):
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CollectionFilter
+    ordering_fields = ['date_of_publication', 'title']
+    ordering = ['-date_of_publication']
+    pagination_class = CollectionPagination

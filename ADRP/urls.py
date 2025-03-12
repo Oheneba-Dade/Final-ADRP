@@ -32,6 +32,7 @@ urlpatterns = [
     path("adrp/get_all_collections/", get_all_collections),
     path("adrp/get_collection/", get_collection),
     path("adrp/create_collection", create_collection),
+    path("adrp/collections", CollectionListView.as_view(), name="collection-list"),
 
     # Account views
     path("adrp/get_otp",get_OTP),

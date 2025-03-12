@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_extensions',
     'corsheaders',
-    'drf_spectacular'
+    'django_filters',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,10 @@ MIDDLEWARE = [
 
 
 REST_FRAMEWORK = {
+
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -104,6 +109,11 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = "ADRP.urls"
+
+
+
+#some timezone things
+
 
 TEMPLATES = [
     {
@@ -210,7 +220,7 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False ##turned it to off i dont like seeing warnings
 
 
 # Static files (CSS, JavaScript, Images)

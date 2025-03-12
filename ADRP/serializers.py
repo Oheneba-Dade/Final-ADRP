@@ -39,4 +39,4 @@ class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = ['title', 'doi_link','keywords','abstract','instance_representation',
-                  'missing_values','comment']
+                  'missing_values','comment', 'date_of_publication']
