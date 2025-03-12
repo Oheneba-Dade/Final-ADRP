@@ -5,6 +5,7 @@ import { useState } from "react";
 import {BASE_URL} from "@/utils/constants";
 
 export default function Filter() {
+	const d = new Date();
 	const [fromYear, setFromYear] = useState("1900");
 	const [toYear, setToYear] = useState("2025");
 	const [keywords, setKeywords] = useState([]);
@@ -26,7 +27,7 @@ export default function Filter() {
 
 		let numValue = parseInt(value, 10);
 		if (isNaN(numValue) || numValue < fromYear) numValue = fromYear;
-		if (numValue > 2100) numValue = 2100;
+		if (numValue > d.getFullYear()) numValue = d.getFullYear();
 
 		setToYear(numValue.toString());
 	};
