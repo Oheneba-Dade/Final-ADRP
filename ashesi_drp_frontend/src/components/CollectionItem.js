@@ -4,7 +4,7 @@ import TruncatedText from "@/components/TruncatedText";
 export default function CollectionItem({ title, abstract, date_of_publication, doi_link, keywords }) {
     return (
         <li className="mb-4">
-            <a href="">
+            <a href={doi_link}>
                 <h2 className="italic text-lg text-ashesi-red">{title}</h2>
             </a>
             <hr/>
