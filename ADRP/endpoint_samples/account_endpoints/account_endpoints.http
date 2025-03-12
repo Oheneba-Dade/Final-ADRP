@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "email":"samuel.blankson@ashesi.edu.gh",
-  "otp":"TUSO2I"
+  "otp":"SFE0BN"
 }
 
 ### Tells you the user the token belongs to (TEST Purposes)

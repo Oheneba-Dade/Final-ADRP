@@ -12,7 +12,8 @@ from django.db import transaction
 from ...backend_services.collections_service.collections_service_main import CollectionsService
 from ..error_handling import handle_exceptions
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from ...backend_services.accounts_service.custom_permissions import *
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -24,6 +25,7 @@ def get_all_collections(request: Request) -> HttpResponse:
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def get_collection(request: Request) -> Response:
     """Get a single collection."""
 
@@ -35,14 +37,17 @@ def get_collection(request: Request) -> Response:
 
 
 @api_view(['POST'])
+@permission_classes([IsInternalUser])
 def create_collection(request: Request) -> Response:
     """Create a single collection."""
 
+    # print(request.data.get("authors"))
     new_collection = CollectionsService.create_collection(request)
-    return Response(data=new_collection.id, status=status.HTTP_201_CREATED)
+    return Response(data=new_collection, status=status.HTTP_201_CREATED)
 
 
 @api_view(['DELETE'])
+@permission_classes([IsInternalAdmin])
 def delete_collection(request: Request) -> Response:
     """ Delete a single collection"""
 
@@ -51,6 +56,7 @@ def delete_collection(request: Request) -> Response:
 
 
 @api_view(['PATCH'])
+@permission_classes([IsInternalAdmin])
 def change_collection_status(request: Request) -> Response:
     """Change the status of a collection"""
 
