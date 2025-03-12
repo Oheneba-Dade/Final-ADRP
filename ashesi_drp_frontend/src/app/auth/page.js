@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import CustomButton from "@/components/CustomButton";
 import CountdownTimer from "@/components/Countdown";
 import Image from "next/image";
-// import { FaUser, IoIosHelp  } from "react-icons/fa";
+import AxiosInstance from "@/components/Axios";
 
 export default function Page() {
     const router = useRouter()
@@ -13,9 +13,16 @@ export default function Page() {
 
     const [email, setEmail] = useState("");
     const [emailMsg, setEmailMsg] = useState("");
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
+
+    const requestCode = () => {
+        setTimerActive(true);
+        GETOtp();
+    }
+
     const emailValidation = () => {
         const regEx = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/g;
         if(!regEx.test(email) && email !== "email"){
@@ -23,6 +30,7 @@ export default function Page() {
             return false;
         }
         else{
+            setEmailMsg("");
             return true;
         }
     }
@@ -30,10 +38,10 @@ export default function Page() {
 
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const handleOtpAdd = (e, index) => {
-        if(isNaN(e.target.value)) {
-            return false;
-        }
-        setOtp([...otp.map((data, indx)=>(indx === index? e.target.value:data))])
+        // if(isNaN(e.target.value)) {
+        //     return false;
+        // }
+        setOtp([...otp.map((data, indx)=>(indx === index? e.target.value.toUpperCase():data))])
 
         if(e.target.value && e.target.nextSibling){
             e.target.nextSibling.focus()
@@ -52,11 +60,25 @@ export default function Page() {
         }
     };
 
+    const GETOtp = async () => {
+        try {
+            console.log(email);
+            const response = await AxiosInstance.get("get_otp", {
+                params: {email}
+            });
+            // setOtpResponse(response.data);
+            console.log("Otp Response: ", response.data)
+        } catch (error){
+            console.log("Error sending Otp: ", error)
+        }
+    }
+
 
     const [step, setStep] = useState(1);
     const handleNext = () => { 
         const state = emailValidation();
         if(state){
+            GETOtp();
             setStep(2);
         } 
     }
@@ -65,15 +87,23 @@ export default function Page() {
         // 1 is the username step and 2 is the password step
         if (step === 1){
             setStep(2);
-            // send otp to them as well
         }
         else if (step === 2){
             setStep(1);
         }
     }
 
-    const handleLogin = () => {
-        console.log(otp.join())
+    const handleLogin = async () => {
+        try {
+            const otpStr = otp.join("")
+            const response = await AxiosInstance.post("login", {
+                "email": email,
+                "otp": otpStr
+            });
+            console.log("Otp Response: ", response.data)
+        } catch (error){
+            console.log("Error sending Otp: ", error)
+        }
     }
 
 	return (
@@ -153,13 +183,13 @@ export default function Page() {
                             {
                                 otp.map((data, i)=>{
                                     return <input
-                                    type="numper"
+                                    // type="numper"
                                     value = {data}
                                     id={`otp-${i}`}
                                     name="otp"
                                     maxLength={1}
                                     key = {i}
-                                    className = "w-12 h-16 text-center text-xl font-semibold rounded-md focus:outline-2 caret-transparent"
+                                    className = "w-12 h-16 text-center text-xl font-semibold rounded-md focus:outline-2 caret-transparent uppercase"
                                     onChange={(e)=>handleOtpAdd(e, i)}
                                     onKeyDown={(e) => {
                                         if(e.key === "Backspace"){
@@ -175,7 +205,7 @@ export default function Page() {
                         </div>
                     </div> 
                     <div className="flex flex-row mr-10 mt-1 text-white bold-sm ml-14 gap-1">
-                        <button disabled={timerActive} onClick = {(e) => alert("waza")}>Request Code</button>
+                        <button disabled={timerActive} onClick = {requestCode}>Request Code</button>
                         <div>
                             {timerActive && (
                             <div className="flex flex-row text-ashesi-gray gap-1">
