@@ -1,5 +1,12 @@
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from rest_framework.decorators import api_view
+from django_filters import rest_framework as filters
+from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
+from ADRP.models import Collection
+from ADRP.serializers import CollectionSerializer
+from .filters import CollectionFilter
+from rest_framework.pagination import PageNumberPagination
 
 # from ...backend_services.orders_service.order_service_main import OrderService
 # from ...models import
@@ -63,3 +70,31 @@ def change_collection_status(request: Request) -> Response:
     response = CollectionsService.change_collection_status(request)
 
     return response
+
+
+@api_view(['PATCH'])
+@permission_classes([IsInternalAdmin])
+def change_collection_status(request: Request) -> Response:
+    """Change the status of a collection"""
+
+    response = CollectionsService.change_collection_status(request)
+
+    return response
+
+
+# filter stuff
+
+class CollectionPagination(PageNumberPagination):
+    page_size = 10 
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class CollectionListView(generics.ListAPIView):
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CollectionFilter
+    ordering_fields = ['date_of_publication', 'title']
+    ordering = ['-date_of_publication']
+    pagination_class = CollectionPagination
