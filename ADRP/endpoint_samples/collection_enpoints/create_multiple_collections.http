@@ -307,7 +307,7 @@ The research discusses potential improvements and alternatives to the current DR
 ### Entry 9
 POST http://localhost:8000/adrp/create_collection
 Content-Type: multipart/form-data; boundary=WebAppBoundary
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjU1MDQwLCJpYXQiOjE3NDE2MzM0NDAsImp0aSI6IjM1MDhkNzBjNmY3MDRlODlhZDZhMjQwOTU4MmMxZGYxIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.vvXregBmtDfjdFzz-Wr-KaW9TgtIShxsyLHtxhs2uJg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxOTQ0ODAwLCJpYXQiOjE3NDE3NzIwMDAsImp0aSI6IjU2MDAwYzNjZDZiMjQ3Njc5OGU4N2JmYzZmYTA3ZDNkIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.-nCuq60-9IGiqjjgIrfLm8AYwdCPQOeuhunEh4in2P0
 
 --WebAppBoundary
 Content-Disposition: form-data; name="title"
@@ -337,4 +337,9 @@ false
 Content-Disposition: form-data; name="comment"
 
 The study explores how teams optimize fuel usage without sacrificing performance.
---WebAppBoundary--
+--WebAppBoundary
+Content-Disposition: form-data; name="authors"
+
+[{"name": "Author One", "email": "author1@example.com"},{"name": "Author Two", "email": "author2@example.com"}]
+
+

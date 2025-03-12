@@ -10,23 +10,26 @@ from rest_framework.request import Request
 from rest_framework.pagination import PageNumberPagination
 
 
-
 class CollectionsService:
     """Service for managing collections on the ADRP"""
 
     @staticmethod
     def create_collection(request_obj: Request):
         #TODO Upload file needs to be integrated.
-
-        serializer = CollectionSerializer(data=request_obj.data)
+        print(request_obj.data)
+        serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
 
         if serializer.is_valid():
-            new_collection = create_collection(request_obj.user,serializer.validated_data)
+            new_collection = serializer.save()
+            # save authors
+            save_authors(request_obj, new_collection)
 
-            return new_collection
+
+
+            return serializer.data.get('id')
+
 
         raise ValidationError(serializer.errors)
-
 
     @staticmethod
     def delete_collection(request_obj: Request):
@@ -39,8 +42,14 @@ class CollectionsService:
     @staticmethod
     def get_all_collections(request_obj: Request):
         """ Gets all collections. Returns a paginated response"""
+        #TODO Clean this up
 
-        results = get_all_collections(request_obj, "approved")
+        if request_obj.user.is_authenticated and request_obj.user.role == 'admin':
+            collection_status = request_obj.query_params.get('status')
+            collection_status = CollectionSerializer.validate_status(collection_status)
+            results = get_all_collections(request_obj, collection_status, True)
+        else:
+            results = get_all_collections(request_obj, "approved")
 
         return results
 
@@ -73,6 +82,3 @@ class CollectionsService:
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-

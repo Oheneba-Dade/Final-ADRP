@@ -1,18 +1,17 @@
+### Create a collection
 POST http://localhost:8000/adrp/create_collection
 Content-Type: multipart/form-data; boundary=WebAppBoundary
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjI5MTgyLCJpYXQiOjE3NDE2MDc1ODIsImp0aSI6IjBmNmVlN2NjMDY1OTQ2Y2RhMzBjZDJlYjliNWU5NDc5IiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.C_e-DtjkXoOfG_94TKH95gkGIWRKYmAWqADCmcK6cco
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxOTQ0ODAwLCJpYXQiOjE3NDE3NzIwMDAsImp0aSI6IjU2MDAwYzNjZDZiMjQ3Njc5OGU4N2JmYzZmYTA3ZDNkIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.-nCuq60-9IGiqjjgIrfLm8AYwdCPQOeuhunEh4in2P0
 
 --WebAppBoundary
 Content-Disposition: form-data; name="title"
 
-"ADRP: Research on an Instiutional Repository"
+ADRP: Research on an Instiutional Repository
 --WebAppBoundary
 Content-Disposition: form-data; name="authors"
 
-[
-    {"name": "Author One", "email": "author1@example.com"},
-    {"name": "Author Two", "email": "author2@example.com"}
-]
+{"name": "Author One", "email": "author1@example.com"},{"name": "Author Two", "email": "author2@example.com"}
+
 --WebAppBoundary
 Content-Disposition: form-data; name="doi_link"
 
@@ -21,7 +20,7 @@ https://doi.org/10.1234/fake-doi-56789
 --WebAppBoundary
 Content-Disposition: form-data; name="keywords"
 
-["research" , "data", "elements"]
+research , data, elements
 
 --WebAppBoundary
 Content-Disposition: form-data; name="abstract"
@@ -52,13 +51,14 @@ Content-Type: application/zip
 
 
 ### Get all collections
-GET http://localhost:8000/adrp/get_all_collections?page=1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjU1MDQwLCJpYXQiOjE3NDE2MzM0NDAsImp0aSI6IjM1MDhkNzBjNmY3MDRlODlhZDZhMjQwOTU4MmMxZGYxIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.vvXregBmtDfjdFzz-Wr-KaW9TgtIShxsyLHtxhs2uJg
+GET http://localhost:8000/adrp/get_all_collections?page=1&status=rejected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxOTQ0ODAwLCJpYXQiOjE3NDE3NzIwMDAsImp0aSI6IjU2MDAwYzNjZDZiMjQ3Njc5OGU4N2JmYzZmYTA3ZDNkIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.-nCuq60-9IGiqjjgIrfLm8AYwdCPQOeuhunEh4in2P0
 
 
 ### Get a specific collection
-GET http://localhost:8000/adrp/get_collection?collection_id=2
-#Authorization: Bearer ......
+GET http://localhost:8000/adrp/get_collection?collection_id=31
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxOTQ0ODAwLCJpYXQiOjE3NDE3NzIwMDAsImp0aSI6IjU2MDAwYzNjZDZiMjQ3Njc5OGU4N2JmYzZmYTA3ZDNkIiwidXNlcl9pZCI6MTEsImF1ZCI6IkFEUlBURVNUX0NMSUVOVCIsImlzcyI6IkFEUlBURVNUX1NFUlZFIn0.-nCuq60-9IGiqjjgIrfLm8AYwdCPQOeuhunEh4in2P0
+
 
 ### Query Collections
 GET http://localhost:8000/adrp/collections?title=test%20collection&keyword=data

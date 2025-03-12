@@ -1,15 +1,19 @@
 from rest_framework import serializers
 from ADRP.models import *
+from rest_framework.exceptions import NotFound, ValidationError
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
 
+
 class DatasetFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = DatasetFile
         fields = '__all__'
+
 
 # class DatasetSerializer(serializers.ModelSerializer):
 #     files = DatasetFileSerializer(many=True, read_only=True)
@@ -34,9 +38,34 @@ class DatasetFileSerializer(serializers.ModelSerializer):
 #         model = Collection
 #         fields = ['name', 'description']
 
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Authors
+        fields = '__all__'
+
 
 class CollectionSerializer(serializers.ModelSerializer):
+    authors = AuthorSerializer(many=True, read_only=True)
+
     class Meta:
         model = Collection
-        fields = ['id','title', 'doi_link','keywords','abstract','instance_representation',
-                  'missing_values','comment', 'approval_status', 'view_count','date_of_publication']
+        fields = ['id', 'title', 'doi_link', 'keywords', 'abstract', 'instance_representation',
+                  'missing_values', 'comment', 'approval_status', 'view_count', 'date_of_publication', 'authors']
+
+    def create(self, validated_data):
+        # authors_data = validated_data.pop('authors', [])
+        uploaded_by = self.context['request'].user  # Get user from context
+
+        collection = Collection.objects.create(uploaded_by=uploaded_by, **validated_data)
+
+        # for author_data in authors_data:
+        #     author, _ = Authors.objects.get_or_create(**author_data)
+        #     collection.authors.add(author)
+
+        return collection
+
+    @staticmethod
+    def validate_status(status):
+        if status not in dict(Collection.STATUS_CHOICES):
+            raise ValidationError('Status is not valid')
+        return status

@@ -1,10 +1,12 @@
-from ...models import Collection
+from ...models import Collection, Authors
 from django.core.exceptions import ObjectDoesNotExist
 from ..custom_pagination import BasicPagination, AdminPagination
 from ...serializers import CollectionSerializer
+import json
 
 
 def get_collection_by_id(collection_id):
+    #TODO Lock this down
     try:
         return Collection.objects.get(id=collection_id)
     except Collection.DoesNotExist:
@@ -41,3 +43,12 @@ def increment_collection_views(collection: Collection):
     collection.view_count += 1
     collection.save()
     return collection
+
+
+def save_authors(request_obj, collection: Collection):
+    """Associates authors with a collection"""
+    authors = json.loads(request_obj.data.get('authors'))
+    print(type(request_obj.data.get('authors')))
+    for author in authors:
+        obj, _ = Authors.objects.get_or_create(email=author['email'], name=author['name'])
+        collection.authors.add(obj)
