@@ -5,7 +5,7 @@ import CollectionsPagination from "@/components/CollectionsPagination";
 import Filter from "@/components/Filter";
 import Skeleton from "react-loading-skeleton";
 
-export default function CollectionsContainer({ initialCollections }) {
+export default function CollectionsContainer({ initialCollections, filterOn=true }) {
     const [collections, setCollections] = useState(initialCollections);
     const [loading, setLoading] = useState(false);
 
@@ -27,11 +27,16 @@ export default function CollectionsContainer({ initialCollections }) {
 
     return (
         <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-20 px-12">
-            <div className="md:col-span-2 mt-10">
-                <Filter />
-            </div>
-
-            <div className="md:col-span-4 max-w-3xl">
+            
+            {
+                filterOn && (
+                    <div className="md:col-span-2 mt-10">
+                        <Filter />
+                    </div>
+                )
+            }
+        
+            <div className={filterOn ? "md:col-span-4 max-w-3xl" : "md:col-span-6 max-w-3xl"}>
                 {loading ? (
                     <div className="py-10 px-4 border-b ">
                         {/* first */}
@@ -95,12 +100,16 @@ export default function CollectionsContainer({ initialCollections }) {
                                 />
                             ))}
                         </ul>
-
-                        <CollectionsPagination
-                            nextUrl={collections.next}
-                            previousUrl={collections.previous}
-                            onPageChange={fetchPage}
-                        />
+                        
+                        {
+                            filterOn && (
+                                <CollectionsPagination
+                                    nextUrl={collections.next}
+                                    previousUrl={collections.previous}
+                                    onPageChange={fetchPage}
+                                />
+                            )
+                        }
                     </>
                 )}
             </div>
