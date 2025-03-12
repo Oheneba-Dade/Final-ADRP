@@ -32,7 +32,7 @@ export default async function Home() {
 							text="ALL COLLECTIONS" 
 							bgColor="bg-ashesi-gray" 
 							width="w-48" 
-							href="/collection" 
+							href="/collections" 
 						/>,
 						<CustomButton 
 							text="CONTRIBUTE" 
@@ -90,7 +90,7 @@ export default async function Home() {
 					    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
 					    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
 					    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui...
-						<Link href="/collectiosn/2" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
+						<Link href="/collections/2" className="text-ashesi-red cursor-pointer font-light hover:font-medium">see more</Link>
 				  </p>
 				
 				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">

@@ -28,7 +28,7 @@ export default async function Collections() {
 				/>
 				<div className="sm:mt-24 md:mt-24 lg:mt-12 max-h-[800px]"></div>
 
-				<div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-10 px-12">
+				<div className="mb-4 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-10 px-12">
 					<div className="md:col-span-2">
 						{/*empty div to help with alignment*/}
 					</div>

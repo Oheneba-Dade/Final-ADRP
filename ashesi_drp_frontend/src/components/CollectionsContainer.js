@@ -26,39 +26,59 @@ export default function CollectionsContainer({ initialCollections }) {
     };
 
     return (
-        <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-10 px-12">
-            <div className="md:col-span-2">
+        <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-20 px-12">
+            <div className="md:col-span-2 mt-10">
                 <Filter />
             </div>
 
-            <div className="md:col-span-4">
+            <div className="md:col-span-4 max-w-3xl">
                 {loading ? (
                     <div className="py-10 px-4 border-b ">
-                        <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                        <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                        <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                        {/* first */}
+                        <div className="py-10 px-4 border-b ">
+                          <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
                             <Skeleton width={210} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
                             <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                        </div>
-
-                        <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                          </div>
+                                
+                          <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
                             <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
                             <Skeleton width={250} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          </div>
                         </div>
-
-                        <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                        <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                        <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                            
+                            {/* Second */}
+                        <div className="py-10 px-4 border-b ">
+                          <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
                             <Skeleton width={210} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
                             <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                        </div>
-
-                        <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                          </div>
+                                
+                          <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
                             <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
                             <Skeleton width={250} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          </div>
+                        </div>
+                            
+                            {/* Third */}
+                        <div className="py-10 px-4 border-b ">
+                          <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                            <Skeleton width={210} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          </div>
+                                
+                          <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                            <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            <Skeleton width={250} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                          </div>
                         </div>
                     </div>
-
                 ) : (
 
                     <>
@@ -66,6 +86,7 @@ export default function CollectionsContainer({ initialCollections }) {
                             {collections.results.map((collection) => (
                                 <CollectionItem
                                     key={collection.id}
+                                    collection_id={collection.id}
                                     title={collection.title}
                                     abstract={collection.abstract}
                                     date_of_publication={collection.date_of_publication}
