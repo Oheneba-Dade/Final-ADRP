@@ -7,7 +7,7 @@ const ratings = [
   { id: 3, name: "Momsi Koko", rating: 3, comment: "Amazing tatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos !", date: "4 - 12 - 2023" },
 ];
 
-export default function Reviews() {
+export default function Reviews({rating=5, comments=""}) {
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 !== 0;
@@ -31,7 +31,7 @@ export default function Reviews() {
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center">
           <p className="text-2xl font-bold text-ashesi-red mr-2">4.5</p>
-          {renderStars(4.5)}
+          {renderStars(rating)}
         </div>
         <CustomButton
             text=" LOGIN TO MAKE A COMMENT"
@@ -57,7 +57,7 @@ export default function Reviews() {
                 <p className="text-sm text-gray-500">{review.date}</p>
               </div>
             
-              <p className="text-gray-700 w-4/5">{review.comment}</p>
+              <p className="text-gray-700 w-4/5">{comments}</p>
             </div>
           </div>
         ))}
