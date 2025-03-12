@@ -38,5 +38,5 @@ class DatasetFileSerializer(serializers.ModelSerializer):
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ['title', 'doi_link','keywords','abstract','instance_representation',
-                  'missing_values','comment']
+        fields = ['id','title', 'doi_link','keywords','abstract','instance_representation',
+                  'missing_values','comment', 'approval_status', 'view_count','date_of_publication']
