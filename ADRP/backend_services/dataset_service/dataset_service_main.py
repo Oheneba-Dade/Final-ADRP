@@ -42,8 +42,8 @@ class DatasetService:
             return {"message":"File upload failed", "status": 400}
         
         try:
-            save_dataset(collection, file_url, file_obj.content_type)
-            return {"message": "File uploaded successfully", "file_url": file_url, "status": 201}
+            save_dataset(collection, file_url, file_obj.content_type) # youll need to add the aws query params forthe link stored in the db to work
+            return {"message": "File uploaded successfully", "status": 201}
 
         except ValueError as ve:
             return {"message": str(ve), "status": 400}
