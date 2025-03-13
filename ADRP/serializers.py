@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 class DatasetFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = DatasetFile
-        fields = '__all__'
+        fields = ['file_name', 'file_url', 'file_type', 'uploaded_at']
 
 
 # class DatasetSerializer(serializers.ModelSerializer):

@@ -3,6 +3,7 @@ from botocore.exceptions import NoCredentialsError, PartialCredentialsError, Bot
 from .dataset_service_repository import *
 from ..collections_service.collections_service_repository import get_collection_by_id
 from ADRP.models import DatasetFile
+from ADRP.serializers import DatasetFileSerializer
 import boto3
 import logging
 from django.core.exceptions import ObjectDoesNotExist
@@ -18,6 +19,20 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 
 
 class DatasetService:
+
+
+    def get_dataset(requst_obj):
+        collection_id = requst_obj.query_params.get('collection_id')
+        
+        dataset_data = get_dataset(collection_id)
+
+        # Return only approved columns
+        serialized_data = DatasetFileSerializer(instance=dataset_data, many=True)
+
+        return serialized_data.data
+        
+
+        
 
     def handle_dataset_upload(collection_id, file_obj):
         """ takes files uploaded and creates the Collection file object"""

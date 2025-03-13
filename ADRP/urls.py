@@ -50,5 +50,6 @@ urlpatterns = [
     path("adrp/dataset_download/", download_dataset, name="download_dataset"),
     path("adrp/dataset_delete/", delete_dataset, name="delete_dataset"),
     path("adrp/dataset_update/", update_dataset, name="update_dataset"),
+     path("adrp/get_dataset/", get_dataset, name="get_dataset"),
 
 ]

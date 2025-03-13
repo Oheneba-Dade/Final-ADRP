@@ -7,6 +7,14 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def get_dataset(request):
+
+    result = DatasetService.get_dataset(requst_obj=request)
+    return Response(result, status=status.HTTP_200_OK)
+
+
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
