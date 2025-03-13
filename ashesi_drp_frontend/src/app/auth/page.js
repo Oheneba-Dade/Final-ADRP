@@ -38,14 +38,15 @@ export default function Page() {
 
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const handleOtpAdd = (e, index) => {
-        // if(isNaN(e.target.value)) {
-        //     return false;
-        // }
-        setOtp([...otp.map((data, indx)=>(indx === index? e.target.value.toUpperCase():data))])
+        const val = e.target.value.toUpperCase();
 
-        if(e.target.value && e.target.nextSibling){
-            e.target.nextSibling.focus()
-        }
+        if(/^[A-Z0-9]?$/.test(val)){
+            setOtp([...otp.map((data, indx)=>(indx === index? e.target.value.toUpperCase():data))])
+
+            if(e.target.value && e.target.nextSibling){
+                e.target.nextSibling.focus()
+            }
+        }    
     }
 
     const handleOtpBackspace = (e, index) => {
@@ -80,29 +81,48 @@ export default function Page() {
         if(state){
             GETOtp();
             setStep(2);
+            setTimerActive(true);
         } 
     }
 
     const handleBack = () => {
         // 1 is the username step and 2 is the password step
-        if (step === 1){
-            setStep(2);
-        }
-        else if (step === 2){
+        // if (step === 1){
+        //     setStep(2);
+        // }else 
+        if (step === 2){
             setStep(1);
+            setOtp(new Array(6).fill(""));
+            setOtpMessage("");
+
         }
     }
 
+    const [loading, setLoading] = useState(false);
+    const [otpMessage, setOtpMessage] = useState("");
+
     const handleLogin = async () => {
+        const isOtpValid = otp.every(char => /^[A-Z0-9]$/.test(char));
+
+        if(!isOtpValid){
+            setOtpMessage("Your OTP is incorrect, try again.")
+            return;
+        }
+
+        setLoading(true);
         try {
             const otpStr = otp.join("")
             const response = await AxiosInstance.post("login", {
                 "email": email,
                 "otp": otpStr
             });
-            console.log("Otp Response: ", response.data)
+            console.log("Otp Response: ", response.data);
+            router.back();
         } catch (error){
-            console.log("Error sending Otp: ", error)
+            setOtpMessage("Your OTP is incorrect, try again.")
+            console.log("Error sending Otp: ", error.response.data)
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -178,12 +198,15 @@ export default function Page() {
                         <label className="text-white font-bold mb-4">
                             Enter OTP
                         </label>
+
+                        <div className="text-white mb-1">
+                            {otpMessage}
+                        </div>
                         
                         <div className="flex flex-row gap-2 ">   
                             {
                                 otp.map((data, i)=>{
                                     return <input
-                                    // type="numper"
                                     value = {data}
                                     id={`otp-${i}`}
                                     name="otp"
@@ -205,7 +228,7 @@ export default function Page() {
                         </div>
                     </div> 
                     <div className="flex flex-row mr-10 mt-1 text-white bold-sm ml-14 gap-1">
-                        <button disabled={timerActive} onClick = {requestCode}>Request Code</button>
+                        <button disabled={timerActive} onClick = {requestCode} className="underline ">Request Code</button>
                         <div>
                             {timerActive && (
                             <div className="flex flex-row text-ashesi-gray gap-1">
@@ -225,7 +248,6 @@ export default function Page() {
                                 width="w-50"
                                 height="h-10"
                                 onClick={handleBack}
-                                // className="font-light"
                             />
                         </div>
                         <div className="">
@@ -235,6 +257,7 @@ export default function Page() {
                                 textColor="text-black"
                                 width="w-50"
                                 height="h-10"
+                                disabled = {loading}
                                 onClick={handleLogin}
                             />
                         </div>
