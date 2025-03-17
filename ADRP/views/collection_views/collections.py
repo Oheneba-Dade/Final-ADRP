@@ -18,7 +18,8 @@ from ...backend_services.accounts_service.custom_permissions import *
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_all_collections(request: Request) -> HttpResponse:
-    """ Get all collections, paginated view"""
+    """ Get all collections in a paginated format. Defaults to 10 items
+    per page for regular users, 15 per page for admin users"""
 
     collections = CollectionsService.get_all_collections(request)
     return collections
@@ -27,7 +28,7 @@ def get_all_collections(request: Request) -> HttpResponse:
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_collection(request: Request) -> Response:
-    """Get a single collection."""
+    """Get a single collection based on the ID provided."""
 
     try:
         collections = CollectionsService.get_collection(request)
@@ -41,7 +42,6 @@ def get_collection(request: Request) -> Response:
 def create_collection(request: Request) -> Response:
     """Create a single collection."""
 
-    # print(request.data.get("authors"))
     new_collection = CollectionsService.create_collection(request)
     return Response(data=new_collection, status=status.HTTP_201_CREATED)
 

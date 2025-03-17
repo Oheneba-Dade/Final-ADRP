@@ -1,13 +1,13 @@
 ### GET OTP for a user
-GET http://localhost:8000/adrp/get_otp?email=samuel.blankson@ashesi.edu.gh
+GET http://localhost:8000/adrp/get_otp?email=sblank.blankson@gmail.com
 
 ### Login
 POST http://localhost:8000/adrp/login
 Content-Type: application/json
 
 {
-  "email":"samuel.blankson@ashesi.edu.gh",
-  "otp":"SFE0BN"
+  "email":"samuel.kblankson@gmail.com",
+  "otp":"NAS7UR"
 }
 
 ### Tells you the user the token belongs to (TEST Purposes)

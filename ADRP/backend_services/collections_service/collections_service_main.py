@@ -1,13 +1,10 @@
-from urllib import request
-
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
+from rest_framework.request import Request
 from rest_framework.response import Response
 
 from .collections_service_repository import *
-from rest_framework.exceptions import NotFound, ValidationError
 from ...serializers import CollectionSerializer
-from rest_framework.request import Request
-from rest_framework.pagination import PageNumberPagination
 
 
 class CollectionsService:
@@ -15,24 +12,23 @@ class CollectionsService:
 
     @staticmethod
     def create_collection(request_obj: Request):
-        #TODO Upload file needs to be integrated.
-        print(request_obj.data)
+        """ Creates a new collection"""
+
         serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
 
         if serializer.is_valid():
             new_collection = serializer.save()
-            # save authors
             save_authors(request_obj, new_collection)
 
-
-
             return serializer.data.get('id')
-
 
         raise ValidationError(serializer.errors)
 
     @staticmethod
     def delete_collection(request_obj: Request):
+        """Delete a collection by the ID"""
+
+        delete_collection(request_obj)
         return
 
     @staticmethod
@@ -42,7 +38,7 @@ class CollectionsService:
     @staticmethod
     def get_all_collections(request_obj: Request):
         """ Gets all collections. Returns a paginated response"""
-        #TODO Clean this up
+        # TODO Clean this up
 
         if request_obj.user.is_authenticated and request_obj.user.role == 'admin':
             collection_status = request_obj.query_params.get('status')
@@ -55,7 +51,7 @@ class CollectionsService:
 
     @staticmethod
     def get_collection(request_obj: Request):
-        #TODO lock this down so that only admins can request restricted collections
+        # TODO lock this down so that only admins can request restricted collections
         collection_id = request_obj.query_params.get('collection_id')
 
         collection_data = get_collection_by_id(collection_id)
