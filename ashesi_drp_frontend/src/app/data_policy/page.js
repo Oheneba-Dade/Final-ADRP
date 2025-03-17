@@ -1,10 +1,10 @@
-// "use client";
+"use client";
 import CustomButton from "@/components/CustomButton";
 import "../globals.css";
 
-export default async  function DataPolicy() {
+export default function DataPolicy() {
 
-	await new Promise((resolve) => setTimeout(resolve, 2000));
+	// await new Promise((resolve) => setTimeout(resolve, 2000));
 	
 	return (
 		<div className="container mx-auto mt-32 px-64">

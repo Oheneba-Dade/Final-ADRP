@@ -3,12 +3,24 @@ from rest_framework.response import Response
 from rest_framework import status
 from ...backend_services.dataset_service.dataset_service_main import DatasetService
 from django.conf import settings
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def get_dataset(request):
+
+    result = DatasetService.get_dataset(requst_obj=request)
+    return Response(result, status=status.HTTP_200_OK)
+
+
 
 @api_view(["POST"])
-
+@permission_classes([AllowAny])
 def upload_dataset(request):
-    aws_access_key = settings.AWS_ACCESS_KEY_ID
-    aws_secret_key = settings.AWS_SECRET_ACCESS_KEY
+    #aws_access_key = settings.AWS_ACCESS_KEY_ID
+    #aws_secret_key = settings.AWS_SECRET_ACCESS_KEY
     # print('key id', aws_access_key, 'access key ',aws_secret_key)  # Debugging
 
     collection_id = request.data.get("collection_id")
@@ -24,6 +36,7 @@ def upload_dataset(request):
 
 
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def download_dataset(request):
     collection_id = request.data.get("collection_id")
     filename = request.data.get("filename")
@@ -33,6 +46,7 @@ def download_dataset(request):
 
 
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def delete_dataset(request):
     filename = request.data.get("filename")
     collection_id = request.data.get("collection_id")
@@ -43,6 +57,7 @@ def delete_dataset(request):
 
 
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def update_dataset(request):
     collection_id = request.data.get("collection_id")
     file_obj = request.FILES.get("file")

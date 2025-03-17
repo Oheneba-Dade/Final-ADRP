@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 class DatasetFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = DatasetFile
-        fields = '__all__'
+        fields = ['file_name', 'file_url', 'file_type', 'uploaded_at']
 
 
 # class DatasetSerializer(serializers.ModelSerializer):
@@ -50,7 +50,7 @@ class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = ['id', 'title', 'doi_link', 'keywords', 'abstract', 'instance_representation',
-                  'missing_values', 'comment', 'approval_status', 'view_count', 'date_of_publication', 'authors']
+                  'missing_values', 'comment', 'date_of_publication', 'approval_status', 'view_count',  'authors']
 
     def create(self, validated_data):
         # authors_data = validated_data.pop('authors', [])

@@ -32,6 +32,7 @@ urlpatterns = [
     path("adrp/get_all_collections/", get_all_collections),
     path("adrp/get_collection/", get_collection),
     path("adrp/create_collection", create_collection),
+    path("adrp/collections", CollectionListView.as_view(), name="collection-list"),
     path("adrp/collection_status", change_collection_status),
 
     # Account views
@@ -49,5 +50,6 @@ urlpatterns = [
     path("adrp/dataset_download/", download_dataset, name="download_dataset"),
     path("adrp/dataset_delete/", delete_dataset, name="delete_dataset"),
     path("adrp/dataset_update/", update_dataset, name="update_dataset"),
+     path("adrp/get_dataset/", get_dataset, name="get_dataset"),
 
 ]
