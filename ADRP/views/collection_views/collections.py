@@ -16,7 +16,7 @@ from ADRP.serializers import CollectionSerializer
 from .filters import CollectionFilter
 from ...backend_services.accounts_service.custom_permissions import *
 from ...backend_services.collections_service.collections_service_main import CollectionsService
-
+from ...backend_services.custom_pagination import CollectionPagination
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -80,12 +80,7 @@ def change_collection_status(request: Request) -> Response:
 
 # filter stuff
 
-class CollectionPagination(PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 100
-
-
+@permission_classes([AllowAny])
 class CollectionListView(generics.ListAPIView):
     queryset = Collection.objects.all()
     serializer_class = CollectionSerializer
