@@ -1,6 +1,6 @@
-asgiref==3.8.1
-attrs==25.1.0
-boto3==1.37.1
+asgiref
+attrs
+boto3
 botocore==1.37.5
 Django==5.1.6
 django-cors-headers==4.7.0
@@ -35,3 +35,4 @@ typing_extensions==4.12.2
 uritemplate==4.1.1
 urllib3==2.3.0
 django-filter
+djangorestframework-recaptcha

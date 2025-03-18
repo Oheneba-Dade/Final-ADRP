@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_spectacular',
+    'drf_spectacular',
+    'rest_framework_recaptcha'
 ]
 
 MIDDLEWARE = [
@@ -230,3 +232,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = 'ADRP.User'
+
+# reCaptcha
+DRF_RECAPTCHA_VERIFY_ENDPOINT = 'https://www.google.com/recaptcha/api/siteverify'
+DRF_RECAPTCHA_SECRET_KEY = ''

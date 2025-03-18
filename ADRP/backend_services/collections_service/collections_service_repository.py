@@ -1,12 +1,17 @@
-from ...models import Collection, Authors
-from django.core.exceptions import ObjectDoesNotExist
-from ..custom_pagination import BasicPagination, AdminPagination
-from ...serializers import CollectionSerializer
 import json
 
+from django.core.exceptions import ObjectDoesNotExist
+
+from ..custom_pagination import BasicPagination, AdminPagination
+from ...models import Collection, Authors
+from ...serializers import CollectionSerializer
+
+
+# TODO Consider modifying to accept only text based parameters and not request objects
 
 def get_collection_by_id(collection_id):
-    #TODO Lock this down
+    """Gets a collection by its ID."""
+
     try:
         return Collection.objects.get(id=collection_id)
     except Collection.DoesNotExist:
@@ -14,18 +19,31 @@ def get_collection_by_id(collection_id):
 
 
 def create_collection(user, collection):
+    """Creates a new collection."""
+
     new_collection = Collection(uploaded_by=user, **collection)
     new_collection.save()
 
     return new_collection
 
 
-# def create_collection_authors()
+def delete_collection(request):
+    """ Query to delete a collection
+    :param collection_id: The ID of the collection to delete
+    :return: Returns the deleted collection"""
+
+    collection = get_collection_by_id(request.query_params.get('collection_id'))
+    collection.delete()
+    return collection
+
 
 def get_all_collections(request, status, admin=False):
-    """ Returns a paginated list of all collections"""
-    paginator = AdminPagination() if admin else BasicPagination()
+    """Returns a paginated list of all collections
+    :param request: The request object
+    :param status: The status of the collections (approved, rejected or pending)
+    :param admin: Defaults to false which returns 10 items per page. If True, returns 15 items per page."""
 
+    paginator = AdminPagination() if admin else BasicPagination()
     lazy_query = Collection.objects.filter(approval_status=status)
     results = paginator.paginate_queryset(lazy_query, request)
     serializer = CollectionSerializer(results, many=True)
@@ -34,12 +52,16 @@ def get_all_collections(request, status, admin=False):
 
 
 def change_collection_status(collection_id, status):
+    """ Changes the status of a collection between (pending, approved and rejected)"""
+
     collection = get_collection_by_id(collection_id)
     collection.status = status
     collection.save()
 
 
 def increment_collection_views(collection: Collection):
+    """ Increment the number of views of a collection by 1"""
+
     collection.view_count += 1
     collection.save()
     return collection
@@ -47,6 +69,7 @@ def increment_collection_views(collection: Collection):
 
 def save_authors(request_obj, collection: Collection):
     """Associates authors with a collection"""
+
     authors = json.loads(request_obj.data.get('authors'))
     print(type(request_obj.data.get('authors')))
     for author in authors:
