@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 
-export default function DynamicFieldGroup({ labelText, fields, namePrefix }) {
+export default function DynamicFieldGroup({ labelText, fields, namePrefix, onGroupsChange }) {
+	const [count, setCount] = useState(1);
 	// Ensure fields is always an array
 	const safeFields =
 		Array.isArray(fields) && fields.length > 0
@@ -25,33 +26,38 @@ export default function DynamicFieldGroup({ labelText, fields, namePrefix }) {
 		const updatedGroups = [...fieldGroups];
 		updatedGroups[groupIndex][fieldIndex].value = value;
 		setFieldGroups(updatedGroups);
+		if(onGroupsChange) onGroupsChange(updatedGroups);
 	};
 
 	const addGroup = () => {
-		setFieldGroups([...fieldGroups, createEmptyGroup(safeFields)]);
+		const newGroups = [...fieldGroups, createEmptyGroup(safeFields)];
+		setFieldGroups(newGroups);
+		if(onGroupsChange) onGroupsChange(newGroups);
 	};
 
 	const removeGroup = (index) => {
 		if (fieldGroups.length > 1) {
-			setFieldGroups(fieldGroups.filter((_, i) => i !== index));
+			const newGroups = fieldGroups.filter((_, i) => i !== index);
+			setFieldGroups(newGroups);
+			if(onGroupsChange) onGroupsChange(newGroups);
 		}
 	};
 
 	return (
-		<div className="flex items-center gap-4 mb-8">
-			<label className="w-40 text-left">
+		<div className="flex items-start gap-4 mb-8">
+			<label className="w-40 text-left pt-2">
 				{labelText} <span className="text-red-500">*</span>
 			</label>
-			<div className="flex flex-col gap-2 w-3/4">
+			<div className="flex flex-col gap-2 flex-1">
 				{fieldGroups.map((group, groupIndex) => (
-					<div key={groupIndex} className="flex items-center gap-4">
+					<div key={groupIndex} className="flex items-center gap-2 w-full">
 						{group.map((field, fieldIndex) => (
 							<input
 								key={fieldIndex}
 								type={field.type}
 								name={`${namePrefix}[${groupIndex}][${field.name}]`}
 								value={
-									field.type === "text"
+									field.type === "text" || field.type === "email"
 										? field.value
 										: undefined
 								}
@@ -64,29 +70,31 @@ export default function DynamicFieldGroup({ labelText, fields, namePrefix }) {
 											: e.target.value
 									)
 								}
-								className="rounded-md w-full p-2 border border-ashesi-red focus:outline-ashesi-red"
+								className="p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red flex-1"
 								placeholder={field.placeholder}
 							/>
 						))}
 
 						{/* Buttons */}
-						{groupIndex === 0 ? (
-							<button
-								onClick={addGroup}
-								type="button"
-								className="p-2 bg-white text-ashesi-red border rounded-full border-ashesi-red hover:bg-ashesi-red hover:text-white"
-							>
-								+
-							</button>
-						) : (
-							<button
-								onClick={() => removeGroup(groupIndex)}
-								type="button"
-								className="p-2 bg-white text-ashesi-red border rounded-full border-ashesi-red hover:bg-ashesi-red hover:text-white"
-							>
-								-
-							</button>
-						)}
+						<div className="flex-shrink-0">
+							{groupIndex === 0 ? (
+								<button
+									onClick={addGroup}
+									type="button"
+									className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-ashesi-red hover:bg-ashesi-red hover:text-white border border-ashesi-red"
+								>
+									+
+								</button>
+							) : (
+								<button
+									onClick={() => removeGroup(groupIndex)}
+									type="button"
+									className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-ashesi-red hover:bg-ashesi-red hover:text-white border border-ashesi-red"
+								>
+									-
+								</button>
+							)}
+						</div>
 					</div>
 				))}
 			</div>
