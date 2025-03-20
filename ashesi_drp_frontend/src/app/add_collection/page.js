@@ -11,7 +11,7 @@ import {BASE_URL} from "@/utils/constants";
 const formGroupClass = "flex items-start gap-4 mb-8";
 const labelClass = "w-40 text-left pt-2";
 const inputClass = "p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red flex-1";
-const textareaClass = "p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red flex-1 h-40";
+const textareaClass = "p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red flex-1 h-30";
 
 const InfoTooltip = ({ text }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -43,6 +43,7 @@ export default function AddDataset() {
 		const title = document.getElementById("title").value;
 		const date_of_publication = document.getElementById("date_of_publication").value;
 		const doi_link = document.getElementById("doi").value;
+		const citation = document.getElementById("citation").value;
 		const abstract = document.getElementById("abstract").value;
 		const instance_representation = document.getElementById("instance_representation").value;
 		const zipped_file = document.getElementById("data-file").files[0];
@@ -65,6 +66,7 @@ export default function AddDataset() {
 		formData.append("date_of_publication", date_of_publication);
 		formData.append("authors", JSON.stringify(authors));
 		formData.append("doi_link", doi_link);
+		formData.append("citation", citation);
 		formData.set("keywords", keywords);
 		formData.append("abstract", abstract);
 		formData.append("comment", comments);
@@ -160,6 +162,18 @@ export default function AddDataset() {
 						name="doi"
 						className={inputClass}
 					/>
+				</div>
+
+				<div className={formGroupClass}>
+					<label htmlFor="citation" className={labelClass}>
+						Citation
+					</label>
+					<textarea
+						id="citation"
+						name="citation"
+						className={textareaClass}
+						rows="3"
+					></textarea>
 				</div>
 
 				<div className={formGroupClass}>
