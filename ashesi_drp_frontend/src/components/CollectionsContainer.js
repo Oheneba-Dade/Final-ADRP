@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 import dynamic from "next/dynamic";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { BASE_URL } from "@/utils/constants";
-import CustomButton from "@/components/CustomButton";
+import Skeleton from "react-loading-skeleton";
 
 
 export default function CollectionsContainer({ initialCollections, filterOn=true }) {
@@ -81,9 +81,35 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
 
             <div className={filterOn ? "md:col-span-4 max-w-3xl" : "md:col-span-6 max-w-3xl"}>
                 {loading ? (
-                    // Your existing loading skeleton code
                     <div className="py-10 px-4 border-b">
-                        {/* Skeleton loading UI */}
+                        <div className="py-10 px-4 border-b ">
+                            <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                                <Skeleton width={210} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                                <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            </div>
+
+                            <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                                <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                                <Skeleton width={250} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            </div>
+                        </div>
+
+                        {/* Second */}
+                        <div className="py-10 px-4 border-b ">
+                            <Skeleton width={550} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            <Skeleton height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                                <Skeleton width={210} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                                <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            </div>
+
+                            <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+                                <Skeleton width={200} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                                <Skeleton width={250} height={30} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <>
