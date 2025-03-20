@@ -1,10 +1,12 @@
 "use client";
 import CustomButton from "@/components/CustomButton";
 import KeywordInput from "@/components/KeywordInput";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {BASE_URL} from "@/utils/constants";
 
-export default function Filter() {
+
+
+export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	const d = new Date();
 	const [fromYear, setFromYear] = useState("1900");
 	const [toYear, setToYear] = useState("2025");
@@ -35,13 +37,12 @@ export default function Filter() {
 
 
 	//TODO: Add authorization headers to include access tokens
-	const sendFilterRequest = async (baseURL, queryParams) => {
+	const sendFilterRequest = async (baseURL, queryParams, callback) => {
 		const url = new URL(`${baseURL}/collections`);
 
-		// Add each query parameter to the URL
+		// Add each query parameter to the URL (keep this part the same)
 		Object.keys(queryParams).forEach(key => {
 			if (queryParams[key]) {
-				// keywords is an array
 				if (key === "keywords" && Array.isArray(queryParams[key]) && queryParams[key].length > 0) {
 					url.searchParams.append(key, queryParams[key].join(','));
 				} else {
@@ -49,7 +50,6 @@ export default function Filter() {
 				}
 			}
 		});
-
 
 		try {
 			const response = await fetch(url, {
@@ -60,7 +60,12 @@ export default function Filter() {
 			});
 
 			if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-			return await response.json();
+			const result = await response.json();
+
+			// Call the callback with the result
+			if (callback) callback(result);
+
+			return result;
 		} catch (error) {
 			console.error("Error sending request:", error);
 			throw error;
@@ -69,6 +74,8 @@ export default function Filter() {
 
 	const handleSearch = async (e) => {
 		e.preventDefault();
+		setLoading(true);
+
 		let collectionName = document.getElementsByName("collection-name")[0].value;
 		let author = document.getElementsByName("author")[0].value;
 		const queryParams = {
@@ -78,11 +85,13 @@ export default function Filter() {
 			published_after: fromYear,
 			published_before: toYear,
 		}
+
 		try {
-			const result = await sendFilterRequest(BASE_URL, queryParams);
-			console.log(result);
+			await sendFilterRequest(BASE_URL, queryParams, onFilterResults);
 		} catch (error) {
 			console.error("Error sending GET request:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -95,8 +104,9 @@ export default function Filter() {
 		setFromYear("1900");
 		setToYear("2025");
 
-		// Fetch original collections
-		window.location.href = "/collections";
+		if (onResetFilter) {
+			onResetFilter();
+		}
 	};
 
 

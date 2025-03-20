@@ -1,7 +1,4 @@
 import "../globals.css";
-import Slideshow from "@/components/Slideshow";
-import CustomButton from "@/components/CustomButton";
-import HeroBlock from "@/components/HeroBlock";
 import CollectionsContainer from "@/components/CollectionsContainer";
 import { BASE_URL } from "@/utils/constants";
 
