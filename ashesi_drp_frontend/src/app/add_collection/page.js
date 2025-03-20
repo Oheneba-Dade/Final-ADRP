@@ -41,6 +41,7 @@ export default function AddDataset() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const title = document.getElementById("title").value;
+		const date_of_publication = document.getElementById("date_of_publication").value;
 		const doi_link = document.getElementById("doi").value;
 		const abstract = document.getElementById("abstract").value;
 		const instance_representation = document.getElementById("instance_representation").value;
@@ -61,6 +62,7 @@ export default function AddDataset() {
 
 		const formData = new FormData();
 		formData.append("title", title);
+		formData.append("date_of_publication", date_of_publication);
 		formData.append("authors", JSON.stringify(authors));
 		formData.append("doi_link", doi_link);
 		formData.set("keywords", keywords);
@@ -69,7 +71,6 @@ export default function AddDataset() {
 		formData.append("instance_representation", instance_representation)
 		formData.append("dataset_file", zipped_file);
 
-		console.log(formData);
 
 		const data = await fetch(`${BASE_URL}/create_collection`, {
 			method: "POST",
@@ -123,6 +124,22 @@ export default function AddDataset() {
 						]}
 					/>
 				</div>
+
+				<div className={formGroupClass}>
+					<label htmlFor="title" className={labelClass}>
+						Publication Date <span className="text-red-500">*</span>
+					</label>
+					<div className="flex-1 flex items-center">
+						<input
+							type="date"
+							id="date_of_publication"
+							name="date_of_publication"
+							className="p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red"
+							required
+						/>
+					</div>
+				</div>
+
 
 
 			</section>
@@ -207,7 +224,7 @@ export default function AddDataset() {
 
 				<div className={formGroupClass}>
 					<label htmlFor="comments" className={labelClass}>
-						License
+						Licence
 					</label>
 					<textarea
 						id="comments"
