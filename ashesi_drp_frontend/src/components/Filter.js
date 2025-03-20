@@ -3,6 +3,7 @@ import CustomButton from "@/components/CustomButton";
 import KeywordInput from "@/components/KeywordInput";
 import {useEffect, useState} from "react";
 import {BASE_URL} from "@/utils/constants";
+import {useSearchParams} from "next/navigation";
 
 
 
@@ -11,6 +12,10 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	const [fromYear, setFromYear] = useState("1900");
 	const [toYear, setToYear] = useState("2025");
 	const [keywords, setKeywords] = useState([]);
+	const searchParams = useSearchParams();
+	const initialTitle = searchParams.get("title") || "";
+
+
 
 	const handleFromChange = (e) => {
 		let value = e.target.value.replace(/\D/g, "");
@@ -125,7 +130,10 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 					type="text"
 					className="w-96 outline-ashesi-red border border-ashesi-red rounded-md p-4"
 					name="collection-name"
+					defaultValue={initialTitle}  // Allows user edits without React tracking state
 				/>
+
+
 			</div>
 
 			<div className="mb-8">
