@@ -57,6 +57,11 @@ INSTALLED_APPS = [
     'rest_framework_recaptcha'
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Next.js frontend
+]
+
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
