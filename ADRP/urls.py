@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 from .views.collection_views.collections import *
-
+from .views.statistics_views.statistics import *
 from .views.account_views.accounts import *
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
@@ -51,5 +51,8 @@ urlpatterns = [
     path("adrp/dataset_delete/", delete_dataset, name="delete_dataset"),
     path("adrp/dataset_update/", update_dataset, name="update_dataset"),
      path("adrp/get_dataset/", get_dataset, name="get_dataset"),
+
+    # Site Stats
+    path("adrp/get_stats/", get_statistics)
 
 ]

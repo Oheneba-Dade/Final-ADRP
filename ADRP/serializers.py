@@ -1,3 +1,5 @@
+from tracemalloc import Statistic
+
 from rest_framework import serializers
 from ADRP.models import *
 from rest_framework.exceptions import NotFound, ValidationError
@@ -15,28 +17,11 @@ class DatasetFileSerializer(serializers.ModelSerializer):
         fields = ['file_name', 'file_url', 'file_type', 'uploaded_at']
 
 
-# class DatasetSerializer(serializers.ModelSerializer):
-#     files = DatasetFileSerializer(many=True, read_only=True)
-#     uploaded_by = serializers.ReadOnlyField(source='uploaded_by.username')
-#
-#     class Meta:
-#         model = Dataset
-#         fields = '__all__'
+class StatisticsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Statistics
+        fields = ['download_count', 'view_count', 'author_count', 'collection_count']
 
-
-# class CollectionSerializer(serializers.ModelSerializer):
-#     title = serializers.CharField(source='title')
-#     authors = serializers.CharField(source='authors')
-#     doi = serializers.CharField(source='doi_link')
-#     keywords = serializers.CharField(source='keywords')
-#     abstract = serializers.CharField(source='abstract')
-#     instance_representation = serializers.CharField(source='instance_representation')
-#     missing_valu
-#
-#
-#     class Meta:
-#         model = Collection
-#         fields = ['name', 'description']
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
