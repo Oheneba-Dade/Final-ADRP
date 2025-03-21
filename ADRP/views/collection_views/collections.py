@@ -66,7 +66,7 @@ class CollectionPagination(PageNumberPagination):
 
 
 class CollectionListView(generics.ListAPIView):
-    queryset = Collection.objects.all()
+    queryset = Collection.objects.all().filter(approval_status="approved")
     serializer_class = CollectionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = CollectionFilter

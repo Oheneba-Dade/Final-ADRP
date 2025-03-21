@@ -6,10 +6,10 @@ from django.db.models import Q
 class CollectionFilter(filters.FilterSet):
     title = filters.CharFilter(method='filter_title')
     keywords = filters.CharFilter(method='filter_keywords')
-    keywords = filters.BaseInFilter(field_name='keywords', lookup_expr='overlap')  
+    # keywords = filters.BaseInFilter(field_name='keywords', lookup_expr='overlap')  
     authors = filters.CharFilter(method="filter_by_author")
-    date_of_publication_from = filters.DateTimeFilter(field_name="date_of_publication", lookup_expr="gte")
-    date_of_publication_to = filters.DateTimeFilter(field_name="date_of_publication", lookup_expr="lte")
+    date_of_publication_from = filters.NumberFilter(field_name="date_of_publication", lookup_expr="year__gte")
+    date_of_publication_to = filters.NumberFilter(field_name="date_of_publication", lookup_expr="year__lte")
 
 
     def filter_by_author(self, queryset, name, value):
@@ -23,7 +23,7 @@ class CollectionFilter(filters.FilterSet):
         keywords = value.split(",") 
         query = Q()
         for keyword in keywords:
-            query |= Q(keywords__icontains=keyword)
+            query &= Q(keywords__icontains=keyword)
         return queryset.filter(query).distinct()    
     
 
