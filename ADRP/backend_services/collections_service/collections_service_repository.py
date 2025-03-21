@@ -3,7 +3,7 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 
 from ..custom_pagination import BasicPagination, AdminPagination
-from ...models import Collection, Authors
+from ...models import Collection, Authors, Statistics
 from ...serializers import CollectionSerializer
 
 
@@ -64,7 +64,58 @@ def increment_collection_views(collection: Collection):
 
     collection.view_count += 1
     collection.save()
+    increment_global_view_count()
+
     return collection
+
+
+def increment_global_view_count():
+    """Increments the global view counter for the app """
+
+    stats = Statistics.objects.filter(id=1).first()
+    stats.view_count += 1
+    stats.save()
+
+    return stats
+
+
+def incremenet_global_download_count():
+    """Increments the global download counter for the app"""
+
+    stats = Statistics.objects.filter(id=1).first()
+    stats.download_count += 1
+    stats.save()
+
+    return stats
+
+
+def increment_global_user_count():
+    """Increments the global user counter for the app"""
+
+    stats = Statistics.objects.filter(id=1).first()
+    stats.user_count += 1
+    stats.save()
+
+    return stats
+
+
+def increment_global_author_count():
+    """Increments the global author counter for the app"""
+
+    stats = Statistics.objects.filter(id=1).first()
+    stats.author_count += 1
+    stats.save()
+
+
+def increment_global_collection_count():
+    """Increments the global collection counter for the app"""
+
+    stats = Statistics.objects.filter(id=1).first()
+    stats.collection_count += 1
+
+    stats.save()
+
+    return stats
 
 
 def save_authors(request_obj, collection: Collection):
@@ -73,5 +124,7 @@ def save_authors(request_obj, collection: Collection):
     authors = json.loads(request_obj.data.get('authors'))
     print(type(request_obj.data.get('authors')))
     for author in authors:
-        obj, _ = Authors.objects.get_or_create(email=author['email'], name=author['name'])
+        obj, created = Authors.objects.get_or_create(email=author['email'], name=author['name'])
         collection.authors.add(obj)
+        if created:
+            increment_global_author_count()
