@@ -93,9 +93,9 @@ def update_dataset_on_bucket(filename, file_obj):
 
 # collection interactions
 
-def get_dataset_file(collection_id, filename):
+def get_dataset(collection_id):
     """Get dataset file from the collection"""
-    return DatasetFile.objects.filter(collection_id=collection_id, filename=filename)
+    return DatasetFile.objects.filter(collection_id=collection_id)
 
 
 def save_dataset(collection, file_url, file_type):

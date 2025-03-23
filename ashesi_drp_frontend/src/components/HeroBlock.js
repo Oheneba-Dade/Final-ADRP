@@ -26,7 +26,7 @@ const HeroBlock = ({
 									text="ALL COLLECTIONS"
 									bgColor="bg-ashesi-red"
 									width="w-48"
-									href="/"
+									href="/collections"
 								/>
 							</>
 						)}

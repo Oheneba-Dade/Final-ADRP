@@ -28,7 +28,7 @@ export default function Footer() {
 					Venture into a wide spectrum of datasets submitted by the
 					Ashesi Community
 				</p>
-				<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login Now!" href="/" />
+				{/*<CustomButton bgColor="bg-white" textColor="text-ashesi-red" text="Login Now!" href="/" />*/}
 			</div>
 			<div className="flex justify-center py-10">
 				<Image
@@ -61,7 +61,7 @@ export default function Footer() {
 				<div>
 					<FooterLink title="Home" link="/" />
 					<FooterLink title="About The Project" link="/about" />
-					<FooterLink title="View Dataset" link="/" />
+					<FooterLink title="View Collections" link="/collections" />
 					<FooterLink title="Data Policy" link="/data_policy" />
 				</div>
 			</div>

@@ -11,8 +11,8 @@ export default function Navbar() {
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
-			? "font-normal border-b-2 border-ashesi-red pr-2"
-			: "font-light hover:font-normal pr-2";
+			? "font-normal border-b-2 border-ashesi-red"
+			: "font-light hover:font-normal";
 
 	return (
 		<>
@@ -58,8 +58,8 @@ export default function Navbar() {
 					<Link href="/collections" className="hover:font-normal">
 						Collections
 					</Link>
-					<Link href="/add_dataset" className="hover:font-normal">
-						Contribute Dataset
+					<Link href="/add_collection" className="hover:font-normal">
+						Contribute Collection
 					</Link>
 
 					<Link href="/data_policy" className="hover:font-normal">

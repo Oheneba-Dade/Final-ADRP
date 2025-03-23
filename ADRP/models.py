@@ -1,10 +1,12 @@
 # from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.utils.timezone import localtime
 from django.utils import timezone
-from django.contrib.auth.models import UserManager, AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.utils.timezone import localtime
+
 from .helpers import check_email_domain
+
 
 class CustomUserManager(BaseUserManager):
     """
@@ -29,7 +31,6 @@ class CustomUserManager(BaseUserManager):
         user.set_unusable_password()
         extra_fields.setdefault('is_active', True)
 
-
         user.save()
 
         return user
@@ -50,7 +51,6 @@ class CustomUserManager(BaseUserManager):
         #     raise ValueError('Superuser must have is_superuser=True')
         # Set new defaults
 
-
         # Create the user
         user = self.create_user(email, password, **extra_fields)
 
@@ -60,7 +60,6 @@ class CustomUserManager(BaseUserManager):
 
         if password is None:
             raise TypeError('Owners must have a password.')
-
 
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_active', True)
@@ -80,16 +79,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('admin', 'Admin')
     ]
 
-
     email = models.EmailField(max_length=50, unique=True)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='External')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='external')
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     login_attempts = models.IntegerField(default=0)
 
-    REQUIRED_FIELDS =  ['role']
+    REQUIRED_FIELDS = ['role']
     USERNAME_FIELD = 'email'
 
     objects = CustomUserManager()
@@ -99,7 +97,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.email} ({self.role if self.role else 'No Role'})"
-
 
 
 class Authors(models.Model):
@@ -127,7 +124,8 @@ class Collection(models.Model):
     authors = models.ManyToManyField(Authors)
     abstract = models.TextField()
     missing_values = models.BooleanField()
-    keywords = ArrayField(models.CharField(max_length=50), blank=True, default=list,  help_text="Comma-separated keywords for search and filtering.")
+    keywords = ArrayField(models.CharField(max_length=300), blank=True, default=list,
+                          help_text="Comma-separated keywords for search and filtering.")
     date_of_publication = models.DateTimeField(default=timezone.now)
     comment = models.TextField(blank=True, null=True)
     doi_link = models.URLField(max_length=500, null=True)
@@ -240,9 +238,21 @@ class OTP(models.Model):
     created_at = models.DateTimeField(default=timezone.now, db_index=True)
     expiry_date = models.DateTimeField()
 
-
     def __str__(self):
         return f"OTP {self.otp} for {self.user}"
 
     class Meta:
         ordering = ['-created_at']
+
+
+class Statistics(models.Model):
+    download_count = models.IntegerField(default=0)
+    view_count = models.IntegerField(default=0)
+    author_count = models.IntegerField(default=0)
+    collection_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return (f"downloads:{self.download_count} downloads,"
+                f"{self.view_count} views"
+                f"{self.author_count} authors"
+                f"{self.collection_count} collections")
