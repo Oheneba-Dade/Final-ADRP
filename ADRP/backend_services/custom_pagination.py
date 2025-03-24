@@ -19,6 +19,7 @@ class AdminPagination(PageNumberPagination):
 
 
 class CollectionPagination(PageNumberPagination):
+    """Pagination for collection, returns 10 pages at a time"""
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100

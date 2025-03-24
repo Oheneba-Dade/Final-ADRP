@@ -82,10 +82,13 @@ def change_collection_status(request: Request) -> Response:
 
 @permission_classes([AllowAny])
 class CollectionListView(generics.ListAPIView):
+    """
+        API view for listing approved collections with that have been searched, ordering, and pagination.
+    """
     queryset = Collection.objects.all().filter(approval_status="approved")
     serializer_class = CollectionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = CollectionFilter
     ordering_fields = ['date_of_publication', 'title']
-    ordering = ['-date_of_publication']
+    ordering = ['-date_of_publication'] # descing order of pub date
     pagination_class = CollectionPagination
