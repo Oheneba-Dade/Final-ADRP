@@ -7,6 +7,7 @@ from .helper import extract_filename
 import logging
 
 logger = logging.getLogger(__name__)
+
 LINK_EXPIRY_TIME = 3600 * 48
 
 
@@ -71,7 +72,7 @@ def generate_dataset_url_from_bucket(filename):
         return s3_client.generate_presigned_url(
             'get_object', 
             Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': filename}, 
-            ExpiresIn=settings.LINK_EXPIRY_TIME
+            ExpiresIn=LINK_EXPIRY_TIME
         )
     except Exception as e:
         logger.error(f"Unexpected error generating presigned URL: {e}")
