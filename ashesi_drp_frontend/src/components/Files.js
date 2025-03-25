@@ -15,30 +15,10 @@ const FileTable = ({collection_id}) => {
   // hooks for popup
   const [showPopup, setShowPopup] = useState(false);
   const [reason, setReason] = useState("");
+  const [email, setEmail] = useState("");
   
   // hook for downloadable link
   const [download, setDownload] = useState("");
-
-  // fetching file details
-  // useEffect(() => {
-  //   async function fetchFile() {
-  //     try {
-  //       const response = await fetch(`${BASE_URL}/get_dataset/?collection_id=${collection_id}`);
-  //       const data = await response.json();
-        
-  //       // Ensure loading is shown for at least 1.5 seconds
-  //       setTimeout(() => {
-  //         setFile(data);
-  //         setLoading(false);
-  //       }, 2000);
-  //     } catch (error) {
-  //       console.error("Error fetching collection:", error);
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   fetchFile();
-  // }, [collection_id]);
   
   useEffect(() => {
     async function fetchFile() {
@@ -95,7 +75,7 @@ const FileTable = ({collection_id}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!reason.trim()) {
+    if (!reason.trim() || !email.trim()) {
       alert("Please enter a reason before downloading.");
       return;
     }
@@ -134,11 +114,21 @@ const FileTable = ({collection_id}) => {
               <h2 className="text-xl text-ashesi-red font-semibold mb-4">Submit a Reason for Downloading</h2>
   
               <form onSubmit={handleSubmit}>
+                <label className="block mb-2 font-medium">Email:</label>
+                <textarea
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
+                  rows="1"
+                  placeholder="Enter your email here..."
+                  required
+                ></textarea>
+                
                 <label className="block mb-2 font-medium">Reason:</label>
                 <textarea
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
                   rows="3"
                   placeholder="Enter your reason here..."
                   required
@@ -157,12 +147,12 @@ const FileTable = ({collection_id}) => {
                   
                   <CustomButton
                       text="Submit"
-                      bgColor = "bg-green-600"
+                      bgColor = "bg-ashesi-red"
                       textColor = "text-white"
                       href=""
                       width = "w-auto"
                       height = "h-10"
-                      className="px-4 py-2 rounded-md hover:bg-green-700 transition"        
+                      className="px-4 py-2 rounded-md hover:bg-ashesi-red transition"        
                   />
                 </div>
               </form>
