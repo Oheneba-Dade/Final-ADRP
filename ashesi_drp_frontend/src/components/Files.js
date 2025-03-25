@@ -110,7 +110,7 @@ const FileTable = ({collection_id}) => {
         {/* Popup Modal */}
         {showPopup && (
           <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-120">
               <h2 className="text-xl text-ashesi-red font-semibold mb-4">Submit a Reason for Downloading</h2>
   
               <form onSubmit={handleSubmit}>
