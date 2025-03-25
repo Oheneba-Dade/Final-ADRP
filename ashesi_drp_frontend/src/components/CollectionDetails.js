@@ -17,9 +17,8 @@ export default function CollectionsDetails({ initialCollection }) {
     const [showAbstract, setShowAbstract] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showIntro, setShowIntro] = useState(false);
-    const [showVariable, setShowVariable] = useState(false);
     const [showFiles, setShowFiles] = useState(false);
-    const [showReview, setShowReview] = useState(false);
+    // const [showReview, setShowReview] = useState(false);
     
     return(
         <div>
@@ -32,10 +31,16 @@ export default function CollectionsDetails({ initialCollection }) {
                     <h1 className="text-2xl font-bold text-ashesi-red mt-2">
                         {collection.title}
                     </h1>
-                    <p className="mt-2 text-blue-800 underline">
-                        <a href="mailto:boakye.reynolds@example.com" className="hover:text-blue-600">Boakye Reynolds</a>,
-                        <a href="mailto:stark.tony@example.com" className="hover:text-blue-600 ml-2">Stark Tony</a>,
-                        <a href="mailto:omar.havertz@example.com" className="hover:text-blue-600 ml-2">Omar Havertz</a>
+                    <p className="mt-2 text-blue-800 underline flex gap-4 flex-wrap">
+                        {collection.authors.length > 0 ? (
+                          collection.authors.map((author) => (
+                            <a key={author.id} href={`mailto:${author.email}`} className="hover:text-blue-600">
+                              {author.name}
+                            </a>
+                          ))
+                        ) : (
+                          <span className="hover:text-blue-600">No author</span>
+                        )}
                     </p>
 
                     <div className="mt-10 flex flex-wrap justify-between text-ashesi-gray">
@@ -53,7 +58,7 @@ export default function CollectionsDetails({ initialCollection }) {
 
                     <div className="mt-2 flex flex-wrap justify-between text-ashesi-gray">
                         <div>
-                            <span><p className=""><strong>keywords:</strong>{collection.keywords}</p></span>
+                            <span><p className=""><strong>keywords: </strong>{collection.keywords}</p></span>
                         </div>
                         
                     </div>
@@ -81,13 +86,13 @@ export default function CollectionsDetails({ initialCollection }) {
                     <hr className="mt-5 mb-8" />
                 </div>
                 
-                {/*  INTRODUCTORY PAPER */}
+                {/*  INSTANCE REPRESENTATION */}
                 <div>
                     <hr className="my-3" />
 
                     <div className="cursor-pointer" onClick={() => setShowIntro(!showIntro)}>
                         <h2 className="text-ashesi-red font-semibold justify-between flex items-center">
-                            INTRODUCTORY PAPER
+                            INSTANCE REPRESENTATION
                             <AiOutlineDown
                                 className={`mx-2 transform transition-transform duration-500 ease-in-out ${showIntro ? 'rotate-180' : 'rotate-0'}`} />
                         </h2>
@@ -95,56 +100,16 @@ export default function CollectionsDetails({ initialCollection }) {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showIntro ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
                         <p className="mt-4 mb-1"><strong> What do the instances in this dataset represent?</strong></p>
                         <p className="">
-                            {collection.abstract}
-                        </p>
-
-                        <p className="mt-4 mb-1"><strong>  Has Missing Values?</strong></p>
-                        <p className="">No</p>
-                    </div>
-
-                    <hr className="mt-5 mb-8" />
-                </div>
-                
-                {/*  DATASET INFORMATION */}
-                <div>
-                    <hr className="my-3" />
-
-                    <div className="cursor-pointer" onClick={() => setShowInfo(!showInfo)}>
-                        <h2 className="text-ashesi-red font-semibold justify-between flex items-center">
-                            DATASET INFORMATION
-                            <AiOutlineDown
-                                className={`mx-2 transform transition-transform duration-500 ease-in-out ${showInfo ? 'rotate-180' : 'rotate-0'}`} />
-                        </h2>
-                    </div>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showInfo ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                        <p className="mt-4"><Link href="/" className="cursor-pointer underline text-blue-800 hover:text-blue-600 mt-4">  Improving Accessibility Across Multifaceted Web Pages</Link></p>
-                        <p className="mt-2">By Boakye Reynolds, Stark Tony, Omar Havertz</p>
-                        <p className="mt-2"> Published in Accra, 2023</p>
-                    </div>
-
-                    <hr className="mt-5 mb-8" />
-                </div>
-                
-                {/*  VARIABLE */}
-                <div>
-                    <hr className="my-3" />
-
-                    <div className="cursor-pointer" onClick={() => setShowVariable(!showVariable)}>
-                        <h2 className="text-ashesi-red font-semibold justify-between flex items-center">
-                            VARIABLE TABLE
-                            <AiOutlineDown
-                                className={`mx-2 transform transition-transform duration-500 ease-in-out ${showVariable ? 'rotate-180' : 'rotate-0'}`} />
-                        </h2>
-                    </div>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showVariable ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                        <p className="mt-4 text-center h-32 flex items-center justify-center">
                             {collection.instance_representation}
                         </p>
+
+                        {/* <p className="mt-4 mb-1"><strong>  Has Missing Values?</strong></p>
+                        { collection.missing_values ? <p className="">Yes</p> : <p className="">No</p>} */}               
                     </div>
 
                     <hr className="mt-5 mb-8" />
                 </div>
-            
+                          
                 {/*  FILES */}
                 <div>
                     <hr className="my-3" />
@@ -160,14 +125,32 @@ export default function CollectionsDetails({ initialCollection }) {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showFiles ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
                       <p className="mt-4"></p>
                       
-                      <Files />
+                      <Files collection_id={collection.id}/>
                     </div>
                     
                     <hr className="mt-5 mb-8" />
                 </div>
                 
-                {/*  REVIEWS */}
+                {/*  ADDITIONAL COMMMENT */}
                 <div>
+                    <hr className="my-3" />
+
+                    <div className="cursor-pointer" onClick={() => setShowInfo(!showInfo)}>
+                        <h2 className="text-ashesi-red font-semibold justify-between flex items-center">
+                            ADDITIONAL COMMMENT
+                            <AiOutlineDown
+                                className={`mx-2 transform transition-transform duration-500 ease-in-out ${showInfo ? 'rotate-180' : 'rotate-0'}`} />
+                        </h2>
+                    </div>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showInfo ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                        { collection.comment ? <p className="mt-4">{collection.comment}</p> : <p className="mt-4">No comment</p>}
+                    </div>
+
+                    <hr className="mt-5 mb-8" />
+                </div>
+                
+                {/*  REVIEWS */}
+                {/* <div>
                     <hr className="my-3" />
                     
                     <div className="cursor-pointer" onClick={() => setShowReview(!showReview)}>
@@ -186,7 +169,7 @@ export default function CollectionsDetails({ initialCollection }) {
                     </div>
                     
                     <hr className="mt-5 mb-8" />
-                </div>
+                </div> */}
             </div>
         </div>
     );

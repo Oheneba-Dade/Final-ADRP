@@ -65,7 +65,7 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
     };
 
     return (
-        <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-20 px-12">
+        <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-20 px-16">
 
             {
                 filterOn && (
