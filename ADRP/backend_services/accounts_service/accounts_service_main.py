@@ -7,6 +7,7 @@ from django.db import transaction
 from rest_framework.request import Request
 
 from .accounts_service_repository import *
+from ..statistics_service.statistics_service_repository import *
 from .custom_jwtserializer import OTPTokenObtainPairSerializer
 from ..email_service.email_service_main import EmailService
 
@@ -51,6 +52,7 @@ class AccountsService:
             new_otp = create_new_otp(user, new_otp, lifetime)
         else:
             user = AccountsService.create_new_user(request_obj)
+            increment_global_user_count()
             new_otp = create_new_otp(user, new_otp, lifetime)
 
         return new_otp
@@ -122,7 +124,6 @@ class AccountsService:
     @staticmethod
     def login(request_obj: Request):
         """ Attempts to login a user."""
-        print(request_obj.data.get("email"))
         user = User.objects.get(email=request_obj.data.get("email"))
 
         # Login if less than 3 attempts
@@ -146,4 +147,5 @@ class AccountsService:
         else:
             print("Too many attempts")
             clear_user_otps(user)
+            reset_login_attempts(user)
             raise ValidationError("Too many invalid OTPs")

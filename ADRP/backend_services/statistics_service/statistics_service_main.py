@@ -9,7 +9,7 @@ from ...serializers import StatisticsSerializer
 class StatisticsService():
 
     @staticmethod
-    def get_statistics(request: Request) -> Response:
+    def get_statistics() -> Response:
         """ Fetches usage statistics for the platform including:
         num downloads, num views, num contributrs, num collections"""
 
