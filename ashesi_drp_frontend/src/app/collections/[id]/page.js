@@ -8,8 +8,7 @@ import CollectionSidebar from "@/components/CollectionSidebar";
 
 
 export default async function CollectionPage({ params }) { 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  
+
   const collectionId = params.id;
 
   const data = await fetch(`${BASE_URL}/get_collection/?collection_id=${collectionId}`);

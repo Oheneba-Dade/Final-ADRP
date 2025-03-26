@@ -11,9 +11,7 @@ export default async function Home() {
 	
 	const data = await fetch(`${BASE_URL}/get_all_collections?page=1`);
 	const initialCollections = await data.json();
-		
-	await new Promise((resolve) => setTimeout(resolve, 1000));
-	
+
 	return (
 		<div className="relative w-full">
 			<Slideshow/>

@@ -6,9 +6,6 @@ import StatBlock from "@/components/StatBlock";
 import HeroBlock from "@/components/HeroBlock";
 
 export default async function About() {
-
-	await new Promise((resolve) => setTimeout(resolve, 2000));
-	
 	return (
 		<div className="mx-auto my-20">
 			<div>

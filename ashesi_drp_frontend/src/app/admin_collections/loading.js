@@ -3,8 +3,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "../globals.css";
 
 export default async function UsersTable() {
-  
-    await new Promise((resolve) => setTimeout(resolve, 2000));
 
   return (
         <div className="max-w-4xl mx-auto my-24 p-6">
