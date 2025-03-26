@@ -24,6 +24,7 @@ def create_collection(user, collection):
     new_collection = Collection(uploaded_by=user, **collection)
     new_collection.save()
 
+
     return new_collection
 
 
@@ -128,3 +129,5 @@ def save_authors(request_obj, collection: Collection):
         collection.authors.add(obj)
         if created:
             increment_global_author_count()
+
+
