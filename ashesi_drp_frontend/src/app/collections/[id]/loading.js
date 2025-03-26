@@ -45,7 +45,7 @@ export default function Card() {
 	        <div>
 		        <hr className="my-3" />
 		        
-		        <Skeleton width="100%" height={200} baseColor="#dce3e8" highlightColor="#f0f4f8" />
+		        <Skeleton width="100%" height={100} baseColor="#dce3e8" highlightColor="#f0f4f8" />
 
 		        <hr className="mt-5 mb-8" />
 	        </div>  
@@ -54,7 +54,7 @@ export default function Card() {
 	        <div>
 				<hr className="my-3" />
 				
-                <Skeleton width="100%" height={200} baseColor="#dce3e8" highlightColor="#f0f4f8" />
+                <Skeleton width="100%" height={100} baseColor="#dce3e8" highlightColor="#f0f4f8" />
 				
 				<hr className="mt-5 mb-8" />
 	        </div>
@@ -63,34 +63,17 @@ export default function Card() {
 	        <div>
 				<hr className="my-3" />
 				
-                <Skeleton width="100%"  height={200} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                <Skeleton width="100%"  height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
 				
 				<hr className="mt-5 mb-8" />
 	        </div>
-	        
-	        {/*  VARIABLE */}
-	        <div>
-				<hr className="my-3" />
-				
-                <Skeleton width="100%" height={200} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-				
-				<hr className="mt-5 mb-8" />
-	        </div>
+
 	        
 	        {/*  FILES */}
 	        <div>
 				<hr className="my-3" />
 				
-                <Skeleton width="100%"  height={200} baseColor="#dce3e8" highlightColor="#f0f4f8" />
-				
-				<hr className="mt-5 mb-8" />
-	        </div>
-	        
-	        {/*  REVIEWS */}
-	        <div>
-				<hr className="my-3" />
-				
-                <Skeleton width="100%" height={200} baseColor="#dce3e8" highlightColor="#f0f4f8" />
+                <Skeleton width="100%"  height={100} baseColor="#dce3e8" highlightColor="#f0f4f8" />
 				
 				<hr className="mt-5 mb-8" />
 	        </div>
@@ -123,10 +106,6 @@ export default function Card() {
 	        <hr className="my-6" />
 	        
             <Skeleton width="100%" height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-			
-			<p className="mt-6 text-sm text-gray-600 text-justify">
-                <Skeleton width="100%" height={100} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-			</p>
 	    </div>
     
     </div>

@@ -31,7 +31,7 @@ const CustomButton = ({
 	);
   
 	return href ? (
-	  <Link href={href} className={buttonClass}>
+	  <Link href={href} target="_blank" className={buttonClass}>
 		{ButtonContent}
 	  </Link>
 	) : (

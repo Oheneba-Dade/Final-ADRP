@@ -8,7 +8,7 @@ export default function CollectionItem({collection_id, title, abstract, date_of_
     return (
         <li className="mb-4 mt-10 text-sm text-ashesi-gray">
             <a href={`collections/${collection_id}`}>
-                <h2 className="italic text-lg text-ashesi-red">{title}</h2>
+                <h2 className="text-lg text-ashesi-red">{title}</h2>
             </a>
             <hr/>
             <TruncatedText text={abstract} maxLength={150} />
