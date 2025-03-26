@@ -18,7 +18,7 @@ def get_dataset(request):
     Returns:
         Response: Serialized dataset files with HTTP 200 status.
     """
-    result = DatasetService.get_dataset(requst_obj=request)
+    result = DatasetService.get_dataset(request_obj=request)
     return Response(result, status=status.HTTP_200_OK)
 
 
