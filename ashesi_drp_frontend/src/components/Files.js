@@ -33,7 +33,10 @@ const FileTable = ({collection_id}) => {
   
           // Call the second fetch using POST
           console.log(data);
-          await fetchAdditionalData(data);
+          
+          if (data.length > 0){
+            await fetchAdditionalData(data);
+          }
         }, 2000);
       } catch (error) {
         console.error("Error fetching collection:", error);
