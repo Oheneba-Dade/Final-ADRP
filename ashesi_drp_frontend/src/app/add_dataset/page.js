@@ -1,6 +1,7 @@
 "use client";
 import "../globals.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
 import KeywordInput from "@/components/KeywordInput";
 import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
@@ -9,6 +10,15 @@ import CustomButton from "@/components/CustomButton";
 
 export default function AddDataset() {
 	const [keywords, setKeywords] = useState([]);
+	const router = useRouter()
+
+	useEffect(() => {
+        const jwt = localStorage.getItem("jwt");
+
+        if (!jwt) {
+            router.push("/auth"); // Redirect to login if no token
+        }
+    }, []);
 
 	return (
 		<form className="container mx-auto mt-32 px-48">
