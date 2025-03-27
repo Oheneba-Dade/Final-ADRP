@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 @permission_classes([AllowAny])
 def get_dataset(request):
 
-    result = DatasetService.get_dataset(requst_obj=request)
+    result = DatasetService.get_dataset(request_obj=request)
     return Response(result, status=status.HTTP_200_OK)
 
 

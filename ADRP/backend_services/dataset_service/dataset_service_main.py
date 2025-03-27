@@ -22,8 +22,8 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 class DatasetService:
 
 
-    def get_dataset(requst_obj):
-        collection_id = requst_obj.query_params.get('collection_id')
+    def get_dataset(request_obj):
+        collection_id = request_obj.query_params.get('collection_id')
         
         dataset_data = get_dataset(collection_id)
 
