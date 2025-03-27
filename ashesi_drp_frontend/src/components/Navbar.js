@@ -1,5 +1,6 @@
 "use client";
 
+import {useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,6 +8,7 @@ import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
 	const pathname = usePathname();
+	const [logIn, setLogIn] = useState(localStorage.getItem("jwt"))
 
 	// Function to determine active styles
 	const getLinkClass = (href) =>
@@ -48,8 +50,8 @@ export default function Navbar() {
 					<Link href="/about" className={getLinkClass("/about")}>
 						About
 					</Link>
-					<Link href="/login" className={getLinkClass("/login")}>
-						Login
+					<Link href="/auth" className={getLinkClass("/auth")}>
+						{logIn === false ? (<div> Login</div>) : (<div> Logout</div>) }
 					</Link>
 				</div>
 
