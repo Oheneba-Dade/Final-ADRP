@@ -16,6 +16,7 @@ const FileTable = ({collection_id}) => {
   const [showPopup, setShowPopup] = useState(false);
   const [reason, setReason] = useState("");
   const [email, setEmail] = useState("");
+  const [customReason, setCustomReason] = useState("");
   
   // hook for downloadable link
   const [download, setDownload] = useState("");
@@ -116,7 +117,7 @@ const FileTable = ({collection_id}) => {
             <div className="bg-white p-6 rounded-lg shadow-lg w-120">
               <h2 className="text-xl text-ashesi-red font-semibold mb-4">Submit a Reason for Downloading</h2>
   
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}  className="flex flex-col gap-3 flex-grow">
                 <label className="block mb-2 font-medium">Email:</label>
                 <textarea
                   value={email}
@@ -127,16 +128,35 @@ const FileTable = ({collection_id}) => {
                   required
                 ></textarea>
                 
-                <label className="block mb-2 font-medium">Reason:</label>
-                <textarea
+                {/* Reason Selection */}
+                <label className="block mt-4 mb-2 font-medium">Reason:</label>
+                <select
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
-                  rows="3"
-                  placeholder="Enter your reason here..."
                   required
-                ></textarea>
+                >
+                  <option value="" disabled>Select a reason</option>
+                  <option value="Academic Research">Academic Research</option>
+                  <option value="Course Assignment">Course Assignment</option>
+                  <option value="Personal Interest">Personal Interest</option>
+                  <option value="Industry or Professional Use">Industry or Professional Use</option>
+                  <option value="Other">Other</option>
+                </select>
+        
+                {/* Show text area if 'Other' is selected */}
+                {reason === "Other" && (
+                  <textarea
+                    value={customReason}
+                    onChange={(e) => setCustomReason(e.target.value)}
+                    className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
+                    rows="2"
+                    placeholder="Please specify your reason..."
+                    required
+                  ></textarea>
+                )}
   
+                {/* Buttons */}
                 <div className="flex justify-end mt-4 gap-2">                  
                   <CustomButton
                       text="Cancel"
