@@ -39,7 +39,7 @@ export default async function Home() {
 						/>,
 						<CustomButton
 							text="CONTRIBUTE"
-							href="/"
+							href="/add_collection"
 						/>
 					]
 				}

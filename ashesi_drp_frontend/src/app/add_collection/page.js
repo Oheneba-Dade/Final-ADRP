@@ -1,11 +1,13 @@
 "use client";
 import "../globals.css";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import KeywordInput from "@/components/KeywordInput";
 import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
 import { FiInfo } from "react-icons/fi";
 import {BASE_URL} from "@/utils/constants";
+import { useRouter } from 'next/navigation'
+import AxiosInstance from "@/lib/axios";
 
 // Common classes for form fields
 const formGroupClass = "flex items-start gap-4 mb-8";
@@ -37,6 +39,16 @@ const InfoTooltip = ({ text }) => {
 export default function AddDataset() {
 	const [keywords, setKeywords] = useState([]);
 	const [authorGroups, setAuthorGroups] = useState([]);
+	const router = useRouter();
+
+
+	useEffect(() => {
+		const jwt = localStorage.getItem("jwt");
+
+		if (!jwt) {
+			router.push("/auth"); // Redirect to login if no token
+		}
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -74,11 +86,25 @@ export default function AddDataset() {
 		formData.append("dataset_file", zipped_file);
 
 
-		const data = await fetch(`${BASE_URL}/create_collection`, {
-			method: "POST",
-			body: formData,
-		// 	TODO: Add authorization header with tokens for authentication
-		});
+		// const data = await fetch(`${BASE_URL}/create_collection`, {
+		// 	method: "POST",
+		// 	body: formData,
+		//
+		// // 	TODO: Add authorization header with tokens for authentication
+		// });
+
+		const response = await AxiosInstance.post("create_collection", {
+			"title": title,
+			"date_of_publication": date_of_publication,
+			"authors": JSON.stringify(authors),
+			"doi_link": doi_link,
+			"citation": citation,
+			"keywords": keywords,
+			"abstract": abstract,
+			"comment": comments,
+			"instance_representation": instance_representation,
+			"dataset_file": zipped_file,
+		})
 
 	}
 
