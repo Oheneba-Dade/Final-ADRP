@@ -5,7 +5,6 @@ import KeywordInput from "@/components/KeywordInput";
 import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
 import { FiInfo } from "react-icons/fi";
-import {BASE_URL} from "@/utils/constants";
 import { useRouter } from 'next/navigation'
 import AxiosInstance from "@/lib/axios";
 
@@ -14,6 +13,7 @@ const formGroupClass = "flex items-start gap-4 mb-8";
 const labelClass = "w-40 text-left pt-2";
 const inputClass = "p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red flex-1";
 const textareaClass = "p-2 border border-ashesi-red rounded-md focus:outline-ashesi-red flex-1 h-30";
+
 
 const InfoTooltip = ({ text }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -36,10 +36,46 @@ const InfoTooltip = ({ text }) => {
 	);
 };
 
+const LoadingOverlay = ({ show }) => (
+	<div
+		className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity ${
+			show ? "opacity-100 visible" : "opacity-0 invisible"
+		}`}
+	>
+		<div className="bg-white p-6 rounded-md shadow-lg">
+			<p className="text-lg font-semibold text-ashesi-red">
+				Publishing Collection...
+			</p>
+		</div>
+	</div>
+);
+
+const Modal = ({ show, message, onClose }) => (
+	<div
+		className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+			show ? "opacity-100 visible" : "opacity-0 invisible"
+		}`}
+	>
+		<div className="bg-white p-6 rounded-md shadow-lg text-center max-w-sm">
+			<p className="text-lg">{message}</p>
+			<button
+				className="mt-4 px-4 py-2 bg-ashesi-red text-white rounded-md"
+				onClick={onClose}
+			>
+				OK
+			</button>
+		</div>
+	</div>
+);
+
 export default function AddDataset() {
 	const [keywords, setKeywords] = useState([]);
 	const [authorGroups, setAuthorGroups] = useState([]);
 	const router = useRouter();
+	const [showModal, setShowModal] = useState(false);
+	const [modalMessage, setModalMessage] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+
 
 
 	useEffect(() => {
@@ -70,45 +106,38 @@ export default function AddDataset() {
 			};
 		});
 
+		try{
+			const response = await AxiosInstance.post("create_collection", {
+				"title": title,
+				"date_of_publication": date_of_publication,
+				"authors": JSON.stringify(authors),
+				"doi_link": doi_link,
+				"citation": citation,
+				"keywords": keywords,
+				"abstract": abstract,
+				"comment": comments,
+				"instance_representation": instance_representation,
+				"dataset_file": zipped_file,
+			})
+			if (response.status === 201) {
+				setModalMessage("Collection Published Successfully!");
+			} else {
+				setModalMessage("Failed to publish collection. Please try again.");
+			}
+		}catch (error) {
+			setModalMessage("Error occurred. Check your connection and try again.");
+		} finally {
+			setIsLoading(false);
+			setShowModal(true);
+		}
 
-
-
-		const formData = new FormData();
-		formData.append("title", title);
-		formData.append("date_of_publication", date_of_publication);
-		formData.append("authors", JSON.stringify(authors));
-		formData.append("doi_link", doi_link);
-		formData.append("citation", citation);
-		formData.set("keywords", keywords);
-		formData.append("abstract", abstract);
-		formData.append("comment", comments);
-		formData.append("instance_representation", instance_representation)
-		formData.append("dataset_file", zipped_file);
-
-
-		// const data = await fetch(`${BASE_URL}/create_collection`, {
-		// 	method: "POST",
-		// 	body: formData,
-		//
-		// // 	TODO: Add authorization header with tokens for authentication
-		// });
-
-		const response = await AxiosInstance.post("create_collection", {
-			"title": title,
-			"date_of_publication": date_of_publication,
-			"authors": JSON.stringify(authors),
-			"doi_link": doi_link,
-			"citation": citation,
-			"keywords": keywords,
-			"abstract": abstract,
-			"comment": comments,
-			"instance_representation": instance_representation,
-			"dataset_file": zipped_file,
-		})
 
 	}
 
 	return (
+	<>
+		<LoadingOverlay show={isLoading} />
+		<Modal show={showModal} message={modalMessage} onClose={() => setShowModal(false)} />
 		<form className="container mx-auto mt-32 max-w-4xl px-4">
 			<section className="my-16">
 				<h2 className="text-3xl font-semibold text-center text-ashesi-red">
@@ -292,5 +321,6 @@ export default function AddDataset() {
 				<CustomButton text="Submit" onClick={handleSubmit} />
 			</div>
 		</form>
+	</>
 	);
 }
