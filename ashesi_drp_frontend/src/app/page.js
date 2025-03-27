@@ -8,7 +8,7 @@ import CollectionsContainer from "@/components/CollectionsContainer";
 import { BASE_URL } from "@/utils/constants";
 
 export default async function Home() {
-
+	
 	const data = await fetch(`${BASE_URL}/get_all_collections?page=1`);
 	const initialCollections = await data.json();
 
@@ -28,18 +28,18 @@ export default async function Home() {
 					knowledge sharing. By providing a seamless interface for research data
 					management, Ashesi University aims to support the growing movement towards
 					Open Science and FAIR data practices."
-				visibleButton={true}
+				visibleButton={true} 
 				customButtons={
 					[
 						<CustomButton
-							text="ALL COLLECTIONS"
-							bgColor="bg-ashesi-gray"
-							width="w-48"
-							href="/collections"
+							text="ALL COLLECTIONS" 
+							bgColor="bg-ashesi-gray" 
+							width="w-48" 
+							href="/collections" 
 						/>,
-						<CustomButton
-							text="CONTRIBUTE"
-							href="/"
+						<CustomButton 
+							text="CONTRIBUTE" 
+							href="/"  
 						/>
 					]
 				}

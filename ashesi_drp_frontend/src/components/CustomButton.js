@@ -12,7 +12,6 @@ const CustomButton = ({
 	height = "h-12",
 	borderRadius = "rounded-md",
 	onClick,
-	disabled = false,
 	border = "",
 	href,
 	icon: Icon,
@@ -36,7 +35,7 @@ const CustomButton = ({
 		{ButtonContent}
 	  </Link>
 	) : (
-	  <button disabled={disabled} className={buttonClass} onClick={onClick}>
+	  <button className={buttonClass} onClick={onClick}>
 		{ButtonContent}
 	  </button>
 	);
