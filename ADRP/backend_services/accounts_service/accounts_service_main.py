@@ -1,16 +1,16 @@
 import secrets
 import string
-from rest_framework.request import Request
-from ...models import OTP, User
-from .accounts_service_repository import *
-from ..email_service.email_service_main import EmailService
-from django.db import transaction
-from django.utils import timezone
-from django.core.exceptions import ValidationError
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .custom_jwtserializer import OTPTokenObtainPairSerializer
+
 from django.contrib.auth.models import update_last_login
-from rest_framework_simplejwt.tokens import AccessToken, TokenError
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from rest_framework.request import Request
+
+from .accounts_service_repository import *
+from ..statistics_service.statistics_service_repository import *
+from .custom_jwtserializer import OTPTokenObtainPairSerializer
+from ..email_service.email_service_main import EmailService
+
 
 class AccountsService:
 
@@ -52,6 +52,7 @@ class AccountsService:
             new_otp = create_new_otp(user, new_otp, lifetime)
         else:
             user = AccountsService.create_new_user(request_obj)
+            increment_global_user_count()
             new_otp = create_new_otp(user, new_otp, lifetime)
 
         return new_otp
@@ -92,7 +93,7 @@ class AccountsService:
         return new_otp
 
     @staticmethod
-    def validate_otp(request_obj: Request, clean = True) -> OTP | None:
+    def validate_otp(request_obj: Request, clean=True) -> OTP | None:
         """Checks if OTP is valid (within expiration time).
        By default, deletes expired or invalid OTPs in the process
 
@@ -111,7 +112,6 @@ class AccountsService:
 
         return otp
 
-
     @staticmethod
     def get_jwttokens_for_user(user):
         token = OTPTokenObtainPairSerializer.get_token(user)
@@ -124,11 +124,10 @@ class AccountsService:
     @staticmethod
     def login(request_obj: Request):
         """ Attempts to login a user."""
-        print(request_obj.data.get("email"))
         user = User.objects.get(email=request_obj.data.get("email"))
 
         # Login if less than 3 attempts
-        if user.login_attempts <=3:
+        if user.login_attempts <= 3:
             print("Login attempt")
             token_verified = AccountsService.validate_otp(request_obj)
 
@@ -148,13 +147,5 @@ class AccountsService:
         else:
             print("Too many attempts")
             clear_user_otps(user)
+            reset_login_attempts(user)
             raise ValidationError("Too many invalid OTPs")
-
-
-
-
-
-
-
-
-

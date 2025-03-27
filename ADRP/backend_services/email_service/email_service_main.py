@@ -1,13 +1,10 @@
 from enum import Enum
+
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
 
-# from .email_templates.txt import *
-# from .email_templates.html import *
-
 class EmailService:
-
     class Purpose(Enum):
         LOGIN = "LOGIN"
         DOWNLOAD_DATASET = "DOWNLOAD_DATASET"
@@ -67,9 +64,4 @@ class EmailService:
 
         return msg
 
-
-
-    #TODO add email settings
-    #TODO link OTP to JWT
-    #TODO FInish collections
 

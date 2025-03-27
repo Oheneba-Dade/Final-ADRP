@@ -6,29 +6,9 @@ import StatBlock from "@/components/StatBlock";
 import HeroBlock from "@/components/HeroBlock";
 
 export default async function About() {
-
-	await new Promise((resolve) => setTimeout(resolve, 2000));
-	
 	return (
-		<div className="mx-auto">
+		<div className="mx-auto my-20">
 			<div>
-				<div className="relative w-full">
-					<Slideshow />
-
-					<HeroBlock
-						header="Welcome to ARDR"
-						subheader="Welcome to the heart of Ashesi’s research excellence"
-						text={`At Ashesi University, we are committed to fostering a culture of academic excellence, collaboration, and ethical research. 
-The Ashesi Research Data Repository (ARDR) is designed to empower our researchers, faculty, and students by offering a secure and dynamic platform for managing, archiving, and sharing research data across all disciplines. 
-
-The ARDR is currently home to [X] active researchers, hosting [Y] research datasets, including publicly accessible collections that promote interdisciplinary knowledge sharing. 
-By providing a seamless interface for research data management, Ashesi University aims to support the growing movement towards Open Science and FAIR data practices.`}
-					/>
-					
-					<div className="sm:mt-96 md:mt-96 lg:mt-40 max-h-[800px]"></div>
-				</div>
-
-				<hr className="mb-10" />
 				<div className="grid grid-cols-2 gap-32 max-w-5xl mx-auto p-6">
 					{/* First Column */}
 					<div className="grid grid-rows-4 gap-2">
