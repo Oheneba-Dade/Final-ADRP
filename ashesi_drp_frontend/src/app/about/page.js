@@ -4,8 +4,13 @@ import Slideshow from "@/components/Slideshow";
 import Image from "next/image";
 import StatBlock from "@/components/StatBlock";
 import HeroBlock from "@/components/HeroBlock";
+import { BASE_URL } from "@/utils/constants";
 
 export default async function About() {
+	
+	const data = await fetch(`${BASE_URL}/get_stats?`);
+	const stats = await data.json();
+
 	return (
 		<div className="mx-auto my-20">
 			<div>
@@ -23,21 +28,14 @@ export default async function About() {
 							</div>
 						</div>
 
-						<div className="row-span-3">
+						<div className="row-span-3 text-justify leading-6">
 							<p>
-								Sed ut perspiciatis unde omnis iste natus error
-								sit voluptatem accusantium doloremque
-								laudantium, totam rem aperiam, eaque ipsa quae
-								ab illo inventore veritatis et quasi architecto
-								beatae vitae dicta sunt explicabo. Nemo enim
-								ipsam voluptatem quia voluptas sit aspernatur
-								aut odit aut fugit, sed quia consequuntur magni
-								dolores eos qui ratione voluptatem sequi
-								nesciunt. Neque porro quisquam est, qui Sed ut
-								perspiciatis unde omnis iste natus error sit
-								voluptatem accusantium doloremque laudantium,
-								totam
-							</p>
+								At Ashesi, we are committed to fostering a culture of research, innovation, and knowledge sharing. The Ashesi Data Repository is a dedicated platform designed to store, manage, and provide access to valuable research data across various disciplines.								
+							</p> 
+							<br/>
+							<p>By centralizing datasets, research findings, and academic resources, the repository empowers students, faculty, and researchers to collaborate, explore new insights, and contribute to global knowledge. Through this initiative, we aim to enhance transparency, reproducibility, and the overall impact of research conducted within the Ashesi community and beyond.</p>
+							<br/>
+							<p>	Join us in our mission to advance research excellence and drive meaningful change through data-driven discoveries.</p>
 						</div>
 					</div>
 						
@@ -52,10 +50,10 @@ export default async function About() {
 						/>
 
 						<div className="grid grid-cols-2 gap-2 mb-8">
-							<StatBlock title="3.5k" value="academicians" />
-							<StatBlock title="3.5k" value="academicians" />
-							<StatBlock title="3.5k" value="academicians" />
-							<StatBlock title="3.5k" value="academicians" />
+							<StatBlock title={stats.collection_count} value="Collections" />
+							<StatBlock title={stats.author_count} value="Authors" />
+							<StatBlock title={stats.download_count} value="Downloads" />
+							<StatBlock title={stats.view_count} value="Views" />
 						</div>
 					</div>
 				</div>
@@ -76,43 +74,33 @@ export default async function About() {
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
-								Publish Research Data:
+								Enhance Collaboration:
 							</span>{" "}
-							Share your findings with the global academic
-							community, ensuring your work reaches beyond
-							borders.
+							Connect with fellow researchers and contribute to collective knowledge across disciplines
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
-								Publish Research Data:
+								Ensure Data Integrity:
 							</span>{" "}
-							Share your findings with the global academic
-							community, ensuring your work reaches beyond
-							borders.
+							Securely store, manage, and preserve your research data for future reference and validation.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
-								Publish Research Data:
+								Increase Research Impact:
 							</span>{" "}
-							Share your findings with the global academic
-							community, ensuring your work reaches beyond
-							borders.
+							Improve visibility and accessibility, allowing your work to inform and inspire new discoveries.
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
-								Publish Research Data:
+								Support Open Science:
 							</span>{" "}
-							Share your findings with the global academic
-							community, ensuring your work reaches beyond
-							borders.
+							Promote transparency and knowledge-sharing by making research data
 						</li>
 						<li className="mb-4">
 							<span className="font-semibold">
-								Publish Research Data:
+								Facilitate Innovation:
 							</span>{" "}
-							Share your findings with the global academic
-							community, ensuring your work reaches beyond
-							borders.
+							Provide a foundation for data-driven insights and breakthroughs in diverse fields of study.
 						</li>
 					</ul>
 					<hr className="mb-10" />
