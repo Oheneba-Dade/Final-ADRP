@@ -121,6 +121,7 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
                                             key={collection.id}
                                             collection_id={collection.id}
                                             title={collection.title}
+                                            authors={collection.authors}
                                             abstract={collection.abstract}
                                             date_of_publication={collection.date_of_publication}
                                             doi_link={collection.doi_link}

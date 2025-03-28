@@ -15,8 +15,8 @@ const FileTable = ({collection_id}) => {
   // hooks for popup
   const [showPopup, setShowPopup] = useState(false);
   const [reason, setReason] = useState("");
+  const [specificReason, setSpecificReason] = useState("");
   const [email, setEmail] = useState("");
-  const [customReason, setCustomReason] = useState("");
   
   // hook for downloadable link
   const [download, setDownload] = useState("");
@@ -92,6 +92,8 @@ const FileTable = ({collection_id}) => {
     // Close the popup after submission
     setShowPopup(false);
     setReason("");
+    setSpecificReason("");
+    setEmail("");
   };
 
   return (
@@ -119,14 +121,14 @@ const FileTable = ({collection_id}) => {
   
               <form onSubmit={handleSubmit}  className="flex flex-col gap-3 flex-grow">
                 <label className="block mb-2 font-medium">Email:</label>
-                <textarea
+                <input
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
-                  rows="1"
                   placeholder="Enter your email here..."
                   required
-                ></textarea>
+                />
                 
                 {/* Reason Selection */}
                 <label className="block mt-4 mb-2 font-medium">Reason:</label>
@@ -145,16 +147,14 @@ const FileTable = ({collection_id}) => {
                 </select>
         
                 {/* Show text area if 'Other' is selected */}
-                {reason === "Other" && (
-                  <textarea
-                    value={customReason}
-                    onChange={(e) => setCustomReason(e.target.value)}
-                    className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
-                    rows="2"
-                    placeholder="Please specify your reason..."
-                    required
-                  ></textarea>
-                )}
+                <textarea
+                  value={specificReason}
+                  onChange={(e) => setSpecificReason(e.target.value)}
+                  className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ashesi-red"
+                  rows="2"
+                  placeholder="Please specify your reason..."
+                  required
+                ></textarea>
   
                 {/* Buttons */}
                 <div className="flex justify-end mt-4 gap-2">                  

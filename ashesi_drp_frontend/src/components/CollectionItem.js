@@ -2,7 +2,7 @@
 import TruncatedText from "@/components/TruncatedText";
 import { BASE_URL } from "@/utils/constants";
 
-export default function CollectionItem({collection_id, title, abstract, date_of_publication, doi_link, keywords }) {
+export default function CollectionItem({collection_id, title, authors, abstract, date_of_publication, doi_link, keywords }) {
     const firstThreeKeywords = keywords[0].split(", ").slice(0, 3);
     
     return (
@@ -13,14 +13,23 @@ export default function CollectionItem({collection_id, title, abstract, date_of_
             <hr/>
             <TruncatedText text={abstract} maxLength={150} />
             <div className="flex justify-between text-sm mt-4">
-                <p className="text-right">
+                <p className="text-right flex gap-2 flex-wrap">
                     <span className="font-semibold">authors: </span>
-                    Steph Curry, Jimmy Butler
+                    {authors.length > 0 ? (
+                          authors.map((author) => (
+                            <a key={author.id} href={`mailto:${author.email}`} className="hover:text-blue-600">
+                              {author.name}
+                            </a>
+                          ))
+                        ) : (
+                          <span className="">No author</span>
+                        )
+                    }
                 </p>
                 <a href={doi_link} target="_blank" rel="noopener noreferrer">
                     <p className="text-left">
                         <span className="font-semibold">doi: </span>
-                        {doi_link}
+                        {doi_link ? doi_link : "No DOI available"}
                     </p>
                 </a>
             </div>

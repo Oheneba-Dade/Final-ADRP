@@ -121,7 +121,18 @@ export default function Page() {
             console.log("Otp Response: ", response.data.access);
             // tokens are here
             localStorage.setItem("jwt", response.data.access); 
-            router.push("/collections");
+            
+            //admin setup
+            if (email.split("@")[0] == "reynolds.boakye" || email.split("@")[0]  == "oheneba.dade"){
+                localStorage.setItem("user", "admin");
+            }
+            else{
+                localStorage.setItem("user", "regular");
+            }
+            localStorage.setItem("email", email); 
+            
+            // router.push("/collections");
+            window.location.href = "/collections";
         } catch (error){
             setOtpMessage("Your OTP is incorrect, try again.")
             console.log("Error sending Otp: ", error.response.data)
@@ -146,7 +157,11 @@ export default function Page() {
             </div>
 
             <div className="shadow-sm shadow-red-200 bg-white p-8 rounded-md">
-                {step === 1 ? (
+                { loading? (
+                    <div className="flex justify-center items-center h-40">
+                        <div className="w-10 h-10 border-4 border-ashesi-red border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                ) : step === 1 ? (
                     <div>
                         <div className="flex flex-col p-4 mr-8">
                             <label className="text-black font-medium mb-4">
