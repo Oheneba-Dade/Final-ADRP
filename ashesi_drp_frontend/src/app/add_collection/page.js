@@ -258,7 +258,7 @@ export default function AddDataset() {
 						htmlFor="instance_representation"
 						className={labelClass}
 					>
-						What do the instances in this dataset represent?{" "}
+						What do the records/fields in this dataset represent?{" "}
 						<span className="text-red-500">*</span>
 					</label>
 					<textarea

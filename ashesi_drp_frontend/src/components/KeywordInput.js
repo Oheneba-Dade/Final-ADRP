@@ -23,7 +23,7 @@ export default function KeywordInput({ onKeywordsChange }) {
 
 	return (
 		<div className="flex items-center gap-4">
-			<div className="flex flex-wrap items-center gap-2 p-2 border border-ashesi-red rounded-md w-96 min-h-[42px]">
+			<div className="flex flex-wrap items-center gap-2 py-1 px-4 border border-ashesi-red rounded-md w-80 min-h-[42px]">
 				{keywords.map((keyword, index) => (
 					<span
 						key={index}

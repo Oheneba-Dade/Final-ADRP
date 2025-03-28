@@ -117,7 +117,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 
 	return ( 
 		<form
-			className="flex flex-col items-center bg-gray-50 py-8 rounded-lg justify-center mb-8 ml-12 w-96 shadow-md"
+			className="flex flex-col items-center bg-gray-50 py-8 rounded-lg justify-center mb-8 p-8 ml-12 w-96 shadow-md"
 		>
 			<div className="mb-8">
 				<label
@@ -128,12 +128,10 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 				</label>
 				<input
 					type="text"
-					className="w-96 outline-ashesi-red border border-ashesi-red rounded-md p-4"
+					className="w-80 outline-ashesi-red border border-ashesi-red rounded-md py-1 px-4"
 					name="collection-name"
 					defaultValue={initialTitle}  // Allows user edits without React tracking state
 				/>
-
-
 			</div>
 
 			<div className="mb-8">
@@ -145,7 +143,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 				</label>
 				<input
 					type="text"
-					className="w-96 outline-ashesi-red border border-ashesi-red rounded-md p-4"
+					className="w-80 outline-ashesi-red border border-ashesi-red rounded-md py-1 px-4"
 					name="author"
 				/>
 			</div>
@@ -163,10 +161,10 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 			<span className="text-center text-gray-600 mb-4">
 				PUBLISHED FROM
 			</span>
-			<div className="flex justify-between w-full items-center mb-8">
+			<div className="flex gap-8 w-full items-center justify-center mb-8">
 				<input
 					type="number"
-					className="w-32 border border-ashesi-red rounded-md p-2 focus:outline-ashesi-red"
+					className="w-20 border border-ashesi-red rounded-md p-1 pl-4 focus:outline-ashesi-red"
 					placeholder="YYYY"
 					value={fromYear}
 					onChange={handleFromChange}
@@ -182,7 +180,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 				<span className="text-gray-600">TO</span>
 				<input
 					type="number"
-					className="w-32 border border-ashesi-red rounded-md p-2 focus:outline-ashesi-red"
+					className="w-20 border border-ashesi-red rounded-md p-1 pl-4 focus:outline-ashesi-red"
 					placeholder="YYYY"
 					value={toYear}
 					onChange={handleToChange}
@@ -198,13 +196,15 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 			<div className="mb-4 flex justify-between w-full px-8">
 				<CustomButton
 					text="GO"
-					width="w-36"
+					width="w-28"
+					height = "h-8"
 					onClick={handleSearch}
 					type="button"
 				/>
 				<CustomButton
 					text="RESET"
-					width="w-36"
+					width="w-28"
+					height = "h-8"
 					onClick={handleReset}
 					type="button"
 				/>

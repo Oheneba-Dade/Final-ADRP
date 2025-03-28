@@ -39,14 +39,24 @@ export default function CollectionsDetails({ initialCollection }) {
                             </a>
                           ))
                         ) : (
-                          <span className="hover:text-blue-600">No author</span>
+                          <span className="">No author</span>
                         )}
                     </p>
 
                     <div className="mt-10 flex flex-wrap justify-between text-ashesi-gray">
                         <div>
-                            <span><strong>DOI:</strong> <Link href={`/${collection.doi_link}`} className="cursor-pointer hover:underline hover:text-blue-600 mt-4">{collection.doi_link}
-                            </Link></span>
+                            <span>
+                                <strong className="pr-2">DOI:</strong> 
+                                {collection.doi_link ? 
+                                    (
+                                        <Link href={`/${collection.doi_link}`} className="cursor-pointer hover:underline hover:text-blue-600 mt-4">
+                                            {collection.doi_link}
+                                        </Link>
+                                    ) : (
+                                        <p className="inline">No DOI available</p>
+                                    )  
+                                }
+                            </span>
                         </div>
                         {/* <div>
                             <Link href="/" className="cursor-pointer mt-4 underline text-blue-800 hover:text-blue-600"> request for usage</Link>

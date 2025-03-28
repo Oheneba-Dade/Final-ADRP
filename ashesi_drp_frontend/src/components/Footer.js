@@ -9,16 +9,18 @@ import {
 	SiLinkedin,
 	SiYoutube,
 } from "react-icons/si";
+import { FaUniversity } from "react-icons/fa";
 import SocialIcon from "@/components/SocialIcon";
 import CustomButton from "@/components/CustomButton";
 
 export default function Footer() {
 	const icons = [
-		{ component: SiFacebook, link: "https://facebook.com" },
-		{ component: SiInstagram, link: "https://instagram.com" },
-		{ component: SiLinkedin, link: "https://linkedin.com" },
-		{ component: SiX, link: "https://twitter.com" },
-		{ component: SiYoutube, link: "https://youtube.com" },
+		{ component: FaUniversity, link: "https://ashesi.edu.gh/" },
+		{ component: SiFacebook, link: "https://www.facebook.com/Ashesi/" },
+		{ component: SiInstagram, link: "https://www.instagram.com/ashesi/?hl=en" },
+		{ component: SiLinkedin, link: "https://gh.linkedin.com/school/ashesiuniversity/" },
+		{ component: SiX, link: "https://twitter.com/Ashesi/" },
+		{ component: SiYoutube, link: "https://www.youtube.com/@ashesiuni" },
 	];
 
 	return (

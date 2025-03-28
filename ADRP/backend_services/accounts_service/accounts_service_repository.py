@@ -69,7 +69,7 @@ def increment_global_user_count():
     """Increments the global user counter for the app"""
 
     stats = Statistics.objects.filter(id=1).first()
-    stats.user_count += 1
+    # stats.user_count += 1
     stats.save()
 
     return stats
