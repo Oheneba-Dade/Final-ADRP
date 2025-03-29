@@ -83,7 +83,9 @@ export default function Navbar() {
 				          >
 				            {/* Avatar (Replace with actual user image if available) */}
 				            <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">
+
 				               {userEmail[0].toUpperCase()}
+
 				            </div>
 				
 				            {/* Rotating Arrow */}
@@ -97,8 +99,10 @@ export default function Navbar() {
 				          {/* Dropdown Menu */}
 				          {menuOpen && user && (
 				            <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-lg p-2">
+
 				              <p className="text-gray-700 text-sm px-2">{userEmail? userEmail.split("@")[0] : "No Email"}</p>
 				              <p className="text-gray-700 text-sm px-2">{user || "No User"}</p>
+
 				              <button
 							      onClick={() => router.push("/admin_collections")}
 							      className="w-full text-left px-2 py-2 text-sm text-blue-600 hover:bg-gray-100 rounded-md"

@@ -10,10 +10,17 @@ import {useSearchParams} from "next/navigation";
 export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	const d = new Date();
 	const [fromYear, setFromYear] = useState("1900");
-	const [toYear, setToYear] = useState("2025");
+	const [toYear, setToYear] = useState(new Date().getFullYear().toString());
 	const [keywords, setKeywords] = useState([]);
 	const searchParams = useSearchParams();
 	const initialTitle = searchParams.get("title") || "";
+
+	useEffect(() => {
+		if (searchParams.toString()) {
+			handleSearch();
+		}
+	}, [searchParams]);
+
 
 
 
@@ -78,18 +85,19 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	};
 
 	const handleSearch = async (e) => {
-		e.preventDefault();
+		if (e) e.preventDefault(); // Prevent default only if triggered by an event
 		setLoading(true);
 
 		let collectionName = document.getElementsByName("collection-name")[0].value;
 		let author = document.getElementsByName("author")[0].value;
+
 		const queryParams = {
 			title: collectionName,
 			keywords: keywords,
 			author: author,
 			published_after: fromYear,
 			published_before: toYear,
-		}
+		};
 
 		try {
 			await sendFilterRequest(BASE_URL, queryParams, onFilterResults);
@@ -100,6 +108,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 		}
 	};
 
+
 	const handleReset = (e) => {
 		e.preventDefault();
 		// Reset form fields
@@ -107,7 +116,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 		document.getElementsByName("author")[0].value = "";
 		setKeywords([]);
 		setFromYear("1900");
-		setToYear("2025");
+		setToYear(new Date().getFullYear().toString());
 
 		if (onResetFilter) {
 			onResetFilter();

@@ -13,8 +13,8 @@ export default function CollectionItem({collection_id, title, authors, abstract,
             <hr/>
             <TruncatedText text={abstract} maxLength={150} />
             <div className="flex justify-between text-sm mt-4">
-                <p className="text-right flex gap-2 flex-wrap">
-                    <span className="font-semibold">authors: </span>
+                <p className="text-right flex flex-wrap">
+                    <span className="font-semibold">authors:&nbsp;</span>
                     {authors.length > 0 ? (
                           authors.map((author) => (
                             <a key={author.id} href={`mailto:${author.email}`} className="hover:text-blue-600">
