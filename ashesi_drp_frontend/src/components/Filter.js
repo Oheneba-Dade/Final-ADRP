@@ -15,6 +15,13 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	const searchParams = useSearchParams();
 	const initialTitle = searchParams.get("title") || "";
 
+	useEffect(() => {
+		if (searchParams.toString()) {
+			handleSearch();
+		}
+	}, [searchParams]);
+
+
 
 
 	const handleFromChange = (e) => {
@@ -78,18 +85,19 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	};
 
 	const handleSearch = async (e) => {
-		e.preventDefault();
+		if (e) e.preventDefault(); // Prevent default only if triggered by an event
 		setLoading(true);
 
 		let collectionName = document.getElementsByName("collection-name")[0].value;
 		let author = document.getElementsByName("author")[0].value;
+
 		const queryParams = {
 			title: collectionName,
 			keywords: keywords,
 			author: author,
 			published_after: fromYear,
 			published_before: toYear,
-		}
+		};
 
 		try {
 			await sendFilterRequest(BASE_URL, queryParams, onFilterResults);
@@ -99,6 +107,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 			setLoading(false);
 		}
 	};
+
 
 	const handleReset = (e) => {
 		e.preventDefault();
