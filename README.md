@@ -2,6 +2,14 @@
 
 A platform for sharing datasets created by the Ashesi community.
 
+## Tech Stack
+### Frontend
+- Next.js
+- Tailwind CSS
+
+### Backend
+- Django
+
 ## Contribution
 
-If you want to contribute to source code, please view the guidelines in the `dev_guide` directory
+To contribute to source code, view the guidelines in the `dev_guide` directory
