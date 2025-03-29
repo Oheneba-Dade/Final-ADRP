@@ -10,7 +10,7 @@ import {useSearchParams} from "next/navigation";
 export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 	const d = new Date();
 	const [fromYear, setFromYear] = useState("1900");
-	const [toYear, setToYear] = useState("2025");
+	const [toYear, setToYear] = useState(new Date().getFullYear().toString());
 	const [keywords, setKeywords] = useState([]);
 	const searchParams = useSearchParams();
 	const initialTitle = searchParams.get("title") || "";
@@ -116,7 +116,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 		document.getElementsByName("author")[0].value = "";
 		setKeywords([]);
 		setFromYear("1900");
-		setToYear("2025");
+		setToYear(new Date().getFullYear().toString());
 
 		if (onResetFilter) {
 			onResetFilter();
