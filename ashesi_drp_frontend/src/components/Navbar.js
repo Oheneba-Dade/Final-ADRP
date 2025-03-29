@@ -18,9 +18,12 @@ export default function Navbar() {
 	useEffect(() => {
 		setUserEmail(localStorage.getItem("email"))
 		setLogIn(localStorage.getItem("jwt"));
-		setUser(localStorage.getItem("user"));
+		setUser(localStorage.getItem("user"));		
 	}, []);
 
+	// const payload = JSON.parse(atob(logIn.split(".")[1]));
+	// console.log(payload);
+	
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
@@ -30,9 +33,11 @@ export default function Navbar() {
 	const handleLogout = () => {
 		localStorage.removeItem("jwt"); // Clear JWT from local storage
 		localStorage.removeItem("email"); 
+		localStorage.removeItem("user"); 
 		setLogIn(null); // Clear login state
 		setUserEmail(""); //clear user email
 		setMenuOpen(false); // Close menu after logging out
+		setUser("");
 		
 		window.location.href = "/";
 
