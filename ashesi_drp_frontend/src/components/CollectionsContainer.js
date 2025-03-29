@@ -113,7 +113,7 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
                     </div>
                 ) : (
                     <>
-                        {collections.results && collections.results.length > 0 ? (
+                        {collections.results && collections.count > 0 ? (
                             <>
                                 <ul>
                                     {collections.results.map((collection) => (

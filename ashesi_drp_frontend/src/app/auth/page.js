@@ -231,9 +231,17 @@ export default function Page() {
                         
                     </div>
                     <div className="flex flex-col p-4 items-center h-50">
-                        <label className="text-black font-medium mb-4">
-                            Check your email for OTP
-                        </label>
+                        
+                        { otpMessage ? (
+                                <label className="text-ashesi-red font-semibold mb-4">
+                                    Wrong OTP. Try again
+                                </label>
+                            ) : (
+                                <label className="text-black font-medium mb-4">
+                                    Check your email for OTP
+                                </label>
+                            )
+                        }
 
                         <div className="text-white mb-1">
                             {otpMessage}
