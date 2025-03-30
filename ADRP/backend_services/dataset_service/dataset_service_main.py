@@ -21,7 +21,7 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 
 class DatasetService:
 
-
+    @staticmethod
     def get_dataset(request_obj):
         """
         Retrieves dataset files for a given collection.
@@ -38,7 +38,7 @@ class DatasetService:
         return serialized_data.data
 
         
-
+    @staticmethod
     def handle_dataset_upload(collection_id, file_obj):
         """
         Uploads a dataset file to an S3 bucket and saves its record in the database.
@@ -77,7 +77,7 @@ class DatasetService:
         
 
 
-    
+    @staticmethod
     def handle_dataset_download(collection_id, filename):
         """
         Generates a pre-signed URL for downloading a dataset file.
@@ -95,10 +95,21 @@ class DatasetService:
         try:
             dataset_filename = f'{collection_id}-{filename}'
             file_url = generate_dataset_url_from_bucket(dataset_filename)
+
+            # increment dataset download count
+            dataset = get_dataset(collection_id=collection_id)
+            if not dataset:
+                return {"error": "Dataset not found.", "status": 404}
+            
+            dataset.download_count += 1
+            dataset.save(update_fields=['download_count'])
+
+
             return {"message": "URL generated successfully", "file_url": file_url, "status": 200}
         except:
             return {"error": "An error occurred while generating download URL.", "status": 400}
 
+    @staticmethod
     def handle_dataset_delete(collection_id, filename):
         """
         Deletes a dataset file from the S3 bucket and database.
@@ -131,6 +142,7 @@ class DatasetService:
             logger.error(f"Error deleting file {filename}: {str(e)}")
             return {"error": "An error occurred while deleting the file.", "status": 500}
 
+    @staticmethod
     def handle_dataset_update(collection_id, file_obj):
         """
         Updates a dataset file in the S3 bucket and database.

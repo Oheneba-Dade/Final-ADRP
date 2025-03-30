@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 class DatasetFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = DatasetFile
-        fields = ['file_name', 'file_url', 'file_type', 'uploaded_at']
+        fields = ['file_name', 'file_url', 'file_type', 'uploaded_at', 'download_count']
 
 
 class StatisticsSerializer(serializers.ModelSerializer):
