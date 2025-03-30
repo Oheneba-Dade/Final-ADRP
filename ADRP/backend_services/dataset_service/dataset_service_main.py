@@ -96,13 +96,8 @@ class DatasetService:
             dataset_filename = f'{collection_id}-{filename}'
             file_url = generate_dataset_url_from_bucket(dataset_filename)
 
-            # increment dataset download count
-            dataset = get_dataset(collection_id=collection_id)
-            if not dataset:
-                return {"error": "Dataset not found.", "status": 404}
-            
-            dataset.download_count += 1
-            dataset.save(update_fields=['download_count'])
+            ## increment dataset count
+            increment_dataset_download_count(collection_id=collection_id)
 
 
             return {"message": "URL generated successfully", "file_url": file_url, "status": 200}

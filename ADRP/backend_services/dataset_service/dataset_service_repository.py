@@ -199,3 +199,27 @@ def delete_dataset_file(collection, filename):
         int: The number of deleted records.
     """
     return DatasetFile.objects.filter(collection=collection, file_url__endswith=filename).delete()[0]
+
+
+
+def increment_dataset_download_count(collection_id):
+    """
+        Increments the download count for a dataset associated with a given collection ID.
+
+        Args:
+            collection_id (int): The ID of the collection whose dataset download count should be incremented.
+
+        Return:
+            nothing
+
+    """
+    dataset = DatasetFile.objects.filter(collection_id= collection_id).first()
+    if not dataset:
+        return {"error": "Dataset not found.", "status": 404}
+    
+    try:
+        dataset.download_count += 1
+        dataset.save()
+
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}", "status": 500}

@@ -92,3 +92,29 @@ class CollectionListView(generics.ListAPIView):
     ordering_fields = ['date_of_publication', 'title']
     ordering = ['-date_of_publication'] # descing order of pub date
     pagination_class = CollectionPagination
+
+
+
+    def list(self, request, *args, **kwargs):
+        """
+            Overrides defualt list method with customized response to include the number of records (eg 1-9 of 9).
+        """
+        response = super().list(request, *args, **kwargs)
+        
+        # Get paginator and page info
+        paginator = self.paginator
+        if paginator is not None:
+            total_count = paginator.page.paginator.count  
+            current_page = paginator.page.number 
+            per_page = paginator.page.paginator.per_page  
+
+            # Calculate start and end item indexes
+            start_item = (current_page - 1) * per_page + 1
+            end_item = min(start_item + per_page - 1, total_count)
+
+            response.data['pagination_info'] = {
+                "total_records": total_count,
+                "range_displayed": f"{start_item}-{end_item} of {total_count}"
+            }
+        
+        return response
