@@ -5,7 +5,7 @@ import CustomButton from "@/components/CustomButton";
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FaRegStar, FaPython, FaCircle, FaQuoteRight, FaClipboard } from 'react-icons/fa';
-import { FiEye } from 'react-icons/fi';
+import {FiDownload, FiEye} from 'react-icons/fi';
 import { MdOutlineFileDownload, MdOutlineFormatQuote } from 'react-icons/md';
 
 // Function to generate citation
@@ -52,8 +52,10 @@ const CitationPopup = ({ citation, onClose }) => {
 };
 
 
-export default function CollectionSidebar({ initialCollection}) {  
+export default function CollectionSidebar({ initialCollection, downloadData}) {
+
       const [collection, setCollections] = useState(initialCollection);
+	  const [downloadCount, setDownloadCount] = useState(0);
       const [showPopup, setShowPopup] = useState(false);
 	  const [citation, setCitation] = useState("");
 	
@@ -85,6 +87,12 @@ export default function CollectionSidebar({ initialCollection}) {
 		  setIsAdmin(true);
 		}
 	  }, []);
+
+		useEffect(() => {
+			if (Array.isArray(downloadData) && downloadData.length > 0) {
+				setDownloadCount(downloadData[0].download_count || 0);
+			}
+		}, [downloadData]);
     
     return(
         <div className="">
@@ -163,7 +171,11 @@ export default function CollectionSidebar({ initialCollection}) {
 			        <div className="flex items-center gap-4 mt-3">
 			          <FiEye className="text-ashesi-red" /> <span>{collection.view_count} views</span>
 			        </div>
-		        </div>
+					<div className="flex items-center gap-4 mt-3">
+						<FiDownload className="text-ashesi-red" /> <span>{downloadCount} downloads</span>
+					</div>
+
+				</div>
 		        
 		        <hr className="my-6" />
 		        

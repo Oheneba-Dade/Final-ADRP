@@ -114,10 +114,14 @@ export default function CollectionsDetails({ initialCollection}) {
 
                     <div className="mt-2 flex flex-wrap justify-between text-ashesi-gray">
                         <div>
-                            <span><p className=""><strong>keywords: </strong>{collection.keywords}</p></span>
+                            <p className=""><strong>keywords: </strong>
+                                {collection.keywords?.length > 0
+                                    ? collection.keywords.join(", ")
+                                    : "No keywords available"}
+                            </p>
                         </div>
-                        
                     </div>
+
 
                     <hr className="mt-5 mb-8" />
                 </div>
