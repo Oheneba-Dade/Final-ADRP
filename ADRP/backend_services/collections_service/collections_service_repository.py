@@ -45,7 +45,7 @@ def get_all_collections(request, status, admin=False):
     :param admin: Defaults to false which returns 10 items per page. If True, returns 15 items per page."""
 
     paginator = AdminPagination() if admin else BasicPagination()
-    lazy_query = Collection.objects.filter(approval_status=status)
+    lazy_query = Collection.objects.all() if status == "all" else Collection.objects.filter(approval_status=status)
     results = paginator.paginate_queryset(lazy_query, request)
     serializer = CollectionSerializer(results, many=True)
 

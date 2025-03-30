@@ -50,6 +50,6 @@ class CollectionSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def validate_status(status):
-        if status not in dict(Collection.STATUS_CHOICES):
+        if status not in dict(Collection.STATUS_CHOICES) or status != 'all':
             raise ValidationError('Status is not valid')
         return status
