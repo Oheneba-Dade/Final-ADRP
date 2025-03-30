@@ -3,8 +3,8 @@
 // import "../../globals.css";
 import CustomButton from "@/components/CustomButton";
 import Link from 'next/link';
-import { useState } from 'react';
-import { FaRegStar, FaPython, FaQuoteRight, FaClipboard } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaRegStar, FaPython, FaCircle, FaQuoteRight, FaClipboard } from 'react-icons/fa';
 import { FiEye } from 'react-icons/fi';
 import { MdOutlineFileDownload, MdOutlineFormatQuote } from 'react-icons/md';
 
@@ -27,7 +27,7 @@ const CitationPopup = ({ citation, onClose }) => {
 	};
   
 	return (
-	  <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+	  <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">	  
 		<div className="bg-white p-6 rounded-lg shadow-lg w-[400px]">
 		  <h2 className="text-lg font-semibold text-ashesi-red mb-4">Citation</h2>
 		  <div className="text-gray-700" dangerouslySetInnerHTML={{ __html: citation }}></div>
@@ -52,7 +52,7 @@ const CitationPopup = ({ citation, onClose }) => {
 };
 
 
-export default function CollectionSidebar({ initialCollection }) {  
+export default function CollectionSidebar({ initialCollection}) {  
       const [collection, setCollections] = useState(initialCollection);
       const [showPopup, setShowPopup] = useState(false);
 	  const [citation, setCitation] = useState("");
@@ -76,79 +76,113 @@ export default function CollectionSidebar({ initialCollection }) {
 	    setCitation(generateCitation(collection));
 	    setShowPopup(true);
 	  };
+	  
+	  // checking if user is admin
+	  const [isAdmin, setIsAdmin] = useState(false);
+    
+	  useEffect(() => {
+		if (localStorage.getItem("user") === "admin") {
+		  setIsAdmin(true);
+		}
+	  }, []);
     
     return(
-        <div className="bg-gray-50 px-4 py-8 rounded-lg shadow-md h-auto self-start">
-	        {/* <CustomButton 
-				text="DOWNLOAD"
-				bgColor = "bg-gray-50"
-				textColor = "text-ashesi-red"
-				onClick={() => alert("Downloading!")}
-				width = "w-full"
-				height = "h-10"
-				icon={MdOutlineFileDownload}
-				iconPosition="right"
-				iconClassName="text-xl"
-				className="flex items-center justify-between text-sm !font-medium border border-ashesi-red py-2 px-4 hover:bg-ashesi-red hover:text-white"
-			/> */}
-	        
-	        {/* <CustomButton 
-				text="IMPORT CODE"
-				bgColor = "bg-gray-50"
-				textColor = "text-blue-800"
-				onClick={() => alert("Importing!")}
-				width = "w-full"
-				height = "h-10"
-				icon={FaPython}
-				iconPosition="right"
-				iconClassName="text-xl"
-				className="flex items-center justify-between text-sm !font-medium border border-blue-800 mt-3 py-2 px-4 hover:bg-blue-800 hover:text-white"
-			/> */}
-	
-			<CustomButton 
-				text="CITE WORK"
-				bgColor = "bg-gray-50"
-				textColor = "text-ashesi-red"
-				onClick= {handleCitationClick}
-				width = "w-full"
-				height = "h-10"
-				icon={FaQuoteRight}
-				iconPosition="right"
-				iconClassName="text-md"
-				className="flex items-center justify-between text-sm !font-medium border border-ashesi-red mt-3 py-2 px-4 hover:bg-ashesi-red hover:text-white"
-			/>
-			
-			{showPopup && <CitationPopup citation={citation} onClose={() => setShowPopup(false)} />}
-			
-			<div className="my-5">
-		        {/* <div className="flex items-center gap-4">
-		          <FaRegStar className="text-ashesi-red" /> <span>save</span>
-		        </div> */}
-		        {/* <div className="flex items-center gap-4 mt-3">
-		          <MdOutlineFormatQuote  className="text-ashesi-red"/> <span> 432 citations</span>
-		        </div> */}
-		        <div className="flex items-center gap-4 mt-3">
-		          <FiEye className="text-ashesi-red" /> <span>{collection.view_count} views</span>
+        <div className="">
+	        { 
+		        isAdmin && (
+		            <div className="bg-gray-50 px-4 py-8 rounded-lg shadow-md h-auto self-start mb-4">
+				        <p className="text-sm font-medium text-ashesi-red">SUBMITTTED BY</p>
+				        <p className="text-sm text-gray-600 mt-2">
+							Email: <br/> <b>{collection.date_of_publication.slice(0,10)}</b>
+						</p>
+						<p className="text-sm text-gray-600 mt-2">
+							Date: <br/> <b>{collection.date_of_publication.slice(0,10)}</b>
+						</p>
+						<div className="p-3 text-center space-x-2 relative group">
+						  Status: <br/>
+						  {collection.approval_status === "approved" ? <FaCircle className="text-green-500 inline-block hover:text-green-600" /> :
+						  collection.approval_status === "rejected" ? <FaCircle className="text-red-500 inline-block hover:text-red-600" /> :
+						  collection.approval_status === "pending" ? <FaCircle className="text-gray-500 inline-block hover:text-gray-600" /> :
+						  <FaCircle className="text-gray-400" />}
+						  <span className="absolute -top-1 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded-md">
+							{collection.approval_status || "Pending"}
+						  </span>
+						</div>
+				    </div>  
+		        )
+		    }
+	        <div className="bg-gray-50 px-4 py-8 rounded-lg shadow-md h-auto self-start">
+		        {/* <CustomButton 
+					text="DOWNLOAD"
+					bgColor = "bg-gray-50"
+					textColor = "text-ashesi-red"
+					onClick={() => alert("Downloading!")}
+					width = "w-full"
+					height = "h-10"
+					icon={MdOutlineFileDownload}
+					iconPosition="right"
+					iconClassName="text-xl"
+					className="flex items-center justify-between text-sm !font-medium border border-ashesi-red py-2 px-4 hover:bg-ashesi-red hover:text-white"
+				/> */}
+		        
+		        {/* <CustomButton 
+					text="IMPORT CODE"
+					bgColor = "bg-gray-50"
+					textColor = "text-blue-800"
+					onClick={() => alert("Importing!")}
+					width = "w-full"
+					height = "h-10"
+					icon={FaPython}
+					iconPosition="right"
+					iconClassName="text-xl"
+					className="flex items-center justify-between text-sm !font-medium border border-blue-800 mt-3 py-2 px-4 hover:bg-blue-800 hover:text-white"
+				/> */}
+		
+				<CustomButton 
+					text="CITE WORK"
+					bgColor = "bg-gray-50"
+					textColor = "text-ashesi-red"
+					onClick= {handleCitationClick}
+					width = "w-full"
+					height = "h-10"
+					icon={FaQuoteRight}
+					iconPosition="right"
+					iconClassName="text-md"
+					className="flex items-center justify-between text-sm !font-medium border border-ashesi-red mt-3 py-2 px-4 hover:bg-ashesi-red hover:text-white"
+				/>
+				
+				{showPopup && <CitationPopup citation={citation} onClose={() => setShowPopup(false)} />}
+				
+				<div className="my-5">
+			        {/* <div className="flex items-center gap-4">
+			          <FaRegStar className="text-ashesi-red" /> <span>save</span>
+			        </div> */}
+			        {/* <div className="flex items-center gap-4 mt-3">
+			          <MdOutlineFormatQuote  className="text-ashesi-red"/> <span> 432 citations</span>
+			        </div> */}
+			        <div className="flex items-center gap-4 mt-3">
+			          <FiEye className="text-ashesi-red" /> <span>{collection.view_count} views</span>
+			        </div>
 		        </div>
-	        </div>
-	        
-	        <hr className="my-6" />
-	        
-			<p className="text-sm font-medium text-ashesi-red">DOI</p>
-	        <p className="text-sm text-gray-600 mt-2">
-				<Link href={`/${collection.doi_link}`} className="cursor-pointer text-xs underline hover:text-blue-600"> {collection.doi_link}</Link>
-			</p>
-	
-	        <hr className="my-6" />
-	        
-	        <p className="text-sm font-medium text-ashesi-red">LICENSE</p>
-	        <p className="text-sm text-gray-600 mt-2">
-				This dataset is licensed under a 
-				<Link href="/" className="cursor-pointer underline text-blue-800 hover:text-blue-600"> Creative Commons Attribution 4.0 International (CC BY 4.0) license</Link>
-			</p>
-			
-			<p className="mt-6 text-sm text-gray-600 text-justify">{collection.license ? collection.license : "No additional license"}</p>
-	    </div>
+		        
+		        <hr className="my-6" />
+		        
+				<p className="text-sm font-medium text-ashesi-red">DOI</p>
+		        <p className="text-sm text-gray-600 mt-2">
+					<Link href={`/${collection.doi_link}`} className="cursor-pointer text-xs underline hover:text-blue-600"> {collection.doi_link}</Link>
+				</p>
+		
+		        <hr className="my-6" />
+		        
+		        <p className="text-sm font-medium text-ashesi-red">LICENSE</p>
+		        <p className="text-sm text-gray-600 mt-2">
+					This dataset is licensed under a 
+					<Link href="/" className="cursor-pointer underline text-blue-800 hover:text-blue-600"> Creative Commons Attribution 4.0 International (CC BY 4.0) license</Link>
+				</p>
+				
+				<p className="mt-6 text-sm text-gray-600 text-justify">{collection.license ? collection.license : "No additional license"}</p>
+		    </div>
+		</div>
     );
 
 }

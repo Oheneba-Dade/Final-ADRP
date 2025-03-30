@@ -6,19 +6,65 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Reviews from "@/components/Reviews"; 
 import Files from "@/components/Files"; 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineDown,  AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import Skeleton from "react-loading-skeleton";
+import { BASE_URL } from "@/utils/constants";
 
-
-export default function CollectionsDetails({ initialCollection }) {
+export default function CollectionsDetails({ initialCollection}) {
     const [collection, setCollections] = useState(initialCollection);
-    
+    const [isLoading, setIsLoading] = useState(false);
     const [showAbstract, setShowAbstract] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showIntro, setShowIntro] = useState(false);
     const [showFiles, setShowFiles] = useState(false);
+    const[jwt, setJWT] = useState("");
     // const [showReview, setShowReview] = useState(false);
+    
+    // checking if user is admin
+    const [isAdmin, setIsAdmin] = useState(false);
+    
+    useEffect(() => {
+      if (localStorage.getItem("user") === "admin") {
+        setIsAdmin(true);
+      }
+      const jwt = localStorage.getItem("jwt");
+      setJWT(jwt);
+    }, []);
+    
+    // Handle status change
+    const handleApproval = async (collectionId, status) => {
+        setIsLoading(true);
+        try {
+          const response = await fetch(`${BASE_URL}/collection_status`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization":"Bearer "+jwt,
+            },
+            body: JSON.stringify({
+              id: collectionId,
+              approval_status: status,
+            }),
+          });
+      
+          const data = await response.json();
+      
+          if (response.ok) {
+            alert(`Collection ${status} successfully!`);
+            // Optionally, refresh the data or update state
+          } else {
+            alert(`Error: ${data.message}`);
+          }
+        } catch (error) {
+          console.error("Error updating status:", error);
+          alert("An error occurred. Please try again.");
+        } finally {
+          setIsLoading(false);
+          
+          window.location.href = `/collections/${collectionId}`;
+      }
+    };
     
     return(
         <div>
@@ -158,6 +204,64 @@ export default function CollectionsDetails({ initialCollection }) {
 
                     <hr className="mt-5 mb-8" />
                 </div>
+                
+                {
+                    isAdmin && (
+                        <div className="my-16">
+            				    <div className="mt-2 flex justify-center gap-4">  
+                        { isLoading? (
+                            <div className="flex justify-center items-center h-40">
+                                <div className="w-10 h-10 border-4 border-ashesi-red border-t-transparent rounded-full animate-spin"></div>
+                            </div>
+                            ) : (
+                                <>
+                                { collection.approval_status !== "approved" &&
+                                    (
+                            					<CustomButton 
+                            						text="APPROVE"
+                            						bgColor = "bg-green-500"
+                            						textColor = "text-white"
+                            						onClick={() => handleApproval(collection.id, "approved")}
+                            						width = ""
+                            						height = "h-10"
+                            						className="flex items-center justify-center text-sm !font-medium mt-3 py-2 px-4"
+                    					       />
+                                    )
+                                }
+                                
+                                { collection.approval_status !== "rejected" &&
+                                    (
+                            					<CustomButton 
+                            						text="DISAPPROVE"
+                            						bgColor = "bg-ashesi-red"
+                            						textColor = "text-white"
+                            						onClick={() => handleApproval(collection.id, "rejected")}
+                            						width = ""
+                            						height = "h-10"
+                            						className="flex items-center justify-center text-sm !font-medium mt-3 py-2 px-4"
+                            					/>
+                                    )
+                                }
+                                { collection.approval_status !== "pending" &&
+                                    (
+                            					<CustomButton 
+                            						text="PENDING"
+                            						bgColor = "bg-gray-500"
+                            						textColor = "text-white"
+                            						onClick={() => handleApproval(collection.id, "pending")}
+                            						width = ""
+                            						height = "h-10"
+                            						className="flex items-center justify-center text-sm !font-medium border mt-3 py-2 px-4"
+                            					/>
+                                    )
+                                }
+                              </>
+                            )
+                        }
+            				</div>
+            	        </div>
+                    )
+                }
                 
                 {/*  REVIEWS */}
                 {/* <div>

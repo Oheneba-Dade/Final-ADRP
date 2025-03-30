@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FaChevronDown } from "react-icons/fa";
 import SearchBar from "@/components/SearchBar";
 
@@ -18,9 +18,12 @@ export default function Navbar() {
 	useEffect(() => {
 		setUserEmail(localStorage.getItem("email"))
 		setLogIn(localStorage.getItem("jwt"));
-		setUser(localStorage.getItem("user"));
+		setUser(localStorage.getItem("user"));		
 	}, []);
 
+	// const payload = JSON.parse(atob(logIn.split(".")[1]));
+	// console.log(payload);
+	
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
@@ -30,13 +33,17 @@ export default function Navbar() {
 	const handleLogout = () => {
 		localStorage.removeItem("jwt"); // Clear JWT from local storage
 		localStorage.removeItem("email"); 
+		localStorage.removeItem("user"); 
 		setLogIn(null); // Clear login state
 		setUserEmail(""); //clear user email
 		setMenuOpen(false); // Close menu after logging out
+		setUser("");
 		
 		window.location.href = "/";
 
 	  };
+	
+	const router = useRouter();
 	
 	return (
 		<>
@@ -81,7 +88,9 @@ export default function Navbar() {
 				          >
 				            {/* Avatar (Replace with actual user image if available) */}
 				            <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">
-								{userEmail[0].toUpperCase()}
+
+				               {userEmail[0].toUpperCase()}
+
 				            </div>
 				
 				            {/* Rotating Arrow */}
@@ -93,10 +102,18 @@ export default function Navbar() {
 				          </button>
 				
 				          {/* Dropdown Menu */}
-				          {menuOpen && (
+				          {menuOpen && user && (
 				            <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-lg p-2">
-				              <p className="text-gray-700 text-sm px-2">{userEmail.split("@")[0] || "No Email"}</p>
-				              <p className=",text-gray-700 text-sm px-2">{user || "No User"}</p>
+
+				              <p className="text-gray-700 text-sm px-2">{userEmail? userEmail.split("@")[0] : "No Email"}</p>
+				              <p className="text-gray-700 text-sm px-2">{user || "No User"}</p>
+
+				              <button
+							      onClick={() => router.push("/admin_collections")}
+							      className="w-full text-left px-2 py-2 text-sm text-blue-600 hover:bg-gray-100 rounded-md"
+							    >
+							      Admin Page
+							  </button>
 				              <button
 				                onClick={handleLogout}
 				                className="w-full text-left px-2 py-2 text-sm text-red-600 hover:bg-gray-100 rounded-md"

@@ -13,18 +13,18 @@ export default async function CollectionPage({ params }) {
 
   const data = await fetch(`${BASE_URL}/get_collection/?collection_id=${collectionId}`);
   const initialCollection = await data.json();
-
+  
   return (
     <div className="max-w-5xl mx-auto mt-20 px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Left Column */}
         <div className="md:col-span-3">
             {/* Collection Detail */}
-            <CollectionsDetails initialCollection={initialCollection} />
+            <CollectionsDetails initialCollection={initialCollection}/>
 	      </div>
       
     
         {/* Right Column*/}
-        <CollectionSidebar initialCollection={initialCollection} />    
+        <CollectionSidebar initialCollection={initialCollection}/>    
     
     </div>
   );

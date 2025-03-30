@@ -33,8 +33,6 @@ const FileTable = ({collection_id}) => {
           setLoading(false);
   
           // Call the second fetch using POST
-          console.log(data);
-          
           if (data.length > 0){
             await fetchAdditionalData(data);
           }

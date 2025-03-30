@@ -5,12 +5,17 @@ import "../globals.css";
 export default async function UsersTable() {
 
   return (
-        <div className="max-w-4xl mx-auto my-24 p-6">
-             <div className="flex space-x-4">
-                <Skeleton width={400} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
-                <Skeleton width={400} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+        <div className="max-w-5xl mx-auto my-24 p-6">
+            <div className="flex justify-between items-center space-x-4 mb-4">
+               <div className="flex space-x-4">
+                  <Skeleton width={150} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+                  <Skeleton width={150} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+               </div>
+              
+              <div>
+                <Skeleton width={100} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+              </div>   
              </div>
-             
              <div className="w-full mt-8 bg-white rounded-lg overflow-hidden">
                 <table className="w-full border-collapse border-separate border-spacing-y-8">
                   {/* Table Header */}
