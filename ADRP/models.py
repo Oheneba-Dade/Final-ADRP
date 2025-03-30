@@ -123,7 +123,6 @@ class Collection(models.Model):
     title = models.CharField(max_length=255)
     authors = models.ManyToManyField(Authors)
     abstract = models.TextField()
-    missing_values = models.BooleanField()
     keywords = ArrayField(models.CharField(max_length=300), blank=True, default=list,
                           help_text="Comma-separated keywords for search and filtering.")
     date_of_publication = models.DateTimeField(default=timezone.now)
@@ -245,7 +244,7 @@ class OTP(models.Model):
         ordering = ['-created_at']
 
 
-class Statistics(models.Model):
+class   Statistics(models.Model):
     download_count = models.IntegerField(default=0)
     view_count = models.IntegerField(default=0)
     author_count = models.IntegerField(default=0)

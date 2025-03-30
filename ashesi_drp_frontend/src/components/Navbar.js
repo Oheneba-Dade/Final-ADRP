@@ -1,19 +1,43 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from 'next/router';
+import { FaChevronDown } from "react-icons/fa";
 import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
 	const pathname = usePathname();
+	const [logIn, setLogIn] = useState(null);
+	const [userEmail, setUserEmail] = useState("");
+	const [user, setUser] = useState("");
+	const [menuOpen, setMenuOpen] = useState(false);
+
+	useEffect(() => {
+		setUserEmail(localStorage.getItem("email"))
+		setLogIn(localStorage.getItem("jwt"));
+		setUser(localStorage.getItem("user"));
+	}, []);
 
 	// Function to determine active styles
 	const getLinkClass = (href) =>
 		pathname === href
 			? "font-normal border-b-2 border-ashesi-red"
 			: "font-light hover:font-normal";
+	
+	const handleLogout = () => {
+		localStorage.removeItem("jwt"); // Clear JWT from local storage
+		localStorage.removeItem("email"); 
+		setLogIn(null); // Clear login state
+		setUserEmail(""); //clear user email
+		setMenuOpen(false); // Close menu after logging out
+		
+		window.location.href = "/";
 
+	  };
+	
 	return (
 		<>
 			{/* Navbar */}
@@ -48,9 +72,54 @@ export default function Navbar() {
 					<Link href="/about" className={getLinkClass("/about")}>
 						About
 					</Link>
-					<Link href="/login" className={getLinkClass("/login")}>
-						Login
-					</Link>
+					{/* Avatar & Dropdown */}
+					{logIn ? (
+				        <div className="relative">
+				          <button
+				            onClick={() => setMenuOpen(!menuOpen)}
+				            className="flex items-center gap-2 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition"
+				          >
+				            {/* Avatar (Replace with actual user image if available) */}
+				            <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">
+								{userEmail[0].toUpperCase()}
+				            </div>
+				
+				            {/* Rotating Arrow */}
+				            <FaChevronDown
+				              className={`text-gray-600 transition-transform ${
+				                menuOpen ? "rotate-180" : "rotate-0"
+				              }`}
+				            />
+				          </button>
+				
+				          {/* Dropdown Menu */}
+				          {menuOpen && (
+				            <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-lg p-2">
+				              <p className="text-gray-700 text-sm px-2">{userEmail.split("@")[0] || "No Email"}</p>
+				              <p className=",text-gray-700 text-sm px-2">{user || "No User"}</p>
+				              <button
+				                onClick={handleLogout}
+				                className="w-full text-left px-2 py-2 text-sm text-red-600 hover:bg-gray-100 rounded-md"
+				              >
+				                Logout
+				              </button>
+				            </div>
+				          )}
+				        </div>
+				      ) : (
+				        <Link href="/auth" className={getLinkClass("/auth")}>
+				          Login
+				        </Link>
+				    )}
+					{/* <Link href="/auth" className={getLinkClass("/auth")} onClick={(e) => {
+					  if (logIn) {
+						    e.preventDefault(); // Prevent navigation
+						    localStorage.removeItem("jwt"); // clear jwt in local storage
+						    setLogIn(null); // Clear login data
+						  }
+						}}>
+					  {logIn ? <div>Logout</div> : <div>Login</div>}
+					</Link> */}
 				</div>
 
 				{/* Floating Div Below Navbar */}

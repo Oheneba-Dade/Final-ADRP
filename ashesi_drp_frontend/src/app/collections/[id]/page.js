@@ -8,6 +8,7 @@ import CollectionSidebar from "@/components/CollectionSidebar";
 
 
 export default async function CollectionPage({ params }) { 
+
   const collectionId = params.id;
 
   const data = await fetch(`${BASE_URL}/get_collection/?collection_id=${collectionId}`);
@@ -19,7 +20,7 @@ export default async function CollectionPage({ params }) {
         <div className="md:col-span-3">
             {/* Collection Detail */}
             <CollectionsDetails initialCollection={initialCollection} />
-	    </div>
+	      </div>
       
     
         {/* Right Column*/}

@@ -24,6 +24,6 @@ from ...backend_services.statistics_service.statistics_service_main import Stati
 @permission_classes([AllowAny])
 def get_statistics(request: Request) -> Response:
 
-    statistics = StatisticsService.get_statistics
+    statistics = StatisticsService.get_statistics()
     print(statistics)
     return Response(data=statistics, status=status.HTTP_200_OK)

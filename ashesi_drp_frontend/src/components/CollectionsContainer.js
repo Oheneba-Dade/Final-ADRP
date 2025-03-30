@@ -54,7 +54,17 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
     const handleResetFilter = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${BASE_URL}/get_all_collections`);
+            const response = await fetch(`${BASE_URL}/get_all_collections/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             const data = await response.json();
             setCollections(data);
         } catch (error) {
@@ -64,8 +74,9 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
         }
     };
 
+
     return (
-        <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-20 px-12">
+        <div className="mb-14 mx-auto w-full grid grid-cols-1 md:grid-cols-6 gap-20 px-16">
 
             {
                 filterOn && (
@@ -121,6 +132,7 @@ export default function CollectionsContainer({ initialCollections, filterOn=true
                                             key={collection.id}
                                             collection_id={collection.id}
                                             title={collection.title}
+                                            authors={collection.authors}
                                             abstract={collection.abstract}
                                             date_of_publication={collection.date_of_publication}
                                             doi_link={collection.doi_link}

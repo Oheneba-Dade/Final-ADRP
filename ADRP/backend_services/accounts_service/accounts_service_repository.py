@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from ...models import OTP, User
+from ...models import OTP, User, Statistics
 
 
 def create_new_otp(user, otp, lifetime) -> OTP:
@@ -64,3 +64,12 @@ def clear_user_otps(user: User):
     OTP.objects.filter(user=user).delete()
     print("deleting all OTP entries associated with user")
     return user
+
+def increment_global_user_count():
+    """Increments the global user counter for the app"""
+
+    stats = Statistics.objects.filter(id=1).first()
+    # stats.user_count += 1
+    stats.save()
+
+    return stats
