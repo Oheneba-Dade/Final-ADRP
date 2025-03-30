@@ -12,10 +12,10 @@ class StatisticsService():
     def get_statistics() -> Response:
         """ Fetches usage statistics for the platform including:
         num downloads, num views, num contributrs, num collections"""
+        re_balance_stats() # get the latest stats
 
         stats = get_all_stats()
         serialized_data = StatisticsSerializer(instance=stats)
-        print(serialized_data)
         return serialized_data.data
 
 
