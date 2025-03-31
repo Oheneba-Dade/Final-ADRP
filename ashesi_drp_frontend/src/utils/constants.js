@@ -1,1 +1,1 @@
-export const BASE_URL = "http://localhost:8000/adrp";
+export const BASE_URL = "http://16.171.195.89:8000/adrp";
