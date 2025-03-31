@@ -1,7 +1,7 @@
 from tracemalloc import Statistic
 
 from rest_framework import serializers
-from ADRP.models import *
+from .models import *
 from rest_framework.exceptions import NotFound, ValidationError
 
 
