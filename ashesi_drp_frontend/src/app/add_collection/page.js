@@ -6,7 +6,7 @@ import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
 import { FiInfo } from "react-icons/fi";
 import { useRouter } from 'next/navigation'
-import AxiosInstance from "@/lib/axios";
+import AxiosInstance from "@/auth_lib/axios";
 
 // Common classes for form fields
 const formGroupClass = "flex items-start gap-4 mb-8";
