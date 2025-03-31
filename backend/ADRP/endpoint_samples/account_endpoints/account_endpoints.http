@@ -1,5 +1,5 @@
 ### GET OTP for a user
-GET http://localhost:8000/adrp/get_otp?email=samuel.blankson@ashesi.edu.gh
+GET http://16.171.195.89:8000/adrp/get_otp?email=samuel.blankson@ashesi.edu.gh
 
 ### Login
 POST http://localhost:8000/adrp/login

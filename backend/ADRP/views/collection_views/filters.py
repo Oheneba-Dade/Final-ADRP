@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from ADRP.models import Collection
+from ...models import Collection
 from django.db.models import Q
 
 

@@ -3,8 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
 from .dataset_service_repository import *
 from ..collections_service.collections_service_repository import get_collection_by_id
-from ADRP.models import DatasetFile
-from ADRP.serializers import DatasetFileSerializer
+from ...models import DatasetFile
+from ...serializers import DatasetFileSerializer
 import boto3
 import logging
 

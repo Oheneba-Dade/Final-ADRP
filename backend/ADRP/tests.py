@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework import status
 from rest_framework.test import APITestCase
-from ADRP.models import Collection, DatasetFile
+from .models import Collection, DatasetFile
 from itertools import chain
 
 User = get_user_model()  

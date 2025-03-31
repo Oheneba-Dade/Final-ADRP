@@ -11,8 +11,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from ADRP.models import Collection
-from ADRP.serializers import CollectionSerializer
+from ...models import Collection
+from ...serializers import CollectionSerializer
 from .filters import CollectionFilter
 from ...backend_services.accounts_service.custom_permissions import *
 from ...backend_services.collections_service.collections_service_main import CollectionsService

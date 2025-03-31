@@ -1,7 +1,7 @@
-from ADRP.models import DatasetFile
+from ...models import DatasetFile
 import boto3
 from django.conf import settings
-from ADRP.settings import AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
+from ...settings import AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
 from .helper import extract_filename
 import logging
