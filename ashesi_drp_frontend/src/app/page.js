@@ -1,16 +1,23 @@
 import Slideshow from "@/components/Slideshow";
 import "./globals.css";
 import CustomButton from "@/components/CustomButton";
-import Image from "next/image"  
-import Link from 'next/link';
 import HeroBlock from "@/components/HeroBlock";
 import CollectionsContainer from "@/components/CollectionsContainer";
 import { BASE_URL } from "@/utils/constants";
 
 export default async function Home() {
 
-	const data = await fetch(`${BASE_URL}/get_all_collections?page=1`);
-	const initialCollections = await data.json();
+	let initialCollections = [];
+
+	try {
+		const response = await fetch(`${BASE_URL}/get_all_collections?page=1`);
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+		initialCollections = await response.json();
+	} catch (error) {
+		console.error("Failed to fetch featured collections:", error);
+	}
 
 	return (
 		<div className="relative w-full">
