@@ -123,12 +123,10 @@ export default function Page() {
             localStorage.setItem("jwt", response.data.access); 
             
             //admin setup
-            if (email.split("@")[0] == "reynolds.boakye" || email.split("@")[0]  == "oheneba.dade"){
-                localStorage.setItem("user", "admin");
-            }
-            else{
-                localStorage.setItem("user", "regular");
-            }
+            const payload = JSON.parse(atob(response.data.access.split(".")[1]));
+            localStorage.setItem("user", payload.role);
+            
+            //email setup
             localStorage.setItem("email", email); 
             
             // router.push("/collections");
