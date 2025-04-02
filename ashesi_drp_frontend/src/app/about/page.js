@@ -1,15 +1,26 @@
-// "use client";
 import "../globals.css";
-import Slideshow from "@/components/Slideshow";
+
 import Image from "next/image";
 import StatBlock from "@/components/StatBlock";
-import HeroBlock from "@/components/HeroBlock";
 import { BASE_URL } from "@/utils/constants";
 
 export default async function About() {
-	
-	const data = await fetch(`${BASE_URL}/get_stats?`);
-	const stats = await data.json();
+	let stats = {
+		collection_count: 0,
+		author_count: 0,
+		download_count: 0,
+		view_count: 0,
+	};
+
+	try {
+		const response = await fetch(`${BASE_URL}/get_stats?`);
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+		stats = await response.json();
+	} catch (error) {
+		console.error("Failed to fetch stats:", error);
+	}
 
 	return (
 		<div className="mx-auto my-20">
@@ -30,15 +41,15 @@ export default async function About() {
 
 						<div className="row-span-3 text-justify leading-6">
 							<p>
-								At Ashesi, we are committed to fostering a culture of research, innovation, and knowledge sharing. The Ashesi Data Repository is a dedicated platform designed to store, manage, and provide access to valuable research data across various disciplines.								
-							</p> 
+								At Ashesi, we are committed to fostering a culture of research, innovation, and knowledge sharing. The Ashesi Data Repository is a dedicated platform designed to store, manage, and provide access to valuable research data across various disciplines.
+							</p>
 							<br/>
 							<p>By centralizing datasets, research findings, and academic resources, the repository empowers students, faculty, and researchers to collaborate, explore new insights, and contribute to global knowledge. Through this initiative, we aim to enhance transparency, reproducibility, and the overall impact of research conducted within the Ashesi community and beyond.</p>
 							<br/>
-							<p>	Join us in our mission to advance research excellence and drive meaningful change through data-driven discoveries.</p>
+							<p>Join us in our mission to advance research excellence and drive meaningful change through data-driven discoveries.</p>
 						</div>
 					</div>
-						
+
 					{/* Second column */}
 					<div className="grid grid-rows-2">
 						<Image

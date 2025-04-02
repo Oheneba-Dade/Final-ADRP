@@ -47,18 +47,6 @@ export default function ErrorPage(error, reset) {
                     <Lottie animationData={animationData} loop={true} />
                 </motion.div>
             )}
-
-            {/* error message */}
-            {!animationData && (
-                <motion.h1
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                    className="text-8xl font-bold text-ashesi-red"
-                >
-                    404
-                </motion.h1>
-            )}
             {/* Go Home Button */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}

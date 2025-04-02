@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import CustomButton from "@/components/CustomButton";
 import CountdownTimer from "@/components/Countdown";
 import Image from "next/image";
-import AxiosInstance from "@/lib/axios";
+import AxiosInstance from "@/auth_lib/axios";
 
 
 export default function Page() {
