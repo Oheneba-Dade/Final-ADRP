@@ -33,9 +33,9 @@ const FileTable = ({collection_id}) => {
           setLoading(false);
   
           // Call the second fetch using POST
-          if (data.length > 0){
-            await fetchAdditionalData(data);
-          }
+          // if (data.length > 0){
+          //   await fetchAdditionalData(data);
+          // }
         }, 2000);
       } catch (error) {
         console.error("Error fetching collection:", error);
@@ -83,6 +83,9 @@ const FileTable = ({collection_id}) => {
     }
 
     const submissionLink = download.file_url;
+    
+    //Download file
+    fetchAdditionalData(setFile);
     
     // Open the link in a new tab
     window.open(submissionLink, "_blank");

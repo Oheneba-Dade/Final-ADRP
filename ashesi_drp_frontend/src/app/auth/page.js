@@ -65,7 +65,7 @@ export default function Page() {
     const GETOtp = async () => {
         try {
             localStorage.removeItem("jwt"); // this is here because we have to logout/clear jwt first, so we have to deal w that
-            console.log(email);
+            // console.log(email);
             const response = await AxiosInstance.get("get_otp", {
                 params: {email}
             });
