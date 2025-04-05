@@ -9,12 +9,7 @@ const HeroBlock = ({
 }) => {
 	return (
 		<div>
-<<<<<<< HEAD
-			<div className="absolute top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-1/2 md:translate-y-1/2 bg-white shadow-lg rounded-lg p-6 lg:w-3/4 md:w-3/4 sm:w-3/4 text-center z-10">
-			<div className="absolute top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-1/2 md:translate-y-1/4 bg-white shadow-lg rounded-lg p-6 lg:w-2/4 md:w-3/4 sm:w-3/4 text-center z-10">
-=======
 			<div className="absolute top-32 left-1/2 transform -translate-x-1/2 lg:translate-y-1/2 md:translate-y-1/4 bg-white shadow-lg rounded-lg p-6 lg:w-3/4 md:w-3/4 sm:w-3/4 text-center z-10">
->>>>>>> 93930f0ec98aa434fc16984efecb95f546e67c49
 				<h1 className="text-2xl font-bold text-ashesi-red">{header}</h1>
 				<p className="text-ashesi-red mb-5">{subheader}</p>
 				<p className="px-8"> {text}</p>
@@ -38,7 +33,6 @@ const HeroBlock = ({
 					</div>
 				)}
 			</div>
-		</div>
 		</div>
 	);
 };
