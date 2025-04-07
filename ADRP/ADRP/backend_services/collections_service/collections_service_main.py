@@ -51,12 +51,17 @@ class CollectionsService:
 
     @staticmethod
     def get_collection(request_obj: Request):
-        # TODO lock this down so that only admins can request restricted collections
-        collection_id = request_obj.query_params.get('collection_id')
+        """Gets a collection by the ID if user has sufficient permissions"""
 
+        collection_id = request_obj.query_params.get('collection_id')
         collection_data = get_collection_by_id(collection_id)
 
-        # increment views
+        if request_obj.user.role == 'admin':
+            increment_collection_views(collection_data)
+        else:
+            if collection_data.approval_status != 'approved':
+                return
+
         increment_collection_views(collection_data)
 
         # Return only approved columns
@@ -68,13 +73,16 @@ class CollectionsService:
     def change_collection_status(request_obj: Request):
         """ Change the status of a collection"""
 
-        collection = get_collection_by_id(request_obj.data.get('id'))
+        try:
+            collection = get_collection_by_id(request_obj.data.get('id'))
 
-        serializer = CollectionSerializer(instance=collection, data=request_obj.data, partial=True)
+            serializer = CollectionSerializer(instance=collection, data=request_obj.data, partial=True)
 
-        if serializer.is_valid():
-            collection.approval_status = serializer.validated_data['approval_status']
-            collection.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            if serializer.is_valid():
+                collection.approval_status = serializer.validated_data['approval_status']
+                collection.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
