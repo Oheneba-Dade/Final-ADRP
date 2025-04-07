@@ -49,6 +49,27 @@ class CollectionSerializer(serializers.ModelSerializer):
         return collection
 
     @staticmethod
+    def flip_http_type(link):
+        """Takes a link and converts it between http/https"""
+
+        if not isinstance(link, str):  # Handle None or non-string input
+            return None
+
+        if link.startswith("http://"):
+            return link.replace("http://", "https://", 1)
+        elif link.startswith("https://"):
+            return link.replace("https://", "http://", 1)
+
+        return link
+
+    @staticmethod
+    def flip_pagination_links(response):
+        response.data['next'] = CollectionSerializer.flip_http_type(response.data['next'])
+        response.data['previous'] = CollectionSerializer.flip_http_type(response.data['previous'])
+
+        return response
+
+    @staticmethod
     def validate_status(status):
         if status != 'all' and status not in dict(Collection.STATUS_CHOICES):
             raise ValidationError('Status is not valid')
