@@ -5,7 +5,8 @@ from rest_framework.response import Response
 
 from .collections_service_repository import *
 from ...serializers import CollectionSerializer
-
+from ..dataset_service.dataset_service_main import DatasetService
+from django.db import transaction
 
 class CollectionsService:
     """Service for managing collections on the ADRP"""
@@ -23,6 +24,44 @@ class CollectionsService:
             return serializer.data.get('id')
 
         raise ValidationError(serializer.errors)
+    
+
+    @staticmethod
+    def upload_collection(request_obj: Request):
+        """ uploads collection then dataset if one fails delete prevent any from entring database"""
+        dataset_fileobj = request_obj.FILES.get("file")
+        if not dataset_fileobj:
+            return Response({"error": "No file uploaded."}, status=400)
+    
+        serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
+
+        if serializer.is_valid():
+            print("valid obj")
+            try: 
+               with transaction.atomic():
+                    
+                    new_collection = serializer.save()
+                    save_authors(request_obj, new_collection)
+
+                    collection_id = new_collection.id 
+                    result = DatasetService.handle_dataset_upload(collection_id, dataset_fileobj)
+                    print('data set result', result)
+                    if isinstance(result, Response):
+                        if result.status_code != 201:
+                            raise Exception("Dataset upload failed")
+                    else:
+                        if result.get("status") != 201:
+                            raise Exception("Dataset upload failed")
+
+                    return Response({"message": "Collection and dataset uploaded successfully.",
+                                     "collection": CollectionSerializer(new_collection, context={'request': request_obj}).data
+                                    }, status=status.HTTP_201_CREATED)
+
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     @staticmethod
     def delete_collection(request_obj: Request):
