@@ -79,12 +79,11 @@ def change_collection_status(request: Request) -> Response:
 
 
 @api_view(['POST'])
-@permission_classes([IsInternalAdmin]) # change to internal
+@permission_classes([AllowAny]) # change to internal
 def upload_collection(request):
     """ create a collection and uploads its dataset file"""
-
-    new_collection = CollectionsService.upload_collection(request)
-    return Response(data=new_collection, status=status.HTTP_201_CREATED)
+    result = CollectionsService.upload_collection(request)
+    return Response(result, status=result.get("status", status.HTTP_200_OK))
 
 
 
