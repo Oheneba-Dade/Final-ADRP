@@ -85,7 +85,7 @@ export default function CollectionsContainer({
 	};
 
 	return (
-		<div className="mb-14 w-full px-4 md:px-8 lg:px-16">
+		<div className="mb-14 mx-8 w-full md:px-8 lg:px-16">
 			<div className="flex flex-col md:flex-row md:gap-8 lg:gap-20">
 				{filterOn && (
 					<div className="w-full md:w-auto md:min-w-[320px] mb-8 md:mb-0">
@@ -156,178 +156,90 @@ export default function CollectionsContainer({
 
 function LoadingSkeleton() {
 	return (
-		<div className="py-10 px-4 border-b">
-			<div className="py-10 px-4 border-b">
-				<Skeleton
-					width="100%"
-					height={30}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<Skeleton
-					height={100}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
+		<div className="mb-14  max-w-3xl">
+			
+			{/* some collections */}
+			<div className="md:col-span-4">
+
+				{/* first */}
+				<div className="py-4 px-4">
+				  <Skeleton width={300} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <Skeleton height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
+
+				  <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 				</div>
 
-				<div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="50%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-				</div>
-			</div>
+				{/* Second */}
+				<div className="py-4 px-4">
+				  <Skeleton width={300} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <Skeleton height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 
-			{/* Second skeleton */}
-			<div className="py-10 px-4 border-b">
-				<Skeleton
-					width="100%"
-					height={30}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<Skeleton
-					height={100}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
+				  <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 				</div>
 
-				<div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="50%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-				</div>
-			</div>
+				{/* Third */}
+				<div className="py-4 px-4">
+				  <Skeleton width={300} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <Skeleton height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 
-			<div className="py-10 px-4 border-b">
-				<Skeleton
-					width="100%"
-					height={30}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<Skeleton
-					height={100}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
+				  <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 				</div>
+				
+				{/* Fourth */}
+				<div className="py-4 px-4">
+				  <Skeleton width={300} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <Skeleton height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 
-				<div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="50%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
+				  <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 				</div>
-			</div>
+				
+				{/* Fifth */}
+				<div className="py-4 px-4">
+				  <Skeleton width={300} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <Skeleton height={40} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  <div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
 
-			<div className="py-10 px-4 border-b">
-				<Skeleton
-					width="100%"
-					height={30}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<Skeleton
-					height={100}
-					baseColor="#dce3e8"
-					highlightColor="#f0f4f8"
-				/>
-				<div className="mt-4 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-				</div>
-
-				<div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
-					<Skeleton
-						width="45%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-					<Skeleton
-						width="50%"
-						height={30}
-						baseColor="#dce3e8"
-						highlightColor="#f0f4f8"
-					/>
-				</div>
+				  <div className="mt-1 flex flex-wrap justify-between text-sm text-ashesi-gray">
+					<Skeleton width={200} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={210} height={20} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
+				  
+				  <div className="flex justify-between mt-8">
+					<Skeleton width={100} height={50} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+					<Skeleton width={100} height={50} baseColor="#dce3e8" highlightColor="#f0f4f8"/>
+				  </div>
+				</div>	
 			</div>
 		</div>
 	);
