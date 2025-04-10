@@ -29,28 +29,28 @@ class CollectionsService:
     @staticmethod
     def upload_collection(request_obj: Request):
         """ uploads collection then dataset if one fails delete prevent any from entring database"""
-        print('here')
+        # print('here')
         dataset_fileobj = request_obj.data.get("dataset_file")
         if not dataset_fileobj:
-            print('here 2')
+            # print('here 2')
             return {"error": "No file uploaded.", 'status':400}
-        print('here 3')
+        # print('here 3')
         serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
         if serializer.is_valid():
-            print("valid obj")
+            # print("valid obj")
             try:
                with transaction.atomic():
                     try:
                         new_collection = serializer.save()
                     except Exception as inner:
-                        print('error saving', inner)
+                        # print('error saving', inner)
                         raise
 
                     save_authors(request_obj, new_collection)
 
                     collection_id = new_collection.id
                     result = DatasetService.handle_dataset_upload(collection_id, dataset_fileobj)
-                    print('data set result', result)
+                    # print('data set result', result)
 
                     if result.get("status") != 201:
                         raise Exception("Dataset upload failed")
