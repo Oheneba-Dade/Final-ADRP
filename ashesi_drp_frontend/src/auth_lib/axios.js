@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const AxiosInstance = axios.create({
-    baseURL: "http://localhost:8000/adrp"
+    baseURL: "https://adrp-test-api-pq5km.ondigitalocean.app/adrp"
 });
 
 
