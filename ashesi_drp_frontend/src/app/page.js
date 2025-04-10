@@ -12,8 +12,10 @@ export default async function Home() {
 	let initialCollections = [];
 
 	try {
-		const response = await fetch(`${BASE_URL}/get_all_collections`, {
+		let response;
+		response = await fetch(`${BASE_URL}/get_all_collections`, {
 			cache: "no-store",
+			next: {revalidate: 0}
 		});
 		if (!response.ok) {
 			throw new Error(`HTTP error! Status: ${response.status}`);
