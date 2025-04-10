@@ -177,13 +177,13 @@ export default function CollectionsDetails({ initialCollection}) {
 
                     <div className="cursor-pointer" onClick={() => setShowIntro(!showIntro)}>
                         <h2 className="text-ashesi-red font-semibold justify-between flex items-center">
-                            INSTANCE REPRESENTATION
+                            DATASET DESCRIPTION
                             <AiOutlineDown
                                 className={`mx-2 transform transition-transform duration-500 ease-in-out ${showIntro ? 'rotate-180' : 'rotate-0'}`} />
                         </h2>
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showIntro ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                        <p className="mt-4 mb-1"><strong> What do the instances in this dataset represent?</strong></p>
+                        <p className="mt-4 mb-1"><strong> What does each record in the dataset represent?</strong></p>
                         <p className="">
                             {collection.instance_representation}
                         </p>
