@@ -49,10 +49,10 @@ def get_all_collections(request, status, admin=False):
     serializer = CollectionSerializer(results, many=True)
     paginated_response = paginator.get_paginated_response(serializer.data)
 
-    fixed_response = CollectionSerializer.flip_pagination_links(paginated_response)
+    # fixed_response = CollectionSerializer.flip_pagination_links(paginated_response)
 
-    # return paginator.get_paginated_response(serializer.data)
-    return fixed_response
+    return paginator.get_paginated_response(serializer.data)
+    # return fixed_response
 
 
 def change_collection_status(collection_id, status):

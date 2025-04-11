@@ -17,6 +17,9 @@ export default function CollectionsContainer({
 	const [collections, setCollections] = useState(initialCollections);
 	const [loading, setLoading] = useState(false);
 	const [animationData, setAnimationData] = useState(null);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [numberCollections, setNumberCollections] = useState(0);
+
 
 	useEffect(() => {
 		fetch("/search-not-found-animation.json")
@@ -25,8 +28,21 @@ export default function CollectionsContainer({
 			.catch((error) => console.error("Error loading animation:", error));
 	}, []);
 
+	useEffect(() => {
+		if (initialCollections && initialCollections.count) {
+			setNumberCollections(initialCollections.count);
+		}
+	}, [initialCollections]);
+
+
+
 	const fetchPage = async (url) => {
 		if (!url) return;
+
+		// Extract page number from URL
+		const urlObj = new URL(url);
+		const pageParam = urlObj.searchParams.get("page");
+		const pageNumber = pageParam ? parseInt(pageParam, 10) : 1;
 
 		setLoading(true);
 		try {
@@ -35,13 +51,27 @@ export default function CollectionsContainer({
 				next: { revalidate: 0 },
 			});
 			const data = await response.json();
-			setCollections(data);
+
+			if (data && data.results) {
+				setCollections(data);
+				setNumberCollections(data.count);
+			} else {
+				// Handle the case when the data doesn't have results
+				setCollections({
+					results: [],
+					next: null,
+					previous: null,
+					count: 0,
+				});
+				setNumberCollections(0);
+			}
 		} catch (error) {
 			console.error("Error fetching collections:", error);
 		} finally {
 			setLoading(false);
 		}
 	};
+
 
 	const handleFilterResults = (filteredData) => {
 		// Check if the data has the expected structure
@@ -96,7 +126,6 @@ export default function CollectionsContainer({
 						/>
 					</div>
 				)}
-
 				<div
 					className={`w-full ${
 						filterOn ? "md:flex-1" : "max-w-3xl mx-auto"
@@ -140,6 +169,8 @@ export default function CollectionsContainer({
 											nextUrl={collections.next}
 											previousUrl={collections.previous}
 											onPageChange={fetchPage}
+											currentPage={currentPage}
+											numberCollections={numberCollections}
 										/>
 									)}
 								</>
