@@ -10,7 +10,6 @@ export default function CollectionsPagination({
                                               }) {
     const [numberOfPages, setNumberOfPages] = useState(1);
 
-
     useEffect(() => {
         setNumberOfPages(Math.ceil(numberCollections / NUM_COLLECTIONS_PER_PAGE));
     }, [numberCollections]);

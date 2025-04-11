@@ -39,10 +39,6 @@ export default function CollectionsContainer({
 	const fetchPage = async (url) => {
 		if (!url) return;
 
-		// Extract page number from URL
-		const urlObj = new URL(url);
-		const pageParam = urlObj.searchParams.get("page");
-		const pageNumber = pageParam ? parseInt(pageParam, 10) : 1;
 
 		setLoading(true);
 		try {
@@ -54,6 +50,7 @@ export default function CollectionsContainer({
 
 			if (data && data.results) {
 				setCollections(data);
+				setCurrentPage(data.current_page);
 				setNumberCollections(data.count);
 			} else {
 				// Handle the case when the data doesn't have results
