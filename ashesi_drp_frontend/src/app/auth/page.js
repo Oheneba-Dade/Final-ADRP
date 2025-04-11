@@ -6,7 +6,6 @@ import CustomButton from "@/components/CustomButton";
 import CountdownTimer from "@/components/Countdown";
 import Image from "next/image";
 import AxiosInstance from "@/auth_lib/axios";
-import { split } from "postcss/lib/list";
 
 
 
