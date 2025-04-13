@@ -179,6 +179,7 @@ export default function AdminCollections() {
 
 			if (response.ok) {
 				setStatusMessage(`${status.charAt(0).toUpperCase()}${status.slice(1)}: Collection Update Successful!`);
+				sortedCollections.results[index].approval_status=status;
 			} else {
 				console.error(`Error: ${data.message}`);
 				setStatusMessage("Update Failed");
@@ -188,7 +189,6 @@ export default function AdminCollections() {
 		} finally {
 			setTimeout(() => {
 				setIsLoading(false);
-				sortedCollections.results[index].approval_status=status;
 				// getCollections(currentPage);
 				// window.location.href = /admin_collections/;
 			}, 2000);
@@ -204,7 +204,7 @@ export default function AdminCollections() {
 	// Display Abstract via popup
 	const Abstract = ({ text = abstract, onClose }) => {
 		return (
-			<div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-10">
+			<div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-20">
 				<div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl">
 					<h2 className="text-lg font-semibold text-ashesi-red mb-4">
 						Abstract
@@ -335,7 +335,11 @@ export default function AdminCollections() {
 									{sortedCollections.results.map((collection, index) => (
 										<tr
 											key={collection.id}
-											className="border-b space-y-2 shadow-md shadow-gray-100"
+											className="border-b shadow-md shadow-gray-100 transform transition-all duration-500 translate-x-[-20px] opacity-0 animate-slide-in"
+								            style={{
+								              animationDelay: `${index * 100}ms`,
+								              animationFillMode: 'forwards',
+								            }}
 										>
 											<td className="w-96 text-justify p-4 mr-8 hover:text-ashesi-red hover:cursor-pointer">
 												<Link
