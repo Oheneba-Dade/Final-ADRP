@@ -139,7 +139,7 @@ export default function AddDataset() {
 					authors: JSON.stringify(authors),
 					doi_link: doi_link,
 					citation: citation,
-					keywords: keywords,
+					keywords: keywords.join(","),
 					abstract: abstract,
 					comment: comments,
 					instance_representation: instance_representation,
