@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .collections_service_repository import *
 from ...serializers import CollectionSerializer
 from ..dataset_service.dataset_service_main import DatasetService
+from ..email_service.email_service_main import EmailService
 from django.db import transaction
 
 class CollectionsService:
@@ -117,6 +118,15 @@ class CollectionsService:
         return serialized_data.data
 
     @staticmethod
+    def inform_contributor_of_collection_status(status,user):
+        email_service = EmailService(recipients=[user.email],
+                                     purpose=status,
+                                     context={})
+        email_service.send()
+
+
+
+    @staticmethod
     def change_collection_status(request_obj: Request):
         """ Change the status of a collection"""
 
@@ -124,6 +134,7 @@ class CollectionsService:
             collection = get_collection_by_id(request_obj.data.get('id'))
 
             serializer = CollectionSerializer(instance=collection, data=request_obj.data, partial=True)
+            user = collection.uploaded_by
 
             if serializer.is_valid():
                 collection.approval_status = serializer.validated_data['approval_status']

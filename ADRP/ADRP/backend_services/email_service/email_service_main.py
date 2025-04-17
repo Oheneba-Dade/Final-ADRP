@@ -17,17 +17,22 @@ class EmailService:
         DOWNLOAD_DATASET = "Link to download your dataset"
         APPROVE_SUBMISSION = "Your Submission has been approved"
         REJECT_SUBMISSION = "Your Submission has been rejected"
+        PENDING_SUBMISSION = "Your Submission is being reviewed"
         NEW_SUBMISSION = "A new Submission has been received"
 
     class PlainTextBody(Enum):
         LOGIN = "ADRP/email_templates/txt/login_template.txt"
         DOWNLOAD_DATASET = "ADRP/email_templates/txt/download_dataset_template.txt"
         APPROVE_SUBMISSION = "ADRP/email_templates/txt/submission_approved_template.txt"
+        REJECT_SUBMISSION = "ADRP/email_templates/txt/submission_rejected_template.txt"
+        PENDING_SUBMISSION = "ADRP/email_templates/txt/submission_pending_template.txt"
 
     class HtmlBody(Enum):
         LOGIN = "ADRP/email_templates/html/login_template.html"
         DOWNLOAD_DATASET = "ADRP/email_templates/html/download_dataset_template.html"
         APPROVE_SUBMISSION = "ADRP/email_templates/html/submission_approved_template.html"
+        REJECT_SUBMISSION = "ADRP/email_templates/html/submission_rejected_template.html"
+        PENDING_SUBMISSION = "ADRP/email_templates/html/submission_pending_template.html"
 
     def __init__(self, recipients: list[str], purpose: str, context: dict):
         """
