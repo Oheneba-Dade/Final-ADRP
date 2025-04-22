@@ -124,20 +124,10 @@ class CollectionsService:
             collection = get_collection_by_id(request_obj.data.get('id'))
 
             serializer = CollectionSerializer(instance=collection, data=request_obj.data, partial=True)
-            print('serial data', serializer)
 
             if serializer.is_valid():
-                approval_status = serializer.validated_data['approval_status']
-                admin_user = serializer.validated_data['uploaded_by']
-
-                if approval_status == "approved":
-                    collection.approve(admin_user=admin_user)
-                elif approval_status == 'rejected':
-                    collection.reject(admin_user=admin_user)
-                else:
-                    collection.approval_status = serializer.validated_data['approval_status']
-                    collection.save()
-
+                collection.approval_status = serializer.validated_data['approval_status']
+                collection.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

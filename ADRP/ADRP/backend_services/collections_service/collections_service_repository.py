@@ -133,3 +133,12 @@ def save_authors(request_obj, collection: Collection):
         collection.authors.add(obj)
         if created:
             increment_global_author_count()
+
+
+def approve_collection():
+    pass
+
+
+
+def reject_collection():
+    pass

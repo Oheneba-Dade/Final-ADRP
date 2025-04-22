@@ -151,18 +151,27 @@ class Collection(models.Model):
                                     related_name='approved_collections')
     approved_at = models.DateTimeField(null=True, blank=True)
 
+    rejected_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name='rejected_collections')
+    rejected_at = models.DateTimeField(null=True, blank=True)
+
     def approve(self, admin_user):
         self.approval_status = 'approved'
         self.approved_by = admin_user
         self.approved_at = timezone.now()
         self.save()
 
-    def reject(self):
+    def reject(self, admin_user):
         self.approval_status = 'rejected'
+        self.rejected_by = admin_user
+        self.rejected_at = timezone.now()
         self.save()
 
     def is_approved(self):
         return self.approval_status == 'approved'
+    
+    def is_rejected(self):
+        return self.approval_status == 'rejected'
 
     def __str__(self):
         formatted_date = localtime(self.upload_date).strftime('%Y-%m-%d %H:%M')
