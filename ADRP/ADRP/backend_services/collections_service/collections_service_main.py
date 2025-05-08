@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .collections_service_repository import *
 from ...serializers import CollectionSerializer
 from ..dataset_service.dataset_service_main import DatasetService
+from ..email_service.email_service_main import EmailService
 from django.db import transaction
 
 class CollectionsService:
@@ -37,18 +38,10 @@ class CollectionsService:
         # print('here 3')
         serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
         if serializer.is_valid():
-            print("valid obj")
             try:
-               print('past here')
                with transaction.atomic():
-                    print('past here 1')
-
                     try:
-                        print('past here 2')
-
                         new_collection = serializer.save()
-                        print('past here 3')
-
                     except Exception as inner:
                         # print('error saving', inner)
                         raise
@@ -56,8 +49,9 @@ class CollectionsService:
                     save_authors(request_obj, new_collection)
 
                     collection_id = new_collection.id
+                    user = get_collection_by_id(collection_id).uploaded_by
                     result = DatasetService.handle_dataset_upload(collection_id, dataset_fileobj)
-                    print('data set result', result)
+                    CollectionsService.inform_contributor_of_collection_status("NEW_SUBMISSION", user)
 
                     if result.get("status") != 201:
                         raise Exception("Dataset upload failed")
@@ -121,6 +115,15 @@ class CollectionsService:
         return serialized_data.data
 
     @staticmethod
+    def inform_contributor_of_collection_status(status,user):
+        email_service = EmailService(recipients=[user.email],
+                                     purpose=status,
+                                     context={})
+        email_service.send()
+
+
+
+    @staticmethod
     def change_collection_status(request_obj: Request):
         """ Change the status of a collection"""
 
@@ -136,18 +139,21 @@ class CollectionsService:
                         "status":status.HTTP_403_FORBIDDEN}
             
             serializer = CollectionSerializer(instance=collection, data=request_obj.data, partial=True)
-            print('serial data', serializer)
-
+            user = collection.uploaded_by
             if serializer.is_valid():
                 approval_status = serializer.validated_data['approval_status']
 
                 if approval_status == "approved":
                     collection.approve(admin_user=admin_user)
+                    CollectionsService.inform_contributor_of_collection_status("APPROVE_SUBMISSION", user)
                 elif approval_status == 'rejected':
                     collection.reject(admin_user=admin_user)
+                    CollectionsService.inform_contributor_of_collection_status("REJECT_SUBMISSION", user)
                 else:
                     collection.approval_status = serializer.validated_data['approval_status']
                     collection.save()
+                    CollectionsService.inform_contributor_of_collection_status("PENDING_SUBMISSION", user)
+
                 # print('updated collection',collection)
                 return serializer.data
 
