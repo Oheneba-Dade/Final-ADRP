@@ -154,6 +154,7 @@ class Collection(models.Model):
                                     related_name='approved_collections')
     approved_at = models.DateTimeField(null=True, blank=True)
 
+
     rejected_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='rejected_collections')
     rejected_at = models.DateTimeField(null=True, blank=True)
 
