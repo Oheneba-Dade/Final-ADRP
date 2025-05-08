@@ -33,9 +33,9 @@ class CollectionsService:
         # print('here')
         dataset_fileobj = request_obj.data.get("dataset_file")
         if not dataset_fileobj:
-            print('here 2')
+            # print('here 2')
             return {"error": "No file uploaded.", 'status':400}
-        print('here 3')
+        # print('here 3')
         serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
         if serializer.is_valid():
             try:
