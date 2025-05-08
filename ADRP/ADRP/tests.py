@@ -11,9 +11,15 @@ User = get_user_model()
 class CollectionFileAPITestCase(APITestCase):
     def setUp(self):
         """Set up test data before running each test"""
-        self.test_user = User.objects.create_admin(password="password123", email='testuser@ashesi.edu.gh')
-        self.client.force_authenticate(user=self.test_user)  
 
+        self.test_user_1 = User.objects.create_user(
+            password="password123",
+            email='testuser_1@ashesi.edu.gh',
+            role='internal')
+        self.test_user_1.role = 'Internal'
+        self.client.force_authenticate(user=self.test_user_1)  
+
+        
         # print('test user', self.test_user)
 
 
@@ -23,11 +29,13 @@ class CollectionFileAPITestCase(APITestCase):
             title="Climate Change Data",
             abstract="Climate-related datasets",
             keywords=["Climate", "Environment"],
-            uploaded_by=self.test_user,
-            date_of_publication="2022-09-20",
+
+            uploaded_by=self.test_user_1
         )
         
         self.collection_id = self.collection1.id
+
+        self.data=  { "id": self.collection_id, "approval_status": "rejected"}
         # collection3 = Collection.objects.create(
         #     title="Blockchain for Secure Transactions",
         #     abstract="Using blockchain to enhance financial security",
@@ -80,11 +88,13 @@ class CollectionFileAPITestCase(APITestCase):
 
     def test_collection_status(self):
         """Test approval and rejection"""
-        data=  { "id": self.collection_id, 
-                "approval_status": "rejected"}
-        print('data', data)
-        response = self.client.patch(self.approve_collecton, data, format='json')
-        print("update collection Response:", response.json() if response.headers.get("content-type") == "application/json" else response.content.decode())
+
+        self.test_user = User.objects.create_admin(password="password123", email='testuser@ashesi.edu.gh')
+        self.client.force_authenticate(user=self.test_user)  
+
+
+        response = self.client.patch(self.approve_collecton, self.data, format='json')
+        print("change collection status Response:", response.json() if response.headers.get("content-type") == "application/json" else response.content.decode())
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual("rejected", response.data['approval_status'])
