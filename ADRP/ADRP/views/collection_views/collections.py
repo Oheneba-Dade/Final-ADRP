@@ -86,9 +86,7 @@ def upload_collection(request):
     return Response(result, status=result.get("status", status.HTTP_200_OK))
 
 
-
-# filter stuff
-
+## Filter
 @permission_classes([AllowAny])
 class CollectionListView(generics.ListAPIView):
     """
