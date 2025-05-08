@@ -33,23 +33,15 @@ class CollectionsService:
         # print('here')
         dataset_fileobj = request_obj.data.get("dataset_file")
         if not dataset_fileobj:
-            # print('here 2')
+            print('here 2')
             return {"error": "No file uploaded.", 'status':400}
-        # print('here 3')
+        print('here 3')
         serializer = CollectionSerializer(data=request_obj.data, context={'request': request_obj})
         if serializer.is_valid():
-            print("valid obj")
             try:
-               print('past here')
                with transaction.atomic():
-                    print('past here 1')
-
                     try:
-                        print('past here 2')
-
                         new_collection = serializer.save()
-                        print('past here 3')
-
                     except Exception as inner:
                         # print('error saving', inner)
                         raise
@@ -57,8 +49,9 @@ class CollectionsService:
                     save_authors(request_obj, new_collection)
 
                     collection_id = new_collection.id
+                    user = get_collection_by_id(collection_id).uploaded_by
                     result = DatasetService.handle_dataset_upload(collection_id, dataset_fileobj)
-                    print('data set result', result)
+                    CollectionsService.inform_contributor_of_collection_status("NEW_SUBMISSION", user)
 
                     if result.get("status") != 201:
                         raise Exception("Dataset upload failed")
@@ -149,16 +142,20 @@ class CollectionsService:
             user = collection.uploaded_by
 
             if serializer.is_valid():
-
+                email = EmailService.Purpose
                 approval_status = serializer.validated_data['approval_status']
 
                 if approval_status == "approved":
                     collection.approve(admin_user=admin_user)
+                    CollectionsService.inform_contributor_of_collection_status("APPROVE_SUBMISSION", user)
                 elif approval_status == 'rejected':
                     collection.reject(admin_user=admin_user)
+                    CollectionsService.inform_contributor_of_collection_status("REJECT_SUBMISSION", user)
                 else:
                     collection.approval_status = serializer.validated_data['approval_status']
                     collection.save()
+                    CollectionsService.inform_contributor_of_collection_status("PENDING_SUBMISSION", user)
+
                 # print('updated collection',collection)
                 return serializer.data
 
