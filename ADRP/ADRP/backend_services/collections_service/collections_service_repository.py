@@ -125,7 +125,6 @@ def increment_global_collection_count():
 
 def save_authors(request_obj, collection: Collection):
     """Associates authors with a collection"""
-
     authors = request_obj.data.get('authors')
     if authors is not None: 
         authors = json.loads(authors)
@@ -135,3 +134,5 @@ def save_authors(request_obj, collection: Collection):
             collection.authors.add(obj)
             if created:
                 increment_global_author_count()
+
+               

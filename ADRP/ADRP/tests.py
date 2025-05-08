@@ -11,7 +11,7 @@ User = get_user_model()
 class CollectionFileAPITestCase(APITestCase):
     def setUp(self):
         """Set up test data before running each test"""
-       
+
         self.test_user_1 = User.objects.create_user(
             password="password123",
             email='testuser_1@ashesi.edu.gh',
@@ -29,6 +29,7 @@ class CollectionFileAPITestCase(APITestCase):
             title="Climate Change Data",
             abstract="Climate-related datasets",
             keywords=["Climate", "Environment"],
+
             uploaded_by=self.test_user_1
         )
         
@@ -87,6 +88,7 @@ class CollectionFileAPITestCase(APITestCase):
 
     def test_collection_status(self):
         """Test approval and rejection"""
+
         self.test_user = User.objects.create_admin(password="password123", email='testuser@ashesi.edu.gh')
         self.client.force_authenticate(user=self.test_user)  
 
