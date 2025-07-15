@@ -174,7 +174,7 @@ class CollectionFileAPITestCase(APITestCase):
     #     response = self.client.get(f"{self.get_collection_by_id}?collection_id={self.collection.id}")
 
     #     print("Response Status Code:", response.status_code)
-    #     print("Response Data:", response.json() if response.status_code == 200 else "No Data")
+        # print("Response Data:", response.json() if response.status_code == 200 else "No Data")
 
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
