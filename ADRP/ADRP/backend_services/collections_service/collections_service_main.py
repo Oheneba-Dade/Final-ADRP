@@ -8,6 +8,7 @@ from ...serializers import CollectionSerializer
 from ..dataset_service.dataset_service_main import DatasetService
 from ..email_service.email_service_main import EmailService
 from django.db import transaction
+from ...models import DatasetFile
 
 class CollectionsService:
     """Service for managing collections on the ADRP"""
@@ -145,9 +146,11 @@ class CollectionsService:
 
                 if approval_status == "approved":
                     collection.approve(admin_user=admin_user)
-
+                    # print('collectoin app')
                     # move file from waiting approval to approved
-                    dataset_file = DatasetService.get_dataset(request_obj=request_obj) 
+                    # dataset_file = DatasetService.get_dataset(request_obj)
+                    dataset_file = collection.files.first()
+                    print(dataset_file) 
                     if not dataset_file:
                         return {"error": "No dataset file found for this collection", "status": 404}
                     DatasetService.handle_dataset_move(collection_id=collection.id, filename=dataset_file.file_name)

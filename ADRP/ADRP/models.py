@@ -205,7 +205,7 @@ class DatasetFile(models.Model):
     download_count = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.Collection.title} - {self.file.url}"
+        return f"{self.collection.title} - {self.file_name}"
 
 
 class Tag(models.Model):

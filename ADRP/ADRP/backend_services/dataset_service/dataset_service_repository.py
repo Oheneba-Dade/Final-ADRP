@@ -5,6 +5,7 @@ from ...settings import AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_S3_REGION_N
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError,ClientError
 from .helper import extract_filename, rename
 import logging
+from botocore.client import Config
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,8 @@ def s3_client_connection():
         aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
         aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
         region_name=settings.AWS_S3_REGION_NAME,
+        endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+        # region_name=settings.AWS_S3_REGION_NAME,
     )
 
 
@@ -52,10 +55,10 @@ def upload_dataset_to_bucket(file_obj, filename, collection_id):
         filename = rename(filename=filename)
 
         s3_client = s3_client_connection()
-        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+        bucket_name = settings.AWS_INITIAL_BUCKET
         key = f'{collection_id}-{filename}'  # Unique key for the file in the bucket
         s3_client.upload_fileobj(file_obj, bucket_name, key)
-        return f"https://{bucket_name}.s3.amazonaws.com/{key}"
+        return f"https://{bucket_name}.{settings.AWS_S3_REGION_NAME}.digitaloceanspaces.com/{key}"
     
     except FileNotFoundError:
         logger.error(f"File not found: {file_obj}")
@@ -91,7 +94,7 @@ def upload_dataset_to_waiting_bucket(file_obj, filename, collection_id):
         bucket_name = settings.AWS_INITIAL_BUCKET
         key = f'{collection_id}-{filename}'  # Unique key for the file in the bucket
         s3_client.upload_fileobj(file_obj, bucket_name, key)
-        return f"https://{bucket_name}.s3.amazonaws.com/{key}"
+        return f"https://{bucket_name}.{settings.AWS_S3_REGION_NAME}.digitaloceanspaces.com/{key}"
     
     except FileNotFoundError:
         logger.error(f"File not found: {file_obj}")
@@ -188,17 +191,7 @@ def update_dataset_on_bucket(filename, file_obj):
 # dataset (database) interactions
 
 def get_dataset(collection_id):
-    """
-    Retrieve dataset files associated with a collection.
-    
-    Args:
-        collection_id (str): The identifier of the collection.
-    
-    Returns:
-        QuerySet: A QuerySet of dataset files belonging to the collection.
-    """
     return DatasetFile.objects.filter(collection_id=collection_id).first()
-
 
 def save_dataset(collection, file_url, file_type):
     """
@@ -283,7 +276,7 @@ def move_dataset_file(filename):
 
         # Delete the original file from the source bucket
         s3_client.delete_object(Bucket=source_bucket, Key=filename)
-        return f"https://{destination_bucket}.s3.amazonaws.com/{filename}"
+        return f"https://{destination_bucket}.{settings.AWS_S3_REGION_NAME}.digitaloceanspaces.com/{filename}"
     except ClientError as e:
         logging.error(f"Failed to move file '{filename}': {e}")
         return None ###
