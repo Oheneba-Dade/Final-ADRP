@@ -150,19 +150,22 @@ DATABASES = {
         'PASSWORD': env('DB_PASSWORD'),
         'HOST': env('DB_HOST'),
         'PORT': env.int('DB_PORT', 5432),
+        'OPTIONS': {
+            'sslmode': 'require' 
+        }
     }
 }
 # AWS bucket credentials
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
-AWS_INITIAL_BUCKET = "data-repository-init-jbdir4nq7isif95wdmjetgufuftsyeuw2b-s3alias"
-AWS_APPROVED_BUCKET = "data-repository-appr-m73kr3eiqpk4bo31o5mqmiuxqwq8heuw2b-s3alias"
+AWS_INITIAL_BUCKET = "adrp-initial-bucket"
+AWS_APPROVED_BUCKET = "adrp-approved-upload"
 # Region
 AWS_S3_REGION_NAME = "eu-west-2"
 
-AWS_S3_WAITING_APPROVAL_CUSTOM_DOMAIN = f"{AWS_INITIAL_BUCKET}.s3.amazonaws.com"
-AWS_S3_APPROVED_CUSTOM_DOMAIN = f"{AWS_APPROVED_BUCKET}.s3.amazonaws.com"
+AWS_S3_WAITING_APPROVAL_CUSTOM_DOMAIN = f"{AWS_INITIAL_BUCKET}.lon1.digitaloceanspaces.com"
+AWS_S3_APPROVED_CUSTOM_DOMAIN = f"{AWS_APPROVED_BUCKET}.lon1.digitaloceanspaces.com"
 
 
 
