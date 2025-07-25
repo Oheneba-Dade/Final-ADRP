@@ -52,7 +52,7 @@ def upload_dataset_to_bucket(file_obj, filename, collection_id):
         filename = rename(filename=filename)
 
         s3_client = s3_client_connection()
-        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+        bucket_name = settings.AWS_INITIAL_BUCKET
         key = f'{collection_id}-{filename}'  # Unique key for the file in the bucket
         s3_client.upload_fileobj(file_obj, bucket_name, key)
         return f"https://{bucket_name}.s3.amazonaws.com/{key}"

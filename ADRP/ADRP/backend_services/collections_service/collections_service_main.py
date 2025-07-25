@@ -147,7 +147,7 @@ class CollectionsService:
                     collection.approve(admin_user=admin_user)
 
                     # move file from waiting approval to approved
-                    dataset_file = DatasetService.get_dataset(request_obj=request_obj) 
+                    dataset_file = collection.files.first()
                     if not dataset_file:
                         return {"error": "No dataset file found for this collection", "status": 404}
                     DatasetService.handle_dataset_move(collection_id=collection.id, filename=dataset_file.file_name)

@@ -159,13 +159,13 @@ DATABASES = {
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
-AWS_INITIAL_BUCKET = "adrp-initial-bucket"
-AWS_APPROVED_BUCKET = "adrp-approved-upload"
+AWS_INITIAL_BUCKET = "data-repository-initial-upload-bucket"
+AWS_APPROVED_BUCKET = "data-repository-approved-uploads-bucket"
 # Region
 AWS_S3_REGION_NAME = "eu-west-2"
 
-AWS_S3_WAITING_APPROVAL_CUSTOM_DOMAIN = f"{AWS_INITIAL_BUCKET}.lon1.digitaloceanspaces.com"
-AWS_S3_APPROVED_CUSTOM_DOMAIN = f"{AWS_APPROVED_BUCKET}.lon1.digitaloceanspaces.com"
+AWS_S3_WAITING_APPROVAL_CUSTOM_DOMAIN = f"{AWS_INITIAL_BUCKET}.s3.amazonaws.com"
+AWS_S3_APPROVED_CUSTOM_DOMAIN = f"{AWS_APPROVED_BUCKET}.s3.amazonaws.com"
 
 
 
