@@ -62,6 +62,7 @@ class CollectionsService:
 
 
             except Exception as e:
+                print(e)
                 return {"error": str(e), "status":status.HTTP_500_INTERNAL_SERVER_ERROR}
 
         return serializer.errors
