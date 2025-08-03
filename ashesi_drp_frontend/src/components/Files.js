@@ -33,8 +33,6 @@ const FileTable = ({
 			);
 			const responseData = await response.json();
 			const data = Array.isArray(responseData) ? responseData : [responseData];
-			console.log("here is", data);
-			console.log("length is", data.length);
 			if (data.length > 0) {
 				setFile(data);
 			}

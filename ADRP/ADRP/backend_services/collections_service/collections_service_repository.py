@@ -134,7 +134,6 @@ def save_authors(request_obj, collection: Collection):
             authors_list = authors
         else:
             authors_list = [authors]
-
         for email in authors_list:
             obj, created = Authors.objects.get_or_create(email=email)
             collection.authors.add(obj)
