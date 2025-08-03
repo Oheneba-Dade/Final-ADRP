@@ -127,17 +127,24 @@ def save_authors(request_obj, collection: Collection):
     """Associates authors with a collection"""
     authors = request_obj.data.get('authors')
     
-    # print(author, 'authors')
+    #TODO refractors
     if authors:
         # Handles if 'authors' is a string or list
         if isinstance(authors, list):
             authors_list = authors
+            for email in authors_list:
+                obj, created = Authors.objects.get_or_create(email=email)
+                collection.authors.add(obj)
+                if created:
+                    increment_global_author_count()
         else:
-            authors_list = [authors]
-        for email in authors_list:
-            obj, created = Authors.objects.get_or_create(email=email)
+            obj, created = Authors.objects.get_or_create(email=request_obj.data.get('email'))
             collection.authors.add(obj)
             if created:
                 increment_global_author_count()
+
+
+
+
 
                
