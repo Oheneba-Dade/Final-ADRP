@@ -3,7 +3,7 @@ from rest_framework.exceptions import ValidationError, PermissionDenied, NotAuth
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from .collections_service_repository import *
+from ..collections_service.collections_service_repository import *
 from ...serializers import CollectionSerializer
 from ..dataset_service.dataset_service_main import DatasetService
 from django.db import transaction

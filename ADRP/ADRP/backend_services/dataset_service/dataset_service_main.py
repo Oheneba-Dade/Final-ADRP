@@ -36,7 +36,8 @@ class DatasetService:
         """
         collection_id = request_obj.query_params.get('collection_id')
         dataset_data = get_dataset(collection_id)
-        serialized_data = DatasetFileSerializer(instance=dataset_data, many=True)
+        # print(dataset_data, 'data')
+        serialized_data = DatasetFileSerializer(instance=dataset_data)
         return serialized_data.data
 
         
