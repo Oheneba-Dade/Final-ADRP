@@ -126,11 +126,17 @@ def increment_global_collection_count():
 def save_authors(request_obj, collection: Collection):
     """Associates authors with a collection"""
     authors = request_obj.data.get('authors')
-    if authors is not None: 
-        authors = json.loads(authors)
-        print(type(request_obj.data.get('authors')))
-        for author in authors:
-            obj, created = Authors.objects.get_or_create(email=author['email']) #TODO might need to change this
+    
+    # print(author, 'authors')
+    if authors:
+        # Handles if 'authors' is a string or list
+        if isinstance(authors, list):
+            authors_list = authors
+        else:
+            authors_list = [authors]
+
+        for email in authors_list:
+            obj, created = Authors.objects.get_or_create(email=email)
             collection.authors.add(obj)
             if created:
                 increment_global_author_count()
