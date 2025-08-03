@@ -1,3 +1,5 @@
+import traceback
+
 from rest_framework import status
 from rest_framework.exceptions import ValidationError, PermissionDenied, NotAuthenticated
 from rest_framework.request import Request
@@ -63,6 +65,7 @@ class CollectionsService:
 
             except Exception as e:
                 print(e)
+                traceback.print_exc()
                 return {"error": str(e), "status":status.HTTP_500_INTERNAL_SERVER_ERROR}
 
         return serializer.errors

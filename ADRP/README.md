@@ -94,7 +94,8 @@ It is configured to run using the WSGI server with 4 workers attached. To scale,
 ### Future Improvements
 1. Currently, the statistics are re-calculated every 6 hours. This is an okay implementation, but it is possible to
 implement the Statistics Service such that it is only necessary when an update to the code base is made
-2. 
+2. Use celery for bacgkround tasks e.g sending of emails etc
+
 
 
 
