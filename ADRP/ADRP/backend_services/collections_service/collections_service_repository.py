@@ -130,7 +130,7 @@ def save_authors(request_obj, collection: Collection):
         authors = json.loads(authors)
         print(type(request_obj.data.get('authors')))
         for author in authors:
-            obj, created = Authors.objects.get_or_create(email=author['email'], name=author['name'])
+            obj, created = Authors.objects.get_or_create(email=author['email']) #TODO might need to change this
             collection.authors.add(obj)
             if created:
                 increment_global_author_count()

@@ -31,8 +31,10 @@ const FileTable = ({
 			const response = await fetch(
 				`${BASE_URL}/get_dataset/?collection_id=${collection_id}`
 			);
-			const data = await response.json();
-
+			const responseData = await response.json();
+			const data = Array.isArray(responseData) ? responseData : [responseData];
+			console.log("here is", data);
+			console.log("length is", data.length);
 			if (data.length > 0) {
 				setFile(data);
 			}
@@ -42,6 +44,7 @@ const FileTable = ({
 			setLoading(false);
 		}
 	};
+
 
 	// Function to handle second API call
 	const fetchAdditionalData = async () => {

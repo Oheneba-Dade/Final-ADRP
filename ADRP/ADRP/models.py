@@ -288,3 +288,10 @@ class Statistics(models.Model):
                 f"{self.view_count} views"
                 f"{self.author_count} authors"
                 f"{self.collection_count} collections")
+
+
+class DownloadReasons(models.Model):
+    email = models.EmailField()
+    dataset = models.ForeignKey(DatasetFile, on_delete=models.CASCADE)
+    reason = models.TextField(default="", max_length=400)
+    timestamp = models.DateTimeField(auto_now_add=True)
