@@ -126,22 +126,36 @@ def increment_global_collection_count():
 def save_authors(request_obj, collection: Collection):
     """Associates authors with a collection"""
     authors = request_obj.data.get('authors')
-    if authors is not None:
-        authors = json.loads(authors)
-        for author in authors:
-            print(f"{author['email']} - {author['name']}" )
 
-            # First try to get by email only
-            obj, created = Authors.objects.get_or_create(
-                email=author['email'],
-                defaults={'name': author['name']}  # Only use name if creating new record
-            )
-            collection.authors.add(obj)
-            if created:
-                increment_global_author_count()
+#     print('authors here: ', authors)
+    authors = json.loads(authors)
+#     print('json loaded: ', authors)
 
 
+    
+    #TODO refractors
+    if authors:
+        # Handles if 'authors' is a string or list
+        if isinstance(authors, list):
+#             print('authors list', authors)
+            authors_list = authors
+            for author in authors_list:
+                obj, created = Authors.objects.get_or_create(
+                                email=author['email'],
+                                defaults={'name': author['name']}  # Only use name if creating new record
+                            )                
+                collection.authors.add(obj)
+                if created:
+                    increment_global_author_count()
+        # else:
+        #     print('indvididual author', authors)
+        #     obj, created = Authors.objects.get_or_create(
+        #                                     email=author['email'],
+        #                                     defaults={'name': author['name']}  # Only use name if creating new record
+        #                                 )
+        #     collection.authors.add(obj)
+        #     if created:
+        #         increment_global_author_count()
+        #
+        #
 
-
-
-               
