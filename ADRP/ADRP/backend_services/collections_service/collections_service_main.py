@@ -49,6 +49,7 @@ class CollectionsService:
                         raise
 
                     save_authors(request_obj, new_collection)
+                    print("authors notified")
 
                     collection_id = new_collection.id
                     user = get_collection_by_id(collection_id).uploaded_by
