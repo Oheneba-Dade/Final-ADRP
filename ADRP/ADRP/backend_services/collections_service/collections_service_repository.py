@@ -126,9 +126,10 @@ def increment_global_collection_count():
 def save_authors(request_obj, collection: Collection):
     """Associates authors with a collection"""
     authors = request_obj.data.get('authors')
-    print('authors here: ', authors)
+
+#     print('authors here: ', authors)
     authors = json.loads(authors)
-    print('json loaded: ', authors)
+#     print('json loaded: ', authors)
 
 
     
@@ -136,7 +137,7 @@ def save_authors(request_obj, collection: Collection):
     if authors:
         # Handles if 'authors' is a string or list
         if isinstance(authors, list):
-            print('authors list', authors)
+#             print('authors list', authors)
             authors_list = authors
             for author in authors_list:
                 obj, created = Authors.objects.get_or_create(
@@ -158,4 +159,3 @@ def save_authors(request_obj, collection: Collection):
         #
         #
 
-  
