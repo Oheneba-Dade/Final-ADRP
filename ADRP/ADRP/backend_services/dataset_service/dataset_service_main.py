@@ -65,6 +65,11 @@ class DatasetService:
             return {"error": f"File size exceeds {MAX_FILE_SIZE_MB}MB limit.", "status": 400}
 
         # add a check for zip files
+
+        valid_zip_mime_types = ["application/zip", "application/x-zip-compressed", "multipart/x-zip"]
+        if file_obj.content_type not in valid_zip_mime_types and not file_obj.name.lower().endswith('.zip'):
+            return {"error": "Only .zip files are allowed.", "status": 400}
+    
         try:
             file_url = upload_dataset_to_bucket(file_obj, file_obj.name, collection_id)
         except:
