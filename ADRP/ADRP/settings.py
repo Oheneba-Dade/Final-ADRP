@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 if not DEBUG: # live
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:3000",  # Next.js frontend
-        "http://localhost:63342"
+        "http://localhost:63342",
         "https://ashesi-data-repository-p-q3pd.vercel.app"
     ]
 else: # dev
