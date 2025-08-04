@@ -146,16 +146,16 @@ def save_authors(request_obj, collection: Collection):
                 collection.authors.add(obj)
                 if created:
                     increment_global_author_count()
-        else:
-            print('indvididual author', authors)
-            obj, created = Authors.objects.get_or_create(
-                                            email=author['email'],
-                                            defaults={'name': author['name']}  # Only use name if creating new record
-                                        )                
-            collection.authors.add(obj)
-            if created:
-                increment_global_author_count()
-
-
+        # else:
+        #     print('indvididual author', authors)
+        #     obj, created = Authors.objects.get_or_create(
+        #                                     email=author['email'],
+        #                                     defaults={'name': author['name']}  # Only use name if creating new record
+        #                                 )
+        #     collection.authors.add(obj)
+        #     if created:
+        #         increment_global_author_count()
+        #
+        #
 
   
