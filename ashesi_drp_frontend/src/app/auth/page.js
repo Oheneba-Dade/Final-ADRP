@@ -157,8 +157,8 @@ export default function Page() {
 			//email setup
 			localStorage.setItem("email", email);
 
-			// router.push("/collections");
-			window.location.href = "/collections";
+			// router.push("/datasets");
+			window.location.href = "/datasets";
 		} catch (error) {
 			setOtpMessage("Your OTP is incorrect, try again.");
 			console.log("Error sending Otp: ", error.response.data);
@@ -168,7 +168,7 @@ export default function Page() {
 	};
 
 	return (
-		<div className="container max-w-lg mx-auto mt-40 mb-40">
+		<div className="container max-w-lg mx-auto mt-20 md:mt-40 mb-20 md:mb-40 px-4">
 			<div className="flex flex-row p-5">
 				<Image
 					src="/images/logo.webp"
@@ -180,7 +180,7 @@ export default function Page() {
 				<div className="font-medium pt-2 pl-10">Data Repository</div>
 			</div>
 
-			<div className="shadow-sm shadow-red-200 bg-white p-8 rounded-md">
+			<div className="shadow-sm shadow-red-200 bg-white p-4 sm:p-8 rounded-md">
 				{loading ? (
 					<div className="flex justify-center items-center h-40">
 						<div className="w-10 h-10 border-4 border-ashesi-red border-t-transparent rounded-full animate-spin"></div>
@@ -198,7 +198,7 @@ export default function Page() {
 								placeholder="Email"
 								value={email}
 								onChange={handleEmailChange}
-								className="p-2 shadow-md shadow-red-200 rounded-md w-96 focus:outline-ashesi-red"
+								className="p-2 shadow-md shadow-red-200 rounded-md w-full max-w-md focus:outline-ashesi-red"
 								required
 							/>
 							<div className="flex flex-row mt-4 text-black justify-between">
@@ -260,19 +260,17 @@ export default function Page() {
 
 							<div className="text-white mb-1">{otpMessage}</div>
 
-							<div className="flex flex-row gap-2 ">
+							<div className="flex flex-row gap-1 sm:gap-2 justify-center w-full">
 								{otp.map((data, i) => {
 									return (
 										<input
 											value={data}
 											id={`otp-${i}`}
-											ref={(el) =>
-												(inputRefs.current[i] = el)
-											}
+											ref={(el) => (inputRefs.current[i] = el)}
 											name="otp"
 											maxLength={1}
 											key={i}
-											className="w-12 h-16 text-center text-xl font-semibold rounded-md shadow-sm shadow-red-200 focus:outline-2 caret-transparent uppercase"
+											className="w-10 sm:w-12 h-12 sm:h-16 text-center text-lg sm:text-xl font-semibold rounded-md shadow-sm shadow-red-200 focus:outline-2 caret-transparent uppercase"
 											onChange={(e) => handleOtpAdd(e, i)}
 											onKeyDown={(e) => {
 												if (e.key === "Backspace") {
@@ -290,7 +288,7 @@ export default function Page() {
 								})}
 							</div>
 						</div>
-						<div className="flex flex-row mr-10 mt-1 text-black bold-sm ml-14 gap-1">
+						<div className="flex flex-row justify-center mt-1 text-black bold-sm gap-1 px-2">
 							<button
 								disabled={timerActive}
 								onClick={requestCode}
@@ -315,7 +313,7 @@ export default function Page() {
 								<CustomButton
 									text="Login"
 									textColor="text-white"
-									width="w-60"
+									width="w-full sm:w-60"
 									height="h-10"
 									className="underline decoration-ashesi-red"
 									disabled={loading}

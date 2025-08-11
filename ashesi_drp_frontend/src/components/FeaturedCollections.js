@@ -12,7 +12,7 @@ export default async function FeaturedCollections() {
         }
         initialCollections = await response.json();
     } catch (error) {
-        console.error("Failed to fetch featured collections:", error);
+        console.error("Failed to fetch featured datasets:", error);
     }
 
     return (

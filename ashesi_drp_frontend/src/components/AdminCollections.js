@@ -24,7 +24,7 @@ export default function AdminCollections() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [numberCollections, setNumberCollections] = useState(0);
 	const [isLoading, setIsLoading] = useState(false); //for status update
-	const [loading, setLoading] = useState(true); // for collections
+	const [loading, setLoading] = useState(true); // for datasets
 	const [showAbstract, setShowAbstract] = useState(false);
 	const [abstract, setAbstract] = useState("");
 	const [statusMessage, setStatusMessage] = useState("");
@@ -71,14 +71,14 @@ export default function AdminCollections() {
 	//   );
 	// };
 
-	// get collections
+	// get datasets
 	const getCollections = async (url) => {
 		setLoading(true); //to run the loading animation
 
 		const jwt = localStorage.getItem("jwt");
 
 		try {
-			// get all collections
+			// get all datasets
 			const response = await fetch(
 				url ||
 					`${BASE_URL}/get_all_collections/?page=${currentPage}&status=all`,
@@ -114,7 +114,7 @@ export default function AdminCollections() {
 				setNumberCollections(0);
 			}
 		} catch (error) {
-			console.error("Error fetching collections:", error);
+			console.error("Error fetching datasets:", error);
 		} finally {
 			setLoading(false);
 		}
@@ -281,7 +281,7 @@ export default function AdminCollections() {
 				{/* Buttons for bulk approval */}
 				{/* <div className="flex space-x-4">
                   <CustomButton 
-              			text="Approve collections"
+              			text="Approve datasets"
               			bgColor = "bg-green-100"
               			textColor = "text-green-700"
               			onClick={() => alert("Importing!")}
@@ -291,7 +291,7 @@ export default function AdminCollections() {
               		/>
             		
               		<CustomButton 
-              			text="Reject collections"
+              			text="Reject datasets"
               			bgColor = "bg-red-100 "
               			textColor = "text-red-700 "
               			onClick={() => alert("Importing!")}
@@ -394,7 +394,7 @@ export default function AdminCollections() {
 											>
 												<td className="w-96 text-justify p-4 mr-8 hover:text-ashesi-red hover:cursor-pointer">
 													<Link
-														href={`/collections/${collection.id}`}
+														href={`/datasets/${collection.id}`}
 													>
 														{collection.title}
 													</Link>

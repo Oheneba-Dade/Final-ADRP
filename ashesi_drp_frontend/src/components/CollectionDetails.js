@@ -65,7 +65,7 @@ export default function CollectionsDetails({ initialCollection}) {
         } finally {
           setTimeout(() => {
             setIsLoading(false);
-            window.location.href = `/collections/${collectionId}`;
+            window.location.href = `/datasets/${collectionId}`;
           },2000);    
         }
     };
