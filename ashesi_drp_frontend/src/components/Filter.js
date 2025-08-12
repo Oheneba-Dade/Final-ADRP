@@ -43,7 +43,7 @@ export default function Filter({ onFilterResults, onResetFilter, setLoading }) {
 
 	//TODO: Add authorization headers to include access tokens
 	const sendFilterRequest = async (baseURL, queryParams, callback) => {
-		const url = new URL(`${baseURL}/collections`);
+		const url = new URL(`${baseURL}/datasets`);
 
 		// Add each query parameter to the URL
 		Object.keys(queryParams).forEach((key) => {

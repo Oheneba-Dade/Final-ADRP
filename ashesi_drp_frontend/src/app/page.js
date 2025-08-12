@@ -22,7 +22,7 @@ export default async function Home() {
 		}
 		initialCollections = await response.json();
 	} catch (error) {
-		console.error("Failed to fetch featured collections:", error);
+		console.error("Failed to fetch featured datasets:", error);
 	}
 
 	return (
@@ -33,8 +33,8 @@ export default async function Home() {
 			<h1 className="font-semibold w-full mb-16 text-center text-xl">
 				FEATURED COLLECTIONS
 			</h1>
-			{/* some collections */}
-			<div className="mb-14 mx-auto w-full max-w-4xl">
+			{/* some datasets */}
+			<div className="mb-14 mx-auto w-full max-w-4xl px-4 sm:px-6 md:px-8">
 				<CollectionsContainer initialCollections={initialCollections} filterOn={false} />
 			</div>
 			<div className="flex justify-center mb-8">
@@ -42,7 +42,7 @@ export default async function Home() {
 					text="View All Collections"
 					bgColor="bg-ashesi-gray"
 					width="w-64"
-					href="/collections"
+					href="/datasets"
 				/>
 			</div>
 

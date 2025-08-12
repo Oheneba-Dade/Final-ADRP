@@ -52,7 +52,7 @@ export default function Slideshow() {
             					text="Explore Data"
             					bgColor="bg-transparent"
             					width="w-64"
-            					href="/collections"
+            					href="/datasets"
             					className="border border-white text-white font-semibold px-6 py-2 rounded hover:bg-white hover:text-black transition"
             				/>
             			</div>

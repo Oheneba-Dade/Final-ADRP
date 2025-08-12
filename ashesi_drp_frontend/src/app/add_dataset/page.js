@@ -182,7 +182,7 @@ export default function AddDataset() {
 				onClose={() => {
 					setShowModal(false);
 					if (isSuccess) {
-						router.push("/collections");
+						router.push("/datasets");
 					}
 				}}
 			/>

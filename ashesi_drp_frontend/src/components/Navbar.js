@@ -194,26 +194,26 @@ export default function Navbar() {
 								About
 							</Link>
 							<Link
-								href="/collections"
+								href="/datasets"
 								className="py-2 hover:font-normal"
 								onClick={() => setMobileMenuOpen(false)}
 							>
 								Collections
 							</Link>
 							<Link
-								href="/add_collection"
+								href="/add_dataset"
 								className="py-2 hover:font-normal"
 								onClick={() => setMobileMenuOpen(false)}
 							>
 								Contribute Collection
 							</Link>
-							<Link
-								href="/policy"
-								className="py-2 hover:font-normal"
-								onClick={() => setMobileMenuOpen(false)}
-							>
-								Policy
-							</Link>
+							{/*<Link*/}
+							{/*	href="/policy"*/}
+							{/*	className="py-2 hover:font-normal"*/}
+							{/*	onClick={() => setMobileMenuOpen(false)}*/}
+							{/*>*/}
+							{/*	Policy*/}
+							{/*</Link>*/}
 							{logIn ? (
 								<>
 									<div className="py-2 text-gray-700">
@@ -260,23 +260,23 @@ export default function Navbar() {
 				{/* Floating Div Below Navbar - Hidden on mobile */}
 				<div className="hidden md:block absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-[90%] md:w-[80%] lg:w-1/2 bg-white shadow-md p-4 text-center rounded-lg z-10 flex flex-wrap md:flex-nowrap justify-center md:justify-around font-light gap-4 md:gap-8">
 					<Link
-						href="/collections"
+						href="/datasets"
 						className="hover:font-normal px-4 py-2"
 					>
-						Collections
+						View Datasets
 					</Link>
 					<Link
-						href="/add_collection"
+						href="/add_dataset"
 						className="hover:font-normal px-4 py-2"
 					>
-						Contribute Collection
+						Contribute Dataset
 					</Link>
-					<Link
-						href="/policy"
-						className="hover:font-normal px-4 py-2"
-					>
-						Policy
-					</Link>
+					{/*<Link*/}
+					{/*	href="/policy"*/}
+					{/*	className="hover:font-normal px-4 py-2"*/}
+					{/*>*/}
+					{/*	Policy*/}
+					{/*</Link>*/}
 				</div>
 			</div>
 		</>
