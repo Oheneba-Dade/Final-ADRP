@@ -9,6 +9,7 @@ import Image from "next/image";
 
 const FileTable = ({
 	collection_id,
+	responseData,
 	showRoles = true,
 	textContent = "Want to Download Files?",
 }) => {
@@ -28,10 +29,6 @@ const FileTable = ({
 	const fetchFile = async () => {
 		setLoading(true);
 		try {
-			const response = await fetch(
-				`${BASE_URL}/get_dataset/?collection_id=${collection_id}`
-			);
-			const responseData = await response.json();
 			const data = Array.isArray(responseData) ? responseData : [responseData];
 			if (data.length > 0) {
 				setFile(data);
