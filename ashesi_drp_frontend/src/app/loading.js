@@ -16,7 +16,7 @@ export default function Card() {
 				<Skeleton width={300} height={40} baseColor="#dce3e8" highlightColor="#f0f4f8" />
 			</div>
 			
-		{/* some collections */}
+		{/* some datasets */}
 		<div className="mb-14 mx-auto w-full max-w-4xl">
 			
 	        {/* first */}

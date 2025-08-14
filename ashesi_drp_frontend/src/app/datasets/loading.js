@@ -55,7 +55,7 @@ export default function Card() {
 				</div>
 			</div>
 			
-			{/* some collections */}
+			{/* some datasets */}
 			<div className="md:col-span-4 max-w-3xl">
 
 				{/* first */}

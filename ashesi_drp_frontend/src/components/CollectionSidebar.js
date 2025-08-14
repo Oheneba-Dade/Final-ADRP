@@ -154,7 +154,7 @@ export default function CollectionSidebar({ initialCollection, downloadData}) {
 	        <div className="bg-gray-50 px-4 py-8 rounded-lg shadow-md h-auto self-start">
 				
 				{/* Download button */}
-				<Files collection_id={collection.id} showRoles={false} textContent={"Download"}/>
+				<Files collection_id={collection.id} showRoles={false} textContent={"Download"} responseData={downloadData}/>
 		
 				<CustomButton 
 					text="Cite Work"

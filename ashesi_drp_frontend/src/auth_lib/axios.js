@@ -61,4 +61,4 @@ AxiosInstance.interceptors.response.use(
 export default AxiosInstance;
 
 // that error was happeneing because logout needs to happen first, the jwt needs to be cleared else itll be attached
-// take note of this for other pages such as the collections page, how would it work
+// take note of this for other pages such as the datasets page, how would it work

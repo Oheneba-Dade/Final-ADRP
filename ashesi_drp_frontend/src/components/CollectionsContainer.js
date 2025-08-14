@@ -59,7 +59,7 @@ export default function CollectionsContainer({
 				setNumberCollections(0);
 			}
 		} catch (error) {
-			console.error("Error fetching collections:", error);
+			console.error("Error fetching datasets:", error);
 		} finally {
 			setLoading(false);
 		}
@@ -100,7 +100,7 @@ export default function CollectionsContainer({
 			const data = await response.json();
 			setCollections(data);
 		} catch (error) {
-			console.error("Error resetting collections:", error);
+			console.error("Error resetting datasets:", error);
 		} finally {
 			setLoading(false);
 		}

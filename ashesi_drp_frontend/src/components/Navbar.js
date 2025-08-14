@@ -75,7 +75,7 @@ export default function Navbar() {
 			{/* Navbar */}
 			<div className="relative flex items-center justify-between px-4 md:px-10 py-4 bg-white shadow-lg z-20">
 				{/* Left Section */}
-				<Link href="/" className="flex items-center gap-2 md:gap-6">
+				<Link href="/" className="flex w-1/4 items-center gap-2 md:gap-6">
 					<Image
 						src="/images/logo.webp"
 						alt="Ashesi Logo"
@@ -83,7 +83,7 @@ export default function Navbar() {
 						height={45}
 						className="object-contain"
 					/>
-					<div className="font-montserrat text-lg md:text-xl text-black">
+					<div className="font-montserrat text-md md:text-xl text-black">
 						Data Repository
 					</div>
 				</Link>
@@ -194,26 +194,26 @@ export default function Navbar() {
 								About
 							</Link>
 							<Link
-								href="/collections"
+								href="/datasets"
 								className="py-2 hover:font-normal"
 								onClick={() => setMobileMenuOpen(false)}
 							>
 								Collections
 							</Link>
 							<Link
-								href="/add_collection"
+								href="/add_dataset"
 								className="py-2 hover:font-normal"
 								onClick={() => setMobileMenuOpen(false)}
 							>
 								Contribute Collection
 							</Link>
-							<Link
-								href="/policy"
-								className="py-2 hover:font-normal"
-								onClick={() => setMobileMenuOpen(false)}
-							>
-								Policy
-							</Link>
+							{/*<Link*/}
+							{/*	href="/policy"*/}
+							{/*	className="py-2 hover:font-normal"*/}
+							{/*	onClick={() => setMobileMenuOpen(false)}*/}
+							{/*>*/}
+							{/*	Policy*/}
+							{/*</Link>*/}
 							{logIn ? (
 								<>
 									<div className="py-2 text-gray-700">
@@ -260,23 +260,23 @@ export default function Navbar() {
 				{/* Floating Div Below Navbar - Hidden on mobile */}
 				<div className="hidden md:block absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-[90%] md:w-[80%] lg:w-1/2 bg-white shadow-md p-4 text-center rounded-lg z-10 flex flex-wrap md:flex-nowrap justify-center md:justify-around font-light gap-4 md:gap-8">
 					<Link
-						href="/collections"
+						href="/datasets"
 						className="hover:font-normal px-4 py-2"
 					>
-						Collections
+						View Datasets
 					</Link>
 					<Link
-						href="/add_collection"
+						href="/add_dataset"
 						className="hover:font-normal px-4 py-2"
 					>
-						Contribute Collection
+						Contribute Dataset
 					</Link>
-					<Link
-						href="/policy"
-						className="hover:font-normal px-4 py-2"
-					>
-						Policy
-					</Link>
+					{/*<Link*/}
+					{/*	href="/policy"*/}
+					{/*	className="hover:font-normal px-4 py-2"*/}
+					{/*>*/}
+					{/*	Policy*/}
+					{/*</Link>*/}
 				</div>
 			</div>
 		</>

@@ -18,7 +18,7 @@ export default async function Collections() {
 		}
 		initialCollections = await response.json();
 	} catch (error) {
-		console.error("Failed to fetch collections:", error);
+		console.error("Failed to fetch datasets:", error);
 	}
 
 	return (
@@ -26,7 +26,7 @@ export default async function Collections() {
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="mt-16 sm:mt-20 md:mt-24 mb-6 sm:mb-8">
 					<h1 className="font-semibold text-xl sm:text-2xl text-center">
-						PUBLISHED COLLECTIONS
+						PUBLISHED DATASETS
 					</h1>
 				</div>
 

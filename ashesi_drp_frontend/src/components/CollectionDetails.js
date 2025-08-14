@@ -11,7 +11,7 @@ import { AiOutlineDown,  AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import Skeleton from "react-loading-skeleton";
 import { BASE_URL } from "@/utils/constants";
 
-export default function CollectionsDetails({ initialCollection}) {
+export default function CollectionsDetails({ initialCollection, downloadData }) {
     const [collection, setCollections] = useState(initialCollection);
     const [isLoading, setIsLoading] = useState(false);
     const [showAbstract, setShowAbstract] = useState(true);
@@ -65,7 +65,7 @@ export default function CollectionsDetails({ initialCollection}) {
         } finally {
           setTimeout(() => {
             setIsLoading(false);
-            window.location.href = `/collections/${collectionId}`;
+            window.location.href = `/datasets/${collectionId}`;
           },2000);    
         }
     };
@@ -165,7 +165,7 @@ export default function CollectionsDetails({ initialCollection}) {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${showFiles ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
                       <p className="mt-4"></p>
                       
-                      <Files collection_id={collection.id}/>
+                      <Files collection_id={collection.id} responseData={downloadData}/>
                     </div>
                     
                     <hr className="mt-5 mb-8" />
