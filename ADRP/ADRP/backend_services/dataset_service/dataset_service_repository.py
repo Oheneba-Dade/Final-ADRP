@@ -316,7 +316,7 @@ def increment_dataset_download_count(collection_id):
 def save_reason(data):
     reason = DownloadReasons(
         email=data["email"],
-        collection=data["collection"],  # Use collection because source='collection' in serializer
+        collection=data["collection"],
         reason=data["reason"],
         further_explain=data["further_explain"]
     )
