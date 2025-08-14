@@ -71,7 +71,7 @@ export default function Footer() {
 				<div className="text-center w-[300px]">
 					<FooterLink title="Home" link="/" />
 					<FooterLink title="About The Project" link="/about" />
-					<FooterLink title="View Collections" link="/datasets" />
+					<FooterLink title="View Datasets" link="/datasets" />
 					<FooterLink title="Policy" link="/policy" />
 				</div>
 			</div>
