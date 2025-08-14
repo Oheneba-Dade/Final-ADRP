@@ -292,6 +292,9 @@ class Statistics(models.Model):
 
 class DownloadReasons(models.Model):
     email = models.EmailField()
-    dataset = models.ForeignKey(DatasetFile, on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)  # Standard naming convention
     reason = models.TextField(default="", max_length=400)
+    further_explain = models.TextField(default="", max_length=400)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
