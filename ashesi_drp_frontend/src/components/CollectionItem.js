@@ -13,7 +13,7 @@ export default function CollectionItem({
 
 	return (
 		<li className="mb-8 text-sm text-ashesi-gray">
-			<a href={`collections/${collection_id}`}>
+			<a href={`datasets/${collection_id}`}>
 				<h2 className="text-lg text-ashesi-red">{title}</h2>
 			</a>
 			<hr />

@@ -75,7 +75,7 @@ export default function Navbar() {
 			{/* Navbar */}
 			<div className="relative flex items-center justify-between px-4 md:px-10 py-4 bg-white shadow-lg z-20">
 				{/* Left Section */}
-				<Link href="/" className="flex items-center gap-2 md:gap-6">
+				<Link href="/" className="flex w-1/4 items-center gap-2 md:gap-6">
 					<Image
 						src="/images/logo.webp"
 						alt="Ashesi Logo"
@@ -83,7 +83,7 @@ export default function Navbar() {
 						height={45}
 						className="object-contain"
 					/>
-					<div className="font-montserrat text-lg md:text-xl text-black">
+					<div className="font-montserrat text-md md:text-xl text-black">
 						Data Repository
 					</div>
 				</Link>
