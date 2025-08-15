@@ -133,7 +133,7 @@ export default function Navbar() {
 										<button
 											onClick={() =>
 												router.push(
-													"/admin_collections"
+													"/admin_datasets"
 												)
 											}
 											className="w-full text-left px-2 py-2 text-sm text-blue-600 hover:bg-gray-100 rounded-md"

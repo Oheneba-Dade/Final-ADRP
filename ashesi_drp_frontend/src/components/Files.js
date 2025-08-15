@@ -53,7 +53,10 @@ const FileTable = ({
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					filename: file[0].file_name,
-					collection_id,
+					collection_id: collection_id,
+					user_email: email,
+					reason: reason,
+					further_explanation: specificReason,
 				}),
 			});
 			const result = await response.json();
@@ -96,13 +99,12 @@ const FileTable = ({
 		}
 		setShowPopup(false);
 		setLoading(true);
+
+		// Call the second API to fetch the download link
 		await fetchAdditionalData();
 
 		// Close the popup after submission
 		setShowPopup(false);
-		// setReason("");
-		// setSpecificReason("");
-		// setEmail("");
 	};
 
 	return (
@@ -112,7 +114,7 @@ const FileTable = ({
 				<p className="text-gray-700 max-w-lg"></p>
 				<CustomButton
 					text={textContent}
-					bgColor="bg-white"
+					bgColor="none"
 					textColor="text-ashesi-red"
 					onClick={() => setShowPopup(true)}
 					width={textContent == "Download" ? "w-full" : "w-auto"}
