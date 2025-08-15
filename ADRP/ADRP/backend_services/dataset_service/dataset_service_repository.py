@@ -1,4 +1,4 @@
-from ...models import DatasetFile
+from ...models import DatasetFile, DownloadReasons
 import boto3
 from django.conf import settings
 from ...settings import AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_S3_REGION_NAME
@@ -311,3 +311,15 @@ def increment_dataset_download_count(collection_id):
 
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}", "status": 500}
+
+
+def save_reason(data):
+    download_reason = DownloadReasons(
+        user_email=data["user_email"],
+        collection=data["collection"],
+        reason=data["reason"],
+        further_explanation=data["further_explanation"]
+    )
+
+    download_reason.save()
+    return download_reason

@@ -45,7 +45,7 @@ def re_balance_stats():
 
     stats.download_count = DatasetFile.objects.aggregate(total=Sum('download_count'))['total'] or 0
     stats.collection_count = Collection.objects.count()
-    stats.view_count = Collection.objects.aggregate(v_count=Sum('view_count')).get('v_count')
+    stats.view_count = Collection.objects.aggregate(v_count=Sum('view_count'))['v_count'] or 0
     stats.author_count = Authors.objects.count()
 
     stats.save()

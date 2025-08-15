@@ -1,10 +1,13 @@
 
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, BotoCoreError
+from django.db import transaction
+from rest_framework.request import Request
+
 from .dataset_service_repository import *
 from ..collections_service.collections_service_repository import get_collection_by_id
 from ...models import DatasetFile
-from ...serializers import DatasetFileSerializer
+from ...serializers import DatasetFileSerializer, DownloadReasonSerializer
 import boto3
 import logging
 
@@ -84,7 +87,22 @@ class DatasetService:
             return {"message": str(ve), "status": 400}
         except Exception as e:
             return {"message": "An unexpected error occurred", "details": str(e), "status": 500}
-        
+
+
+    @staticmethod
+    @transaction.atomic
+    def save_download_reason(request_obj: Request):
+        """Save the person's reason for downloading a dataset."""
+        try:
+            serializer = DownloadReasonSerializer(data=request_obj.data)
+            if serializer.is_valid():
+                save_reason(serializer.validated_data)
+                print('Reason is saved.')
+            else:
+                print('errors were:',serializer.errors)
+        except Exception as e:
+            print(e)
+        return
 
 
     @staticmethod

@@ -43,14 +43,14 @@ export default function Footer() {
 					<Image
 						src="/images/logo.webp"
 						alt="Ashesi Logo"
-						width={200}
-						height={200}
+						width={100}
+						height={100}
 						className="object-contain mx-auto"
 					/>
 				</div>
 			</div>
-			<div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-8 mb-20 px-4 lg:px-32">
-				<div className="flex gap-5 justify-center w-[300px]">
+			<div className="flex flex-col text-sm lg:flex-row justify-center lg:justify-between items-center gap-8 mb-10 px-4 lg:px-32">
+				<div className="flex gap-2 justify-center w-[300px]">
 					{icons.map(({ component, link }, index) => (
 						<SocialIcon key={link} icon={component} link={link} />
 					))}
@@ -72,11 +72,10 @@ export default function Footer() {
 					<FooterLink title="Home" link="/" />
 					<FooterLink title="About The Project" link="/about" />
 					<FooterLink title="View Datasets" link="/datasets" />
-					<FooterLink title="Policy" link="/policy" />
 				</div>
 			</div>
-			<div className="bg-ashesi-gray flex justify-center items-center py-6">
-				<p className="text-white text-sm">
+			<div className="bg-ashesi-gray flex justify-center items-center py-4">
+				<p className="text-white text-xs">
 					Copyright {new Date().getFullYear()} ©
 					&nbsp;&nbsp;|&nbsp;&nbsp;Ashesi University
 				</p>
