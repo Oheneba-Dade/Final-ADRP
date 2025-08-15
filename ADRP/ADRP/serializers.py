@@ -31,10 +31,9 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class DownloadReasonSerializer(serializers.ModelSerializer):
     collection_id = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all(), source='collection')
-
     class Meta:
         model = DownloadReasons
-        fields = ['email', 'collection_id', 'reason', 'further_explain']
+        fields = ['user_email', 'collection_id', 'reason', 'further_explanation']
 
 
 class CollectionSerializer(serializers.ModelSerializer):

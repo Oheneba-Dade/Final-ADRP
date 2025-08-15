@@ -97,8 +97,9 @@ class DatasetService:
             serializer = DownloadReasonSerializer(data=request_obj.data)
             if serializer.is_valid():
                 save_reason(serializer.validated_data)
+                print('Reason is saved.')
             else:
-                print(serializer.errors)
+                print('errors were:',serializer.errors)
         except Exception as e:
             print(e)
         return

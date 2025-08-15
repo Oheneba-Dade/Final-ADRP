@@ -314,11 +314,12 @@ def increment_dataset_download_count(collection_id):
 
 
 def save_reason(data):
-    reason = DownloadReasons(
-        email=data["email"],
+    download_reason = DownloadReasons(
+        user_email=data["user_email"],
         collection=data["collection"],
         reason=data["reason"],
-        further_explain=data["further_explain"]
+        further_explanation=data["further_explanation"]
     )
-    reason.save()
-    return reason
+
+    download_reason.save()
+    return download_reason
