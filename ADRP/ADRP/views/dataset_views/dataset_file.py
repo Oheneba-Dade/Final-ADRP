@@ -60,6 +60,7 @@ def download_dataset(request):
     filename = request.data.get("filename")
 
     result = DatasetService.handle_dataset_download(collection_id, filename)
+    DatasetService.save_download_reason(request)
     return Response(result, status=result.get("status", status.HTTP_200_OK))
 
 
