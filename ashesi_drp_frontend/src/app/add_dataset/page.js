@@ -1,6 +1,7 @@
 "use client";
 import "../globals.css";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import KeywordInput from "@/components/KeywordInput";
 import DynamicFieldGroup from "@/components/DynamicFieldGroup";
 import CustomButton from "@/components/CustomButton";
@@ -364,6 +365,7 @@ export default function AddDataset() {
 						></textarea>
 					</div>
 				</section>
+				<p className="text-center mb-4 text-sm text-gray-500">By submitting this dataset, you agree to the <Link className="text-ashesi-red hover:underline" href="https://ashesi.edu.gh/category/university-policies-2/" target="_blank" rel="noopener noreferrer">Ashesi Data Policies</Link></p>
 				<div className="flex justify-center mb-16">
 					<CustomButton text="Submit" onClick={handleSubmit} />
 				</div>

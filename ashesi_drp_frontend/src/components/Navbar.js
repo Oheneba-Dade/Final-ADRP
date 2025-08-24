@@ -83,8 +83,8 @@ export default function Navbar() {
 						height={45}
 						className="object-contain"
 					/>
-					<div className="font-montserrat text-md md:text-xl text-black">
-						Data Repository
+					<div className="font-montserrat text-sm md:text-lg text-black">
+						Ashesi Data Repository
 					</div>
 				</Link>
 
