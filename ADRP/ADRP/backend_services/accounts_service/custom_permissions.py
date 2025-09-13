@@ -28,3 +28,9 @@ class ExternalUser(BasePermission):
         if request.user and request.user.is_authenticated and request.user.role == 'external':
             return True
         return False
+
+class isAuthenticated(BasePermission):
+    """ Permission check to ensure a user is an authenticated user"""
+    def has_permission(self, request, view):
+        if request.user and request.user.is_authenticated:
+            return True

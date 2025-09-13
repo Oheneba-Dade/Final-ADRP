@@ -29,6 +29,13 @@ def login(request: Request) -> Response:
     data = AccountsService.login(request)
     return Response(data)
 
+@api_view(['POST'])
+@permission_classes([isAuthenticated])
+def complete_registration(request: Request) -> Response:
+    """ Allows a user to submit complete account details
+    """
+    AccountsService.complete_registration(request)
+    return Response('Registration Completed', status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 @permission_classes([IsInternalAdmin])

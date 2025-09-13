@@ -10,6 +10,7 @@ from .accounts_service_repository import *
 from ..statistics_service.statistics_service_repository import *
 from .custom_jwtserializer import OTPTokenObtainPairSerializer
 from ..email_service.email_service_main import EmailService
+from ...serializers import AccountCompletionSerializer
 from ...settings import OTP_LIFETIME, OTP_LENGTH
 
 class AccountsService:
@@ -115,10 +116,15 @@ class AccountsService:
     @staticmethod
     def get_jwttokens_for_user(user):
         token = OTPTokenObtainPairSerializer.get_token(user)
+        account_complete = True
+
+        if user.f_name is None or user.l_name is None:
+            account_complete = False
 
         return {
             "refresh": str(token),
             "access": str(token.access_token),
+            "account_complete": account_complete
         }
 
     @staticmethod
@@ -149,3 +155,19 @@ class AccountsService:
             clear_user_otps(user)
             reset_login_attempts(user)
             raise ValidationError("Too many invalid OTPs")
+
+
+    @transaction.atomic
+    @staticmethod
+    def complete_registration(request_obj: Request):
+        """Completes registration of a user."""
+        user = request_obj.user
+        serializer = AccountCompletionSerializer(data=request_obj.data)
+
+        if serializer.is_valid():
+            user.f_name = serializer.validated_data["f_name"]
+            user.l_name = serializer.validated_data["l_name"]
+            user.save()
+            return
+        else:
+            raise ValidationError(serializer.errors)

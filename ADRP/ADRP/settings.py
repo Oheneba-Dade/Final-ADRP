@@ -60,7 +60,8 @@ if not DEBUG: # live
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:3000",  # Next.js frontend
         "http://localhost:63342",
-        "https://ashesi-data-repository-p-q3pd.vercel.app"
+        "https://ashesi-data-repository-p-q3pd.vercel.app",
+        "https://final-adrp.vercel.app"
     ]
 else: # dev
     CORS_ALLOWED_ORIGINS = [

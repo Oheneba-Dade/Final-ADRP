@@ -98,6 +98,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     login_attempts = models.IntegerField(default=0)
+    f_name = models.CharField(max_length=100, blank=True, null=True)
+    l_name = models.CharField(max_length=100, blank=True, null=True)
 
     REQUIRED_FIELDS = ['role']
     USERNAME_FIELD = 'email'
