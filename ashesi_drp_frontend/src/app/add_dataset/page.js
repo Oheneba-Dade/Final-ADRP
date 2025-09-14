@@ -104,6 +104,12 @@ export default function AddDataset() {
 		if (!jwt) {
 			router.push("/auth"); // Redirect to login if no token
 		}
+
+        const account = localStorage.getItem("account_complete");
+
+        if (account==='false') {
+            router.push("/auth/registration/?p=setup"); // Redirect to registration
+        }
 	}, []);
 
 	const handleSubmit = async (e) => {
@@ -158,7 +164,7 @@ export default function AddDataset() {
 				);
 				setIsSuccess(true);
 			} else {
-				console.log(response);
+				// console.log(response);
 				setModalMessage(
 					"Failed to publish collection. Please try again."
 				);

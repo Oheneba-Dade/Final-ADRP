@@ -45,6 +45,12 @@ export default function AdminCollections() {
 			window.location.href = "/auth"; // Redirect to login if no token
 		}
 
+        const account = localStorage.getItem("account_complete");
+
+        if (account==='false') {
+            window.location.href = "/auth/registration/?p=setup"; // Redirect to registration
+        }
+
 		getCollections(null);
 	}, []);
 

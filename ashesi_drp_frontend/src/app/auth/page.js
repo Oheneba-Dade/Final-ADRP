@@ -92,13 +92,13 @@ export default function Page() {
 
 	const GETOtp = async () => {
 		try {
-			localStorage.removeItem("jwt"); // this is here because we have to logout/clear jwt first, so we have to deal w that
+			localStorage.removeItem("jwt"); // this is here because we have to logout/clear jwt first, so we have to deal with that
 			// console.log(email);
 			const response = await AxiosInstance.get("get_otp", {
 				params: { email },
 			});
 			// setOtpResponse(response.data);
-			console.log("Otp Response: ", response.data);
+			// console.log("Otp Response: ", response.data);
 		} catch (error) {
 			console.log("Error sending Otp: ", error);
 		}
@@ -140,7 +140,7 @@ export default function Page() {
 				email: email,
 				otp: otpStr,
 			});
-			console.log("Otp Response: ", response.data.access);
+			// console.log("Otp Response: ", response.data.access);
 			// tokens are here
 			localStorage.setItem("jwt", response.data.access);
 			localStorage.setItem(
@@ -152,13 +152,25 @@ export default function Page() {
 			const payload = JSON.parse(
 				atob(response.data.access.split(".")[1])
 			);
+
+            // user role
 			localStorage.setItem("user", payload.role);
 
 			//email setup
 			localStorage.setItem("email", email);
+            console.log(payload.role);
+            console.log(email);
 
-			// router.push("/datasets");
-			window.location.href = "/datasets";
+            // account completion
+            localStorage.setItem("account_complete", response.data.account_complete);
+
+            if (!response.data.account_complete){
+                window.location.href = "/auth/registration/?p=setup"; // Redirect to registration page if no name set
+            }
+            else {
+                // router.push("/datasets");
+                window.location.href = "/datasets";
+            }
 		} catch (error) {
 			setOtpMessage("Your OTP is incorrect, try again.");
 			console.log("Error sending Otp: ", error.response.data);
@@ -177,10 +189,10 @@ export default function Page() {
 					height={55}
 					className="object-contain"
 				/>
-				<div className="font-medium pt-2 pl-10">Data Repository</div>
+				<div className="font-medium pt-2 pl-10">Ashesi Data Repository</div>
 			</div>
 
-			<div className="shadow-sm shadow-red-200 bg-white p-4 sm:p-8 rounded-md">
+			<div className="shadow-md shadow-gray-300 bg-white p-4 sm:p-8 rounded-md">
 				{loading ? (
 					<div className="flex justify-center items-center h-40">
 						<div className="w-10 h-10 border-4 border-ashesi-red border-t-transparent rounded-full animate-spin"></div>
@@ -198,7 +210,7 @@ export default function Page() {
 								placeholder="Email"
 								value={email}
 								onChange={handleEmailChange}
-								className="p-2 shadow-md shadow-red-200 rounded-md w-full max-w-md focus:outline-ashesi-red"
+								className="p-2 shadow-md shadow-gray-300 rounded-md w-full max-w-md focus:outline-ashesi-red"
 								required
 							/>
 							<div className="flex flex-row mt-4 text-black justify-between">
@@ -215,6 +227,7 @@ export default function Page() {
 									width="w-50"
 									height="h-10"
 									onClick={() => router.back()}
+                                    className="border-2 border-gray-300 hover:bg-black hover:text-white"
 								/>
 							</div>
 							<div className="">
@@ -224,7 +237,7 @@ export default function Page() {
 									textColor="text-black"
 									width="w-50"
 									height="h-10"
-									className="underline decoration-ashesi-red"
+									className="border-2 border-gray-300 hover:bg-ashesi-red hover:text-white"
 									onClick={handleNext}
 								/>
 							</div>
