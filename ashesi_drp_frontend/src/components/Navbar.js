@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation";
 import { FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 import SearchBar from "@/components/SearchBar";
 
+
 export default function Navbar() {
 	const pathname = usePathname();
 	const [logIn, setLogIn] = useState(null);
 	const [userEmail, setUserEmail] = useState("");
 	const [user, setUser] = useState("");
+    const [account, setAccount] = useState("");
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const dropdownRef = useRef();
@@ -22,6 +24,7 @@ export default function Navbar() {
 		setUserEmail(localStorage.getItem("email"));
 		setLogIn(localStorage.getItem("jwt"));
 		setUser(localStorage.getItem("user"));
+        setAccount(localStorage.getItem("account_complete"));
 	}, []);
 
 	useEffect(() => {
@@ -59,11 +62,13 @@ export default function Navbar() {
 		localStorage.removeItem("jwt");
 		localStorage.removeItem("email");
 		localStorage.removeItem("user");
+        localStorage.removeItem("account_complete");
 		setLogIn(null);
 		setUserEmail("");
 		setMenuOpen(false);
 		setMobileMenuOpen(false);
 		setUser("");
+        setAccount("")
 
 		window.location.href = "/";
 	};
@@ -126,7 +131,7 @@ export default function Navbar() {
 											? userEmail.split("@")[0]
 											: "No Email"}
 									</p>
-									<p className="text-gray-700 text-sm px-2">
+									<p className="text-gray-700 text-sm px-2 mb-2">
 										{user || "No User"}
 									</p>
 									{user == "admin" && (
@@ -141,12 +146,15 @@ export default function Navbar() {
 											Admin Page
 										</button>
 									)}
-									<button
-										onClick={handleLogout}
-										className="w-full text-left px-2 py-2 text-sm text-red-600 hover:bg-gray-100 rounded-md"
-									>
-										Logout
-									</button>
+                                    {account === 'true' && (
+                                        <Link href="/auth/registration/?p=update" className="w-full text-left px-2 py-2 text-sm text-blue-600 hover:bg-gray-100 rounded-md">User Info</Link>
+                                    )}
+                                    <button
+                                        onClick={handleLogout}
+                                        className="w-full text-left px-2 py-2 text-sm text-red-600 hover:bg-gray-100 rounded-md"
+                                    >
+                                       Logout
+                                    </button>
 								</div>
 							)}
 						</div>

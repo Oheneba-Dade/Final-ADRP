@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from .views.collection_views.collections import *
 from .views.statistics_views.statistics import *
 from .views.account_views.accounts import *
@@ -41,6 +41,7 @@ urlpatterns = [
     path("adrp/login",login),
     path("adrp/token/refresh", TokenRefreshView.as_view()),
     # path("adrp/whoami",whoami),
+    path("adrp/complete_registration", complete_registration),
 
     # Docs
     # path('adrp/api_schema/', SpectacularAPIView.as_view(), name='schema'),

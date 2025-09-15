@@ -84,3 +84,8 @@ class CollectionSerializer(serializers.ModelSerializer):
         if status != 'all' and status not in dict(Collection.STATUS_CHOICES):
             raise ValidationError('Status is not valid')
         return status
+
+
+class AccountCompletionSerializer(serializers.Serializer):
+    f_name = serializers.CharField(max_length=100, required=True, allow_blank=False)
+    l_name = serializers.CharField(max_length=100, required=True, allow_blank=False)
