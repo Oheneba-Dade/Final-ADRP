@@ -10,7 +10,7 @@ from .accounts_service_repository import *
 from ..statistics_service.statistics_service_repository import *
 from .custom_jwtserializer import OTPTokenObtainPairSerializer
 from ..email_service.email_service_main import EmailService
-from ...serializers import AccountCompletionSerializer
+from ...serializers import AccountCompletionSerializer, UserDetailsSerializer
 from ...settings import OTP_LIFETIME, OTP_LENGTH
 
 class AccountsService:
@@ -171,3 +171,11 @@ class AccountsService:
             return
         else:
             raise ValidationError(serializer.errors)
+
+
+    @staticmethod
+    @transaction.atomic
+    def get_user_details(request: Request) -> dict:
+        user = request.user
+        serializer = UserDetailsSerializer(user)
+        return serializer.data

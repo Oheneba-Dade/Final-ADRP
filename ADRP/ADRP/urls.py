@@ -42,7 +42,7 @@ urlpatterns = [
     path("adrp/token/refresh", TokenRefreshView.as_view()),
     # path("adrp/whoami",whoami),
     path("adrp/complete_registration", complete_registration),
-
+    path("adrp/get_user_details", get_user_details),
     # Docs
     # path('adrp/api_schema/', SpectacularAPIView.as_view(), name='schema'),
     # path('adrp/api_docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

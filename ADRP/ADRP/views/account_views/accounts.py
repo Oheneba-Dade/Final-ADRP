@@ -38,6 +38,14 @@ def complete_registration(request: Request) -> Response:
     return Response('Registration Completed', status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
+@permission_classes([isAuthenticated])
+def get_user_details(request: Request) -> Response:
+    """ Allows a user to submit complete account details
+    """
+    data = AccountsService.get_user_details(request)
+    return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
 @permission_classes([IsInternalAdmin])
 def whoami(request: Request) -> Response:
     """Returns the email address of the user based on the auth token provided"""
