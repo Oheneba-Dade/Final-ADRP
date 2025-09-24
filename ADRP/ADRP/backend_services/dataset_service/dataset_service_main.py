@@ -57,14 +57,17 @@ class DatasetService:
             dict: Response message and status code.
         """
         if not collection_id or not file_obj:
+            print({"error": "Collection ID and file are required.", "status": 400})
             return {"error": "Collection ID and file are required.", "status": 400}
 
         try:
             collection = get_collection_by_id(collection_id)
         except ObjectDoesNotExist:
+            print("Collection not found")
             return {"error": "Collection not found.", "status": 404}
 
         if file_obj.size > MAX_FILE_SIZE_BYTES:
+            print("exceeds file size limit")
             return {"error": f"File size exceeds {MAX_FILE_SIZE_MB}MB limit.", "status": 400}
 
 
@@ -72,20 +75,24 @@ class DatasetService:
 
         valid_zip_mime_types = ["application/zip", "application/x-zip-compressed", "multipart/x-zip"]
         if file_obj.content_type not in valid_zip_mime_types and not file_obj.name.lower().endswith('.zip'):
+            print("only zip files supported")
             return {"error": "Only .zip files are allowed.", "status": 400}
     
 
         try:
             file_url = upload_dataset_to_bucket(file_obj, file_obj.name, collection_id)
         except:
+            print({"error": "Failed to upload file to S3 bucket.", "status": 500})
             return {"message": "File upload failed", "status": 400}
 
         try:
             save_dataset(collection, file_url, file_obj.content_type)  
             return {"message": "File uploaded successfully", "status": 201}
         except ValueError as ve:
+            print({"error": str(ve), "status": 400})
             return {"message": str(ve), "status": 400}
         except Exception as e:
+            print("very unexpected error")
             return {"message": "An unexpected error occurred", "details": str(e), "status": 500}
 
 

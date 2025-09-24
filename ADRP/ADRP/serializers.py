@@ -89,3 +89,8 @@ class CollectionSerializer(serializers.ModelSerializer):
 class AccountCompletionSerializer(serializers.Serializer):
     f_name = serializers.CharField(max_length=100, required=True, allow_blank=False)
     l_name = serializers.CharField(max_length=100, required=True, allow_blank=False)
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email','f_name','l_name','role']

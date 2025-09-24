@@ -201,7 +201,7 @@ class Collection(models.Model):
 
 class DatasetFile(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name="files", null=True, blank=True)
-    file_name = models.CharField(max_length=50)
+    file_name = models.CharField(max_length=100)
     file_url = models.URLField(max_length=500)
     file_type = models.CharField(max_length=50, blank=True, null=True)  # CSV, JSON, Excel, etc.
     uploaded_at = models.DateTimeField(auto_now_add=True)
