@@ -56,12 +56,15 @@ class CollectionsService:
                     print("fetched usser who uploaded")
                     result = DatasetService.handle_dataset_upload(collection_id, dataset_fileobj)
                     print("Dataset upload attempted")
-                    CollectionsService.inform_contributor_of_collection_status("NEW_SUBMISSION", user)
-                    print("inform contributor of collection status")
+
                     if result.get("status") != 201:
                         print("status was", result.get("status"))
                         raise Exception("Dataset upload failed")
 
+                    print("inform contributor of collection status")
+                    CollectionsService.inform_contributor_of_collection_status("NEW_SUBMISSION", user)
+                    print("contributor informed")
+                    print("dataset upload complete")
                     return {"message": "Collection and dataset uploaded successfully.",
                             "collection": CollectionSerializer(new_collection, context={'request': request_obj}).data,
                             "status":status.HTTP_201_CREATED}
