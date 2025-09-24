@@ -14,15 +14,15 @@ export default function RootLayout({ children }) {
 
 	return (
 		<html lang="en">
-		<head>
-			<link rel="icon" href="/images/favicons/Ashesi_University_Logo_BW_favicon-150x150.webp" sizes="any" />
-		</head>
-		<Scroll />
-		<body className={`${montserrat.className} flex flex-col `}>
-		<Navbar />
-		<main >{children}</main>
-		<Footer />
-		</body>
+            <head>
+                <link rel="icon" href="/images/favicons/Ashesi_University_Logo_BW_favicon-150x150.webp" sizes="any" />
+            </head>
+            <Scroll />
+            <body className={`${montserrat.className} flex flex-col `}>
+                <Navbar />
+                <main >{children}</main>
+                <Footer />
+            </body>
 		</html>
 	);
 }
